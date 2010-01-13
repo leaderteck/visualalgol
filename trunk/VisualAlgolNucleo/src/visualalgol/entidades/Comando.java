@@ -14,4 +14,5 @@ public class Comando extends InstrucaoGenerica{
 	 * Qual sera o proximo comando
 	 */
 	private InstrucaoGenerica proximoComando;
+	
 }

@@ -15,6 +15,8 @@ public class InstrucaoGenerica {
 	 * Flag para saber se ja foi visitado 
 	 */
 	private boolean visitado;
+	
+	private InstrucaoGenerica comandoAnterior;
 
 	/**
 	 * @return the x
@@ -57,4 +59,13 @@ public class InstrucaoGenerica {
 	public void setVisitado(boolean visitado) {
 		this.visitado = visitado;
 	}
+	
+	public InstrucaoGenerica getComandoAnterior() {
+		return comandoAnterior;
+	}
+	
+	public void setComandoAnterior(InstrucaoGenerica comandoAnterior) {
+		this.comandoAnterior = comandoAnterior;
+	}
+	
 }
