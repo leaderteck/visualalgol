@@ -24,4 +24,6 @@ public class CondicaoIf extends InstrucaoGenerica{
 	 * Para onde ir se resultado for falso
 	 */
 	private InstrucaoGenerica irFalso;
+	
+	
 }
