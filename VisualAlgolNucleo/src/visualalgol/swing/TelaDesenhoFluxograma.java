@@ -11,12 +11,14 @@ public class TelaDesenhoFluxograma extends JButton{
 		this.removeMouseListener(ferramenta);
 		this.removeMouseMotionListener(ferramenta);
 		this.removeMouseWheelListener(ferramenta);
+		this.removeKeyListener(ferramenta);
 	}
 
 	public void addListener(Ferramenta ferramenta) {
 		this.addMouseListener(ferramenta);
 		this.addMouseMotionListener(ferramenta);
 		this.addMouseWheelListener(ferramenta);
+		this.addKeyListener(ferramenta);
 	}
 
 }
