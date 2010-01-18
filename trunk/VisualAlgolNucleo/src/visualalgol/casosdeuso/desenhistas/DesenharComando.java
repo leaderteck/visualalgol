@@ -3,6 +3,7 @@ package visualalgol.casosdeuso.desenhistas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
 import visualalgol.entidades.InstrucaoGenerica;
@@ -22,6 +23,13 @@ public class DesenharComando implements Desenhista {
 		gra.drawLine(b.x, b.y, c.x, c.y);
 		gra.drawLine(c.x, c.y, d.x, d.y);
 		gra.drawLine(d.x, d.y, a.x, a.y);
+		Polygon p = new Polygon();
+		p.addPoint(a.x,a.y);
+		p.addPoint(b.x,b.y);
+		p.addPoint(c.x,c.y);
+		p.addPoint(d.x,d.y);
+		p.addPoint(a.x,a.y);
+		instrucao.setPoligono(p);
 	}
 
 }
