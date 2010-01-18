@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.entidades.Algoritmo;
+import visualalgol.ferramenta.ComandoFerramenta;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 
@@ -30,7 +31,12 @@ public class MainFrame extends JFrame {
 				setFerramenta(new CondicaoIfFerramenta());
 			}
 		});
-
+		iconesFluxogramaToolBar.getBtnComando().addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setFerramenta(new ComandoFerramenta());
+			}
+		});
 		// Layout
 		this.setTitle("VisuAlgo");
 		this.setSize(800, 600);
