@@ -3,6 +3,7 @@ package visualalgol.entidades;
 import java.awt.Polygon;
 
 public class InstrucaoGenerica {
+	private int cor;
 	private Polygon poligono = new Polygon();
 	private int w;
 	private int h;
@@ -113,6 +114,20 @@ public class InstrucaoGenerica {
 	 */
 	public void setPoligono(Polygon poligono) {
 		this.poligono = poligono;
+	}
+
+	/**
+	 * @return the cor
+	 */
+	public int getCor() {
+		return cor;
+	}
+
+	/**
+	 * @param cor the cor to set
+	 */
+	public void setCor(int cor) {
+		this.cor = cor;
 	}
 	
 }
