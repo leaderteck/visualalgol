@@ -11,7 +11,9 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		CondicaoIf condicaoIf = new CondicaoIf();
 		condicaoIf.setX(e.getX());
 		condicaoIf.setY(e.getY());
+		condicaoIf.setW(100);
+		condicaoIf.setH(60);
 		getAlgoritmo().getListComando().add(condicaoIf);
 	}
-
+	
 }

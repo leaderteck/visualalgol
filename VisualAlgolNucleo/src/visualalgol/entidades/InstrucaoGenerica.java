@@ -1,6 +1,11 @@
 package visualalgol.entidades;
 
+import java.awt.Polygon;
+
 public class InstrucaoGenerica {
+	private Polygon poligono = new Polygon();
+	private int w;
+	private int h;
 	/**
 	 * Coordenada X para a posicao no fluxograma
 	 */
@@ -66,6 +71,48 @@ public class InstrucaoGenerica {
 	
 	public void setComandoAnterior(InstrucaoGenerica comandoAnterior) {
 		this.comandoAnterior = comandoAnterior;
+	}
+
+	/**
+	 * @return the w
+	 */
+	public int getW() {
+		return w;
+	}
+
+	/**
+	 * @param w the w to set
+	 */
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	/**
+	 * @return the h
+	 */
+	public int getH() {
+		return h;
+	}
+
+	/**
+	 * @param h the h to set
+	 */
+	public void setH(int h) {
+		this.h = h;
+	}
+
+	/**
+	 * @return the poligono
+	 */
+	public Polygon getPoligono() {
+		return poligono;
+	}
+
+	/**
+	 * @param poligono the poligono to set
+	 */
+	public void setPoligono(Polygon poligono) {
+		this.poligono = poligono;
 	}
 	
 }
