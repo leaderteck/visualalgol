@@ -7,6 +7,11 @@ import java.awt.image.BufferedImage;
 
 import visualalgol.entidades.InstrucaoGenerica;
 
+/**
+ * O nome da classe deve comecar com Desenhar
+ * e o fim dela deve ser o nome da entidade
+ * neste caso CondicaoIf 
+ */
 public class DesenharCondicaoIf implements Desenhista {
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
