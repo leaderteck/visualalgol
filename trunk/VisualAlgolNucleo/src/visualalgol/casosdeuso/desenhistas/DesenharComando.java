@@ -12,17 +12,17 @@ public class DesenharComando implements Desenhista {
 
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
+		int w = instrucao.getW();
+		int wPor2 = w / 2;
+		int h = instrucao.getH();
+		
 		Graphics gra = bi.getGraphics();
-		gra.setColor(Color.BLACK);
+		
 		// losangulo com pontos A=Norte,B=Leste,C=Sul,D=Oeste
-		Point a = new Point(instrucao.getX() - 30, instrucao.getY());
-		Point b = new Point(a.x + 60, a.y);
-		Point c = new Point(b.x, b.y + 30);
-		Point d = new Point(a.x, a.y + 30);
-		gra.drawLine(a.x, a.y, b.x, b.y);
-		gra.drawLine(b.x, b.y, c.x, c.y);
-		gra.drawLine(c.x, c.y, d.x, d.y);
-		gra.drawLine(d.x, d.y, a.x, a.y);
+		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY());
+		Point b = new Point(a.x + w, a.y);
+		Point c = new Point(b.x, b.y + h);
+		Point d = new Point(a.x, a.y + h);
 		Polygon p = new Polygon();
 		p.addPoint(a.x,a.y);
 		p.addPoint(b.x,b.y);
@@ -30,6 +30,10 @@ public class DesenharComando implements Desenhista {
 		p.addPoint(d.x,d.y);
 		p.addPoint(a.x,a.y);
 		instrucao.setPoligono(p);
+		gra.setColor(new Color(instrucao.getCor()));
+		gra.fillPolygon(p);
+		gra.setColor(Color.BLACK);
+		gra.drawPolygon(p);
 	}
 
 }
