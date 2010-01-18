@@ -14,14 +14,14 @@ import visualalgol.swing.MainFrame;
 
 public class AtualizarTela extends CasoDeUso {
 	private MainFrame mainFrame;
-
+	private boolean ligado = true;
 	@Override
 	public void executar(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		final Thread t = new Thread() {
 			@Override
 			public void run() {
-				while (true) {
+				while (ligado) {
 					try {
 						Thread.sleep(100);
 						atualizar();
@@ -41,12 +41,12 @@ public class AtualizarTela extends CasoDeUso {
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				t.interrupt();
+				
 			}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				
+				ligado = false;
 			}
 
 			@Override
