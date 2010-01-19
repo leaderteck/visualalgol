@@ -13,7 +13,7 @@ public class ComandoFerramenta extends Ferramenta {
 			comando.setX(e.getX());
 			comando.setY(e.getY());
 			comando.setW(100);
-			comando.setH(60);
+			comando.setH(40);
 			comando.setCor(new Color(0xf0, 0xff, 0xf0).getRGB());
 			getAlgoritmo().getListComando().add(comando);
 		}
