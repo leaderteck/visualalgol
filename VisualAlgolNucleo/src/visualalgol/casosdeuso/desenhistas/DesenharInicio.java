@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 import visualalgol.entidades.InstrucaoGenerica;
 
-public class DesenharComando implements Desenhista {
+public class DesenharInicio implements Desenhista{
 
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
@@ -16,10 +16,10 @@ public class DesenharComando implements Desenhista {
 		int wPor2 = w / 2;
 		int h = instrucao.getH();
 		int hPor2 = h / 2;
-		
 		Graphics gra = bi.getGraphics();
-		
-		// Retangulo com pontos A=top left,B=top right,C=bottom right,D=bottom left
+		gra.setColor(Color.BLACK);
+		gra.fillOval(instrucao.getX()-wPor2, instrucao.getY()-hPor2,w, h);
+		//fazendo o "HIT"
 		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY()-hPor2);
 		Point b = new Point(a.x + w, a.y);
 		Point c = new Point(b.x, b.y + h);
@@ -31,10 +31,6 @@ public class DesenharComando implements Desenhista {
 		p.addPoint(d.x,d.y);
 		p.addPoint(a.x,a.y);
 		instrucao.setPoligono(p);
-		gra.setColor(new Color(instrucao.getCor()));
-		gra.fillPolygon(p);
-		gra.setColor(Color.BLACK);
-		gra.drawPolygon(p);
 	}
 
 }

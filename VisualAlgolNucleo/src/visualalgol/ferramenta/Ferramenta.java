@@ -109,4 +109,18 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	public void keyTyped(KeyEvent e) {
 
 	}
+
+	/**
+	 * @return the arrastando
+	 */
+	public InstrucaoGenerica getArrastando() {
+		return arrastando;
+	}
+
+	/**
+	 * @param arrastando the arrastando to set
+	 */
+	public void setArrastando(InstrucaoGenerica arrastando) {
+		this.arrastando = arrastando;
+	}
 }
