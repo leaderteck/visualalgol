@@ -8,6 +8,7 @@ public abstract class InstrucaoGenerica {
 	private Polygon poligono = new Polygon();
 	private int w;
 	private int h;
+	private Algoritmo algoritmo;
 	/**
 	 * Coordenada X para a posicao no fluxograma
 	 */
@@ -143,6 +144,20 @@ public abstract class InstrucaoGenerica {
 	 */
 	public void setFoco(boolean foco) {
 		this.foco = foco;
+	}
+
+	/**
+	 * @return the algoritmo
+	 */
+	public Algoritmo getAlgoritmo() {
+		return algoritmo;
+	}
+
+	/**
+	 * @param algoritmo the algoritmo to set
+	 */
+	public void setAlgoritmo(Algoritmo algoritmo) {
+		this.algoritmo = algoritmo;
 	}
 	
 }

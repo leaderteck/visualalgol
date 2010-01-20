@@ -17,12 +17,12 @@ public class DesenharCondicaoIf implements Desenhista {
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
 		Graphics gra = bi.getGraphics();
-
-		// losangulo com pontos A=Norte,B=Leste,C=Sul,D=Oeste
-		Point a = new Point(instrucao.getX(), instrucao.getY());
 		int wPor2 = instrucao.getW() / 2;
 		int h = instrucao.getH();
 		int hPor2 = h / 2;
+		
+		// losangulo com pontos A=Norte,B=Leste,C=Sul,D=Oeste
+		Point a = new Point(instrucao.getX(), instrucao.getY()-hPor2);
 		Point b = new Point(a.x + wPor2, a.y + hPor2);
 		Point c = new Point(a.x, a.y + h);
 		Point d = new Point(a.x - wPor2, a.y + hPor2);
