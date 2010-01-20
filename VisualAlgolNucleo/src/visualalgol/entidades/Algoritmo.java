@@ -7,6 +7,7 @@ public class Algoritmo {
 	private InstrucaoGenerica comandoInicial;
 	private InstrucaoGenerica comandoFinal;
 	private List<InstrucaoGenerica> listComando = new ArrayList<InstrucaoGenerica>();
+	private List<Linha> listLinha = new ArrayList<Linha>();
 	/**
 	 * @return the comandoInicial
 	 */
@@ -37,5 +38,17 @@ public class Algoritmo {
 	}
 	public void setListComando(List<InstrucaoGenerica> listComando) {
 		this.listComando = listComando;
+	}
+	/**
+	 * @return the listLinha
+	 */
+	public List<Linha> getListLinha() {
+		return listLinha;
+	}
+	/**
+	 * @param listLinha the listLinha to set
+	 */
+	public void setListLinha(List<Linha> listLinha) {
+		this.listLinha = listLinha;
 	}
 }

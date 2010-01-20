@@ -2,7 +2,8 @@ package visualalgol.entidades;
 
 import java.awt.Polygon;
 
-public class InstrucaoGenerica {
+public abstract class InstrucaoGenerica {
+	private boolean foco;
 	private int cor;
 	private Polygon poligono = new Polygon();
 	private int w;
@@ -128,6 +129,20 @@ public class InstrucaoGenerica {
 	 */
 	public void setCor(int cor) {
 		this.cor = cor;
+	}
+
+	/**
+	 * @return the foco
+	 */
+	public boolean isFoco() {
+		return foco;
+	}
+
+	/**
+	 * @param foco the foco to set
+	 */
+	public void setFoco(boolean foco) {
+		this.foco = foco;
 	}
 	
 }

@@ -12,6 +12,7 @@ import visualalgol.ferramenta.ComandoFerramenta;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.ferramenta.Ferramenta;
+import visualalgol.ferramenta.LigarBlocosFerramenta;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -44,6 +45,12 @@ public class MainFrame extends JFrame {
 				setFerramenta(new CondicaoFimFerramenta());
 			}
 		});
+		iconesFluxogramaToolBar.getBtnLigarBlocos().addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setFerramenta(new LigarBlocosFerramenta());
+			}
+		});
 		// Layout
 		this.setTitle("VisuAlgo");
 		this.setSize(800, 600);
@@ -61,6 +68,7 @@ public class MainFrame extends JFrame {
 	private void setFerramenta(Ferramenta ferramenta) {
 		if (ferramentaAtual != null) {
 			ferramentaAtual.setAlgoritmo(null);
+			ferramentaAtual.finalizar();
 			telaDesenhoFluxograma.removeListener(ferramentaAtual);
 		}
 		telaDesenhoFluxograma.addListener(ferramenta);

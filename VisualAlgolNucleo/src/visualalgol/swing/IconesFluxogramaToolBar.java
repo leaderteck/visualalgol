@@ -8,17 +8,20 @@ public class IconesFluxogramaToolBar extends JToolBar{
 	private JButton btnCondicao;
 	private JButton btnComando;
 	private JButton btnFimDecisao;
+	private JButton btnLigarBlocos;
 	
 	public IconesFluxogramaToolBar() {
 		//instanciando...
 		btnCondicao = new JButton("Condição");
 		btnComando = new JButton("Comando");
 		btnFimDecisao = new JButton("Fim da Condição");
+		btnLigarBlocos = new JButton("Ligar blocos");
 		
 		//layout...
 		this.add(btnCondicao);
 		this.add(btnComando);
 		this.add(btnFimDecisao);
+		this.add(btnLigarBlocos);
 	}
 
 	/**
@@ -61,6 +64,20 @@ public class IconesFluxogramaToolBar extends JToolBar{
 	 */
 	public void setBtnFimDecisao(JButton btnFimDecisao) {
 		this.btnFimDecisao = btnFimDecisao;
+	}
+
+	/**
+	 * @return the btnLigarBlocos
+	 */
+	public JButton getBtnLigarBlocos() {
+		return btnLigarBlocos;
+	}
+
+	/**
+	 * @param btnLigarBlocos the btnLigarBlocos to set
+	 */
+	public void setBtnLigarBlocos(JButton btnLigarBlocos) {
+		this.btnLigarBlocos = btnLigarBlocos;
 	}
 	
 }
