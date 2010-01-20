@@ -13,6 +13,7 @@ import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 import visualalgol.ferramenta.LigarBlocosFerramenta;
+import visualalgol.swing.menu.MenuPrincipal;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -20,9 +21,12 @@ public class MainFrame extends JFrame {
 	private TelaDesenhoFluxograma telaDesenhoFluxograma;
 	private Ferramenta ferramentaAtual;
 	private Algoritmo algoritmo;
+	private MenuPrincipal menuPrincipal;
 
 	public MainFrame() {
 		// Instanciando...
+		menuPrincipal = new MenuPrincipal();
+		this.setJMenuBar(menuPrincipal);
 		iconesFluxogramaToolBar = new IconesFluxogramaToolBar();
 		telaDesenhoFluxograma = new TelaDesenhoFluxograma();
 
@@ -54,7 +58,7 @@ public class MainFrame extends JFrame {
 		// Layout
 		this.setTitle("VisuAlgo");
 		this.setSize(800, 600);
-
+		
 		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
 		this.add(telaDesenhoFluxograma, BorderLayout.CENTER);
 
@@ -127,5 +131,11 @@ public class MainFrame extends JFrame {
 	 */
 	public Algoritmo getAlgoritmo() {
 		return algoritmo;
+	}
+	public MenuPrincipal getMenuPrincipal() {
+		return menuPrincipal;
+	}
+	public void setMenuPrincipal(MenuPrincipal menuPrincipal) {
+		this.menuPrincipal = menuPrincipal;
 	}
 }
