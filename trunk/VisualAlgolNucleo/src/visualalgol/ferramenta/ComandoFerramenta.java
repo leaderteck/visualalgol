@@ -17,6 +17,7 @@ public class ComandoFerramenta extends Ferramenta {
 			comando.setCor(new Color(0xf0, 0xff, 0xf0).getRGB());
 			getAlgoritmo().getListComando().add(comando);
 			comando.setAlgoritmo(getAlgoritmo());
+			setArrastando(comando);
 		}
 	}
 }

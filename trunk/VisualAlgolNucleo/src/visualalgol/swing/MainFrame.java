@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
 		iniciarPrograma.executar(this);
 	}
 
-	private void setFerramenta(Ferramenta ferramenta) {
+	public void setFerramenta(Ferramenta ferramenta) {
 		if (ferramentaAtual != null) {
 			ferramentaAtual.setAlgoritmo(null);
 			ferramentaAtual.finalizar();
