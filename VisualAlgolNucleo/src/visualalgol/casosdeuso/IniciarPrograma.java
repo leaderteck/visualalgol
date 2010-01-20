@@ -1,6 +1,7 @@
 package visualalgol.casosdeuso;
 
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.swing.MainFrame;
@@ -23,5 +24,12 @@ public class IniciarPrograma extends CasoDeUso {
 		algoritmo.setComandoInicial(inicio);
 		algoritmo.getListComando().add(inicio);
 
+		Fim fim = new Fim();
+		fim.setX(100);
+		fim.setY(500);
+		fim.setW(24);
+		fim.setH(24);
+		algoritmo.setComandoFinal(fim);
+		algoritmo.getListComando().add(fim);
 	}
 }
