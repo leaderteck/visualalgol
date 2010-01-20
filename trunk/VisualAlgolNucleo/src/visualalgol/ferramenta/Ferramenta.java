@@ -16,6 +16,10 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	private Algoritmo algoritmo;
 	private InstrucaoGenerica arrastando;
 
+	public void finalizar(){
+		
+	}
+	
 	public Algoritmo getAlgoritmo() {
 		return algoritmo;
 	}
