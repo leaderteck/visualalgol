@@ -1,6 +1,7 @@
 package visualalgol.entidades;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,8 @@ import java.util.List;
  * Linha grafica da instrucao de origem
  * para a instrucao de destino
  */
-public class Linha {
+public class Linha implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private InstrucaoGenerica origem;
 	private InstrucaoGenerica destino;
 	private Point pontoTemporario;

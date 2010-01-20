@@ -1,8 +1,10 @@
 package visualalgol.entidades;
 
 import java.awt.Polygon;
+import java.io.Serializable;
 
-public abstract class InstrucaoGenerica {
+public abstract class InstrucaoGenerica implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private boolean foco;
 	private int cor;
 	private Polygon poligono = new Polygon();

@@ -4,6 +4,7 @@ package visualalgol.entidades;
  * Representa um comando do algoritmo. Como os famosos a, b, c do Manuel.
  */
 public class Comando extends InstrucaoGenerica {
+	private static final long serialVersionUID = 1L;
 	private Linha linhaEntrada;
 	private Linha linhaSaida;
 	/**
