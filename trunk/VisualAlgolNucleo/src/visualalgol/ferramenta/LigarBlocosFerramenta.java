@@ -62,7 +62,7 @@ public class LigarBlocosFerramenta extends Ferramenta {
 			} else {
 				if (condicaoIf.getLinhaFalsa() != null) {
 					// apagar a linha antiga
-					getAlgoritmo().getListLinha().remove(condicaoIf.getLinhaVerdadeira());
+					getAlgoritmo().getListLinha().remove(condicaoIf.getLinhaFalsa());
 				}
 				condicaoIf.setLinhaFalsa(linha);
 			}
