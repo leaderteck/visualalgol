@@ -10,6 +10,7 @@ import javax.swing.JPopupMenu;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
+import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
@@ -97,6 +98,8 @@ public class LigarBlocosFerramenta extends Ferramenta {
 				if (instrucaoOrigem instanceof CondicaoIf) {
 					// abrir opcoes de true ou false
 					popupMenu.show(e.getComponent(), e.getX(), e.getY());
+				} else if (instrucaoOrigem instanceof Fim) {
+					// nope
 				} else {
 					iniciarLinha();
 				}
@@ -128,6 +131,7 @@ public class LigarBlocosFerramenta extends Ferramenta {
 						condicaoFim.getListLinhaEntrada().add(linha);
 					} else if (instrucao instanceof Inicio) {
 						// do nothing
+						getAlgoritmo().getListLinha().remove(linha);
 					} else if (instrucao instanceof CondicaoIf) {
 						CondicaoIf condicao = (CondicaoIf) instrucao;
 						if (condicao.getLinhaEntrada() != null) {
@@ -142,6 +146,13 @@ public class LigarBlocosFerramenta extends Ferramenta {
 							getAlgoritmo().getListLinha().remove(comando.getLinhaEntrada());
 						}
 						comando.setLinhaEntrada(linha);
+					} else if (instrucao instanceof Fim) {
+						Fim fim = (Fim) instrucao;
+						if (fim.getLinhaEntrada() != null) {
+							// remover a entrada antiga
+							getAlgoritmo().getListLinha().remove(fim.getLinhaEntrada());
+						}
+						fim.setLinhaEntrada(linha);
 					}
 					linha.setDestino(instrucao);
 				}
