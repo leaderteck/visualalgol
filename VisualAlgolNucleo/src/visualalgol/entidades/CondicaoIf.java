@@ -132,4 +132,11 @@ public class CondicaoIf extends InstrucaoGenerica {
 		this.linhaEntrada = linhaEntrada;
 	}
 
+	@Override
+	public void delete() {
+		getAlgoritmo().getListLinha().remove(linhaEntrada);
+		getAlgoritmo().getListLinha().remove(linhaFalsa);
+		getAlgoritmo().getListLinha().remove(linhaVerdadeira);
+		super.delete();
+	}
 }

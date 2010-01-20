@@ -16,6 +16,7 @@ public class CondicaoFimFerramenta extends Ferramenta{
 			condicaoFim.setH(10);
 			condicaoFim.setCor(new Color(0xff, 0xf0, 0xf0).getRGB());
 			getAlgoritmo().getListComando().add(condicaoFim);
+			condicaoFim.setAlgoritmo(getAlgoritmo());
 		}
 	}
 }

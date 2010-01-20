@@ -159,5 +159,9 @@ public abstract class InstrucaoGenerica {
 	public void setAlgoritmo(Algoritmo algoritmo) {
 		this.algoritmo = algoritmo;
 	}
+
+	public void delete() {
+		getAlgoritmo().getListComando().remove(this);
+	}
 	
 }
