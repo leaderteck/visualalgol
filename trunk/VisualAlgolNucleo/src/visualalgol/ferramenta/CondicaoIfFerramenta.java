@@ -17,6 +17,7 @@ public class CondicaoIfFerramenta extends Ferramenta {
 			condicaoIf.setH(60);
 			condicaoIf.setCor(new Color(0xff, 0xf0, 0xf0).getRGB());
 			getAlgoritmo().getListComando().add(condicaoIf);
+			condicaoIf.setAlgoritmo(getAlgoritmo());
 		}
 	}
 

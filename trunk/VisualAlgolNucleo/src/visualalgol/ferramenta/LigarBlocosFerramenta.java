@@ -60,13 +60,21 @@ public class LigarBlocosFerramenta extends Ferramenta {
 				condicaoIf.setLinhaFalsa(linha);
 			}
 		}else if(instrucaoOrigem instanceof Comando){
-			//comando ou final de condicao
+			//comando 
 			Comando comando= (Comando) instrucaoOrigem;
 			if(comando.getLinhaSaida()!=null){
 				//apagar a linha antiga
 				getAlgoritmo().getListLinha().remove(comando.getLinhaSaida());
 			}
 			comando.setLinhaSaida(linha);
+		}else if(instrucaoOrigem instanceof CondicaoFim){
+			// fim de condicao (end if) 
+			CondicaoFim condicaoFim= (CondicaoFim) instrucaoOrigem;
+			if(condicaoFim.getLinhaSaida()!=null){
+				//apagar a linha antiga
+				getAlgoritmo().getListLinha().remove(condicaoFim.getLinhaSaida());
+			}
+			condicaoFim.setLinhaSaida(linha);
 		}
 		getAlgoritmo().getListLinha().add(linha);
 	}

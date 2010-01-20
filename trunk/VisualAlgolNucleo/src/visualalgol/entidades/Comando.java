@@ -75,5 +75,10 @@ public class Comando extends InstrucaoGenerica {
 	public void setLinhaSaida(Linha linhaSaida) {
 		this.linhaSaida = linhaSaida;
 	}
-
+	@Override
+	public void delete() {
+		getAlgoritmo().getListLinha().remove(linhaSaida);
+		getAlgoritmo().getListLinha().remove(linhaEntrada);
+		super.delete();
+	}
 }
