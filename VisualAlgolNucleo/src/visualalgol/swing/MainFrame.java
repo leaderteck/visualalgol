@@ -6,14 +6,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import visualalgol.casosdeuso.AbrirAlgoritmo;
 import visualalgol.casosdeuso.IniciarPrograma;
+import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.ferramenta.ComandoFerramenta;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 import visualalgol.ferramenta.LigarBlocosFerramenta;
-import visualalgol.swing.menu.MenuPrincipal;
 
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +30,7 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(menuPrincipal);
 		iconesFluxogramaToolBar = new IconesFluxogramaToolBar();
 		telaDesenhoFluxograma = new TelaDesenhoFluxograma();
-
+		menuPrincipal = new MenuPrincipal();
 		// Configurando...
 		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
 			@Override
@@ -37,38 +38,54 @@ public class MainFrame extends JFrame {
 				setFerramenta(new CondicaoIfFerramenta());
 			}
 		});
-		iconesFluxogramaToolBar.getBtnComando().addActionListener(new ActionListener(){
+		iconesFluxogramaToolBar.getBtnComando().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFerramenta(new ComandoFerramenta());
 			}
 		});
-		iconesFluxogramaToolBar.getBtnFimDecisao().addActionListener(new ActionListener(){
+		iconesFluxogramaToolBar.getBtnFimDecisao().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFerramenta(new CondicaoFimFerramenta());
 			}
 		});
-		iconesFluxogramaToolBar.getBtnLigarBlocos().addActionListener(new ActionListener(){
+		iconesFluxogramaToolBar.getBtnLigarBlocos().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFerramenta(new LigarBlocosFerramenta());
+			}
+		});
+		menuPrincipal.getSalvarMenuItem().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+			}
+		});
+		menuPrincipal.getAbrirMenuItem().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AbrirAlgoritmo().executar(MainFrame.this);
 			}
 		});
 		// Layout
 		this.setTitle("VisuAlgo");
 		this.setSize(800, 600);
 		
+		this.setJMenuBar(menuPrincipal);
 		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
 		this.add(telaDesenhoFluxograma, BorderLayout.CENTER);
 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+
 		IniciarPrograma iniciarPrograma = new IniciarPrograma();
 		iniciarPrograma.executar(this);
 	}
 
+	private void salvar(){
+		new SalvarAlgoritmo().executar(this);
+	}
 	public void setFerramenta(Ferramenta ferramenta) {
 		if (ferramentaAtual != null) {
 			ferramentaAtual.setAlgoritmo(null);
@@ -92,7 +109,8 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * @param iconesFluxogramaToolBar the iconesFluxogramaToolBar to set
+	 * @param iconesFluxogramaToolBar
+	 *            the iconesFluxogramaToolBar to set
 	 */
 	public void setIconesFluxogramaToolBar(IconesFluxogramaToolBar iconesFluxogramaToolBar) {
 		this.iconesFluxogramaToolBar = iconesFluxogramaToolBar;
@@ -106,7 +124,8 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * @param telaDesenhoFluxograma the telaDesenhoFluxograma to set
+	 * @param telaDesenhoFluxograma
+	 *            the telaDesenhoFluxograma to set
 	 */
 	public void setTelaDesenhoFluxograma(TelaDesenhoFluxograma telaDesenhoFluxograma) {
 		this.telaDesenhoFluxograma = telaDesenhoFluxograma;
@@ -120,7 +139,8 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * @param ferramentaAtual the ferramentaAtual to set
+	 * @param ferramentaAtual
+	 *            the ferramentaAtual to set
 	 */
 	public void setFerramentaAtual(Ferramenta ferramentaAtual) {
 		this.ferramentaAtual = ferramentaAtual;

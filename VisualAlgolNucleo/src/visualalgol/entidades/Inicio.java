@@ -4,6 +4,7 @@ package visualalgol.entidades;
  * Inicio do Algoritimo
  */
 public class Inicio extends InstrucaoGenerica{
+	private static final long serialVersionUID = 1L;
 	private Linha linhaSaida;
 
 	/**

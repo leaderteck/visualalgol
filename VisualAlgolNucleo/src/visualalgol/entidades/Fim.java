@@ -5,6 +5,7 @@ package visualalgol.entidades;
  *
  */
 public class Fim extends InstrucaoGenerica{
+	private static final long serialVersionUID = 1L;
 	private Linha linhaEntrada;
 
 	/**

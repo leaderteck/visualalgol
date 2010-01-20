@@ -4,6 +4,7 @@ package visualalgol.entidades;
  * O If tem um resultado true e outro false Serve para o if e para o loop
  */
 public class CondicaoIf extends InstrucaoGenerica {
+	private static final long serialVersionUID = 1L;
 	private Linha linhaEntrada;
 	private Linha linhaVerdadeira;
 	private Linha linhaFalsa;
