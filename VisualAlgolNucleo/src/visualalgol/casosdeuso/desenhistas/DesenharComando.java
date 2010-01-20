@@ -15,11 +15,12 @@ public class DesenharComando implements Desenhista {
 		int w = instrucao.getW();
 		int wPor2 = w / 2;
 		int h = instrucao.getH();
+		int hPor2 = h / 2;
 		
 		Graphics gra = bi.getGraphics();
 		
 		// losangulo com pontos A=Norte,B=Leste,C=Sul,D=Oeste
-		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY());
+		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY()-hPor2);
 		Point b = new Point(a.x + w, a.y);
 		Point c = new Point(b.x, b.y + h);
 		Point d = new Point(a.x, a.y + h);

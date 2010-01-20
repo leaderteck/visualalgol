@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import visualalgol.entidades.Comando;
+import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
@@ -42,6 +44,30 @@ public class LigarBlocosFerramenta extends Ferramenta {
 	private void iniciarLinha() {
 		linha = new Linha();
 		linha.setOrigem(instrucaoOrigem);
+		if(instrucaoOrigem instanceof CondicaoIf){
+			CondicaoIf condicaoIf = (CondicaoIf)instrucaoOrigem;
+			if(caminhoValor){
+				if(condicaoIf.getLinhaVerdadeira()!=null){
+					//apagar a linha antiga
+					getAlgoritmo().getListLinha().remove(condicaoIf.getLinhaVerdadeira());
+				}
+				condicaoIf.setLinhaVerdadeira(linha);
+			}else{
+				if(condicaoIf.getLinhaFalsa()!=null){
+					//apagar a linha antiga
+					getAlgoritmo().getListLinha().remove(condicaoIf.getLinhaVerdadeira());
+				}
+				condicaoIf.setLinhaFalsa(linha);
+			}
+		}else if(instrucaoOrigem instanceof Comando){
+			//comando ou final de condicao
+			Comando comando= (Comando) instrucaoOrigem;
+			if(comando.getLinhaSaida()!=null){
+				//apagar a linha antiga
+				getAlgoritmo().getListLinha().remove(comando.getLinhaSaida());
+			}
+			comando.setLinhaSaida(linha);
+		}
 		getAlgoritmo().getListLinha().add(linha);
 	}
 
@@ -55,26 +81,58 @@ public class LigarBlocosFerramenta extends Ferramenta {
 					// abrir opcoes de true ou false
 					popupMenu.show(e.getComponent(), e.getX(), e.getY());
 				} else {
-
+					iniciarLinha();
 				}
 			}
 		}else{
 			//ligando
-			InstrucaoGenerica instrucao = getInstrucaoEm(e.getX(), e.getY());
-			if(instrucao==null){
-				//ponto no vazio
+			finalizarLinha(e);
+		}
+	}
+
+	private void finalizarLinha(MouseEvent e){
+		InstrucaoGenerica instrucao = getInstrucaoEm(e.getX(), e.getY());
+		if(instrucao==null){
+			//ponto no vazio
+			if (linha != null) {
+				linha.getListPontos().add(e.getPoint());
+			}
+		}else{
+			if(instrucaoOrigem == instrucao){
+				//cancelar
 				if (linha != null) {
-					linha.getListPontos().add(e.getPoint());
+					getAlgoritmo().getListLinha().remove(linha);
 				}
 			}else{
 				//ponto em uma instrucao
 				if (linha != null) {
+					if(instrucao instanceof CondicaoFim){
+						//TODO verificar as 2 entradas
+						CondicaoFim condicaoFim = (CondicaoFim) instrucao;
+						//TODO pegar o if, verificar se uma vem do false e a outra vem do true
+					}else if(instrucao instanceof CondicaoIf){
+						CondicaoIf condicao = (CondicaoIf) instrucao;
+						if(condicao.getLinhaEntrada()!=null){
+							//remover a entrada antiga
+							getAlgoritmo().getListLinha().remove(condicao.getLinhaEntrada());
+						}
+						condicao.setLinhaEntrada(linha);
+					}else if(instrucao instanceof Comando){
+						Comando comando = (Comando) instrucao;
+						if(comando.getLinhaEntrada()!=null){
+							//remover a entrada antiga
+							getAlgoritmo().getListLinha().remove(comando.getLinhaEntrada());
+						}
+						comando.setLinhaEntrada(linha);
+					}
 					linha.setDestino(instrucao);
 				}
 			}
+			//zerar
+			instrucaoOrigem = null;
+			linha = null;
 		}
 	}
-
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		if (instrucaoOrigem != null) {
