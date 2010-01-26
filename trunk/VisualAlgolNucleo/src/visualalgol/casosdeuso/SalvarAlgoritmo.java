@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileFilter;
 import visualalgol.swing.MainFrame;
 
 public class SalvarAlgoritmo extends CasoDeUso {
+	static final String EXTENSAO = "alg";
 	static JFileChooser fc;
 	static{
 		fc = new JFileChooser();
@@ -20,7 +21,7 @@ public class SalvarAlgoritmo extends CasoDeUso {
 				if(f==null){
 					return false;
 				}
-				if(getExtension(f)!=null && getExtension(f).equals("alg")){
+				if(getExtension(f)!=null && getExtension(f).equals(EXTENSAO)){
 					return true;
 				}
 				if(f.isDirectory()){
@@ -55,6 +56,10 @@ public class SalvarAlgoritmo extends CasoDeUso {
 		int returnVal = fc.showSaveDialog(mainFrame);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
+			if(getExtension(file)==null){
+				//colocar extensao automaticamente
+				file = new File(file.getAbsolutePath()+'.'+EXTENSAO);
+			}
 			FileOutputStream fos = null;
 			ObjectOutputStream out = null;
 			try {
