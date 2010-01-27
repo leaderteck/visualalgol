@@ -14,18 +14,25 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenuItem salvarMenuItem;
 	private JMenuItem abrirMenuItem;
 
+	private JMenuItem verPseudoCodigo;
+	
 	public MenuPrincipal() {
 		//instancia
 		salvarMenuItem = new JMenuItem("Salvar");
 		abrirMenuItem = new JMenuItem("Abrir");
+		verPseudoCodigo = new JMenuItem("Ver Pseudo Codigo");
 		//configuracap
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		abrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		JMenu arquivo = new JMenu("Arquivo");
+		JMenu visualizacao = new JMenu("Visualizar");
 		//layout
 		arquivo.add(abrirMenuItem);
 		arquivo.add(salvarMenuItem);
 		this.add(arquivo);
+		
+		visualizacao.add(verPseudoCodigo);
+		this.add(visualizacao);
 	}
 	/**
 	 * @return the salvarMenuItem
@@ -50,5 +57,12 @@ public class MenuPrincipal extends JMenuBar{
 	 */
 	public void setAbrirMenuItem(JMenuItem abrirMenuItem) {
 		this.abrirMenuItem = abrirMenuItem;
+	}
+	
+	public JMenuItem getVerPseudoCodigo() {
+		return verPseudoCodigo;
+	}
+	public void setVerPseudoCodigo(JMenuItem verPseudoCodigo) {
+		this.verPseudoCodigo = verPseudoCodigo;
 	}
 }

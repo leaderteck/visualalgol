@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import visualalgol.casosdeuso.AbrirAlgoritmo;
+import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.entidades.Algoritmo;
@@ -66,6 +67,12 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new AbrirAlgoritmo().executar(MainFrame.this);
+			}
+		});
+		menuPrincipal.getVerPseudoCodigo().addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new Fluxo2PseudoCodigo().executar(MainFrame.this);
 			}
 		});
 		// Layout

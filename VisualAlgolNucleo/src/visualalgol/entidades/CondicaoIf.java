@@ -6,12 +6,33 @@ package visualalgol.entidades;
 public class CondicaoIf extends InstrucaoGenerica {
 	private static final long serialVersionUID = 1L;
 	private Linha linhaEntrada;
+	/**
+	 * Volta do Loop, existe somente em Loops
+	 */
+	private Linha linhaEntradaLoopBack;
 	private Linha linhaVerdadeira;
 	private Linha linhaFalsa;
+	private boolean loop;
+	public boolean isLoop() {
+		return loop;
+	}
+
+	public void setLoop(boolean loop) {
+		this.loop = loop;
+	}
+
 	/**
 	 * Resultado do if
 	 */
 	private boolean resultado;
+
+	public Linha getLinhaEntradaLoopBack() {
+		return linhaEntradaLoopBack;
+	}
+
+	public void setLinhaEntradaLoopBack(Linha linhaEntradaLoopBack) {
+		this.linhaEntradaLoopBack = linhaEntradaLoopBack;
+	}
 
 	/**
 	 * Descricao da condicional
@@ -138,6 +159,7 @@ public class CondicaoIf extends InstrucaoGenerica {
 		getAlgoritmo().getListLinha().remove(linhaEntrada);
 		getAlgoritmo().getListLinha().remove(linhaFalsa);
 		getAlgoritmo().getListLinha().remove(linhaVerdadeira);
+		getAlgoritmo().getListLinha().remove(linhaEntradaLoopBack);
 		super.delete();
 	}
 }

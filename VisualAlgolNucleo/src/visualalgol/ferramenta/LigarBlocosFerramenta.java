@@ -19,15 +19,21 @@ import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
 public class LigarBlocosFerramenta extends Ferramenta {
-	private JPopupMenu popupMenu;
+	private JPopupMenu popupMenuVerdadeiroFalso;
+	private JPopupMenu popupMenuEntradaOuVoltaDeCondicao;
 	private InstrucaoGenerica instrucaoOrigem = null;
+	private InstrucaoGenerica instrucaoDestino = null;
 	private boolean caminhoValor;
 	private Linha linha;
 	private Point arrastandoPonto;
 	private int ultimoX, ultimoY;
 
 	public LigarBlocosFerramenta() {
-		popupMenu = new JPopupMenu();
+		popupMenuEntradaOuVoltaDeCondicao = new JPopupMenu();
+		JMenuItem menuItemVoltaDeCondicao = new JMenuItem("Isto é a volta ou fim da repetição");
+		JMenuItem menuItemEntradaDeCondicao = new JMenuItem("Isto é a entrada da condição");
+
+		popupMenuVerdadeiroFalso = new JPopupMenu();
 		JMenuItem menuItemVerdadeiro = new JMenuItem("Verdadeiro");
 		JMenuItem menuItemFalso = new JMenuItem("Falso");
 		menuItemVerdadeiro.addActionListener(new ActionListener() {
@@ -44,10 +50,43 @@ public class LigarBlocosFerramenta extends Ferramenta {
 				iniciarLinha();
 			}
 		});
-		popupMenu.add(menuItemVerdadeiro);
-		popupMenu.add(menuItemFalso);
+		popupMenuVerdadeiroFalso.add(menuItemVerdadeiro);
+		popupMenuVerdadeiroFalso.add(menuItemFalso);
+
+		popupMenuEntradaOuVoltaDeCondicao.add(menuItemVoltaDeCondicao);
+		popupMenuEntradaOuVoltaDeCondicao.add(menuItemEntradaDeCondicao);
+		menuItemVoltaDeCondicao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				definirComoVoltaDeRepeticao();
+			}
+		});
+		menuItemEntradaDeCondicao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				definirComoEntrada();
+			}
+		});
 	}
 
+	private void definirComoEntrada(){
+		CondicaoIf condicao = (CondicaoIf) instrucaoDestino;
+		if (condicao.getLinhaEntrada() != null) {
+			// remover a entrada antiga
+			getAlgoritmo().getListLinha().remove(condicao.getLinhaEntrada());
+		}
+		condicao.setLinhaEntrada(linha);
+	}
+	
+	private void definirComoVoltaDeRepeticao(){
+		CondicaoIf condicao = (CondicaoIf) instrucaoDestino;
+		if (condicao.getLinhaEntradaLoopBack() != null) {
+			// remover a entrada antiga
+			getAlgoritmo().getListLinha().remove(condicao.getLinhaEntradaLoopBack());
+		}
+		condicao.setLinhaEntradaLoopBack(linha);
+	}
+	
 	private void iniciarLinha() {
 		linha = new Linha();
 		linha.setOrigem(instrucaoOrigem);
@@ -125,9 +164,9 @@ public class LigarBlocosFerramenta extends Ferramenta {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(linha!=null && arrastandoPonto!=null){
+		if (linha != null && arrastandoPonto != null) {
 			linha.getListPontos().remove(arrastandoPonto);
-		}else{
+		} else {
 			super.keyReleased(e);
 		}
 	}
@@ -154,7 +193,7 @@ public class LigarBlocosFerramenta extends Ferramenta {
 			if (instrucaoOrigem != null) {
 				if (instrucaoOrigem instanceof CondicaoIf) {
 					// abrir opcoes de true ou false
-					popupMenu.show(e.getComponent(), e.getX(), e.getY());
+					popupMenuVerdadeiroFalso.show(e.getComponent(), e.getX(), e.getY());
 				} else if (instrucaoOrigem instanceof Fim) {
 					// nope
 				} else {
@@ -190,12 +229,11 @@ public class LigarBlocosFerramenta extends Ferramenta {
 						// do nothing
 						getAlgoritmo().getListLinha().remove(linha);
 					} else if (instrucao instanceof CondicaoIf) {
-						CondicaoIf condicao = (CondicaoIf) instrucao;
-						if (condicao.getLinhaEntrada() != null) {
-							// remover a entrada antiga
-							getAlgoritmo().getListLinha().remove(condicao.getLinhaEntrada());
-						}
-						condicao.setLinhaEntrada(linha);
+
+						instrucaoDestino = instrucao;
+						// perguntar se eh um loop
+						popupMenuEntradaOuVoltaDeCondicao.show(e.getComponent(), e.getX(), e.getY());
+						
 					} else if (instrucao instanceof Comando) {
 						Comando comando = (Comando) instrucao;
 						if (comando.getLinhaEntrada() != null) {

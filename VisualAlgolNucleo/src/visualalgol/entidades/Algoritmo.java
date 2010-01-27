@@ -6,20 +6,20 @@ import java.util.List;
 
 public class Algoritmo implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private InstrucaoGenerica comandoInicial;
+	private Inicio comandoInicial;
 	private InstrucaoGenerica comandoFinal;
 	private List<InstrucaoGenerica> listComando = new ArrayList<InstrucaoGenerica>();
 	private List<Linha> listLinha = new ArrayList<Linha>();
 	/**
 	 * @return the comandoInicial
 	 */
-	public InstrucaoGenerica getComandoInicial() {
+	public Inicio getComandoInicial() {
 		return comandoInicial;
 	}
 	/**
 	 * @param comandoInicial the comandoInicial to set
 	 */
-	public void setComandoInicial(InstrucaoGenerica comandoInicial) {
+	public void setComandoInicial(Inicio comandoInicial) {
 		this.comandoInicial = comandoInicial;
 	}
 	/**
