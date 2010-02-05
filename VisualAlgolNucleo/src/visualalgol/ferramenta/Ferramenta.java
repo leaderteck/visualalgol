@@ -10,6 +10,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.List;
 
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
 
 public abstract class Ferramenta implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
@@ -78,6 +79,12 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 		ultimoY = e.getY();
 		// verificar se esta selecionando um dos comandos
 		arrastando = getInstrucaoEm(ultimoX, ultimoY);
+		if(e.getButton()==MouseEvent.BUTTON3){
+			//Botao direito
+			if(arrastando instanceof Comando){
+				// abrir editor de comando?
+			}
+		}
 	}
 
 	public InstrucaoGenerica getInstrucaoEm(int x, int y) {

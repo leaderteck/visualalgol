@@ -9,6 +9,7 @@ public class IconesFluxogramaToolBar extends JToolBar{
 	private JButton btnComando;
 	private JButton btnFimDecisao;
 	private JButton btnLigarBlocos;
+	private JButton btnEscrever;
 	
 	public IconesFluxogramaToolBar() {
 		//instanciando...
@@ -16,12 +17,14 @@ public class IconesFluxogramaToolBar extends JToolBar{
 		btnComando = new JButton("Comando");
 		btnFimDecisao = new JButton("Fim da Condição");
 		btnLigarBlocos = new JButton("Ligar blocos");
+		btnEscrever = new JButton("Escrever");
 		
 		//layout...
 		this.add(btnCondicao);
 		this.add(btnComando);
 		this.add(btnFimDecisao);
 		this.add(btnLigarBlocos);
+		this.add(btnEscrever);
 	}
 
 	/**
@@ -78,6 +81,20 @@ public class IconesFluxogramaToolBar extends JToolBar{
 	 */
 	public void setBtnLigarBlocos(JButton btnLigarBlocos) {
 		this.btnLigarBlocos = btnLigarBlocos;
+	}
+
+	/**
+	 * @return the btnEscrever
+	 */
+	public JButton getBtnEscrever() {
+		return btnEscrever;
+	}
+
+	/**
+	 * @param btnEscrever the btnEscrever to set
+	 */
+	public void setBtnEscrever(JButton btnEscrever) {
+		this.btnEscrever = btnEscrever;
 	}
 	
 }

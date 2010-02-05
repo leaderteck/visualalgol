@@ -188,17 +188,22 @@ public class LigarBlocosFerramenta extends Ferramenta {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (instrucaoOrigem == null) {
-			// tentar iniciar a linha
-			instrucaoOrigem = getInstrucaoEm(e.getX(), e.getY());
-			if (instrucaoOrigem != null) {
-				if (instrucaoOrigem instanceof CondicaoIf) {
-					// abrir opcoes de true ou false
-					popupMenuVerdadeiroFalso.show(e.getComponent(), e.getX(), e.getY());
-				} else if (instrucaoOrigem instanceof Fim) {
-					// nope
-				} else {
-					iniciarLinha();
+			if(e.getButton()==MouseEvent.BUTTON1){
+				// tentar iniciar a linha
+				instrucaoOrigem = getInstrucaoEm(e.getX(), e.getY());
+				if (instrucaoOrigem != null) {
+					if (instrucaoOrigem instanceof CondicaoIf) {
+						// abrir opcoes de true ou false
+						popupMenuVerdadeiroFalso.show(e.getComponent(), e.getX(), e.getY());
+					} else if (instrucaoOrigem instanceof Fim) {
+						// nope
+					} else {
+						iniciarLinha();
+					}
 				}
+			}else if(e.getButton()==MouseEvent.BUTTON3){
+				// mostrar as opcoes da instrucao
+				
 			}
 		} else {
 			// ligando

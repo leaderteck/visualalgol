@@ -14,6 +14,7 @@ import visualalgol.entidades.Algoritmo;
 import visualalgol.ferramenta.ComandoFerramenta;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
+import visualalgol.ferramenta.EscreverFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 import visualalgol.ferramenta.LigarBlocosFerramenta;
 
@@ -57,6 +58,12 @@ public class MainFrame extends JFrame {
 				setFerramenta(new LigarBlocosFerramenta());
 			}
 		});
+		iconesFluxogramaToolBar.getBtnEscrever().addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setFerramenta(new EscreverFerramenta());
+			}
+		});
 		menuPrincipal.getSalvarMenuItem().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -75,6 +82,7 @@ public class MainFrame extends JFrame {
 				new Fluxo2PseudoCodigo().executar(MainFrame.this);
 			}
 		});
+		
 		// Layout
 		this.setTitle("VisuAlgo");
 		this.setSize(800, 600);

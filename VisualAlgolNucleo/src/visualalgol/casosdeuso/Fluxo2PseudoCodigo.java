@@ -47,12 +47,12 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					// modo para dar saida no pseudo codigo
 					if (condicao.isLoop()) {
 						if (!condicao.isVisitado()){
-							System.out.println("while(true){ ");
+							System.out.println("while("+condicao.getPseudoCodigo()+"){ ");
 						}else{
 							System.out.println("}//fim do loop ");
 						}
 					} else {
-						System.out.println("if(true){");
+						System.out.println("if("+condicao.getPseudoCodigo()+"){");
 					}
 				}
 				// pode ser um if ou um loop
@@ -75,7 +75,11 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 				Comando comando = (Comando) instrucao;
 				proximaInstrucao = comando.getLinhaSaida().getDestino();
 				if (printMode) {
-					System.out.println("c();");
+					if(comando.getPseudoCodigo()!=null){
+						System.out.println(comando.getPseudoCodigo()+";");
+					}else{
+						System.out.println("comando qualquer;");
+					}
 				}
 			} else if (instrucao instanceof CondicaoFim) {
 				// Fim de Condicao, vulgo end if
