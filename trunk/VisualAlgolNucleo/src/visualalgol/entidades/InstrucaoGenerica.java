@@ -27,6 +27,7 @@ public abstract class InstrucaoGenerica implements Serializable{
 	private boolean visitado;
 	
 	private InstrucaoGenerica comandoAnterior;
+	private String pseudoCodigo;
 
 	/**
 	 * @return the x
@@ -165,5 +166,11 @@ public abstract class InstrucaoGenerica implements Serializable{
 	public void delete() {
 		getAlgoritmo().getListComando().remove(this);
 	}
-	
+
+	public void setPseudoCodigo(String pseudoCodigo) {
+		this.pseudoCodigo = pseudoCodigo;
+	}
+	public String getPseudoCodigo() {
+		return pseudoCodigo;
+	}
 }
