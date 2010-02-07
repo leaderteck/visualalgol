@@ -19,7 +19,7 @@ import visualalgol.ferramenta.EscreverFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 import visualalgol.ferramenta.LigarBlocosFerramenta;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private static final long serialVersionUID = 1L;
 	private IconesFluxogramaToolBar iconesFluxogramaToolBar;
 	private TelaDesenhoFluxograma telaDesenhoFluxograma;
@@ -37,7 +37,9 @@ public class MainFrame extends JFrame {
 		menuPrincipal = new MenuPrincipal();
 		telaPseudoCodigo = new TelaPseudoCodigo();
 		
+		
 		// Configurando...
+		menuPrincipal.setAbrirRecenteListener(this);
 		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -183,5 +185,12 @@ public class MainFrame extends JFrame {
 	}
 	public TelaPseudoCodigo getTelaPseudoCodigo() {
 		return telaPseudoCodigo;
+	}
+
+	@Override
+	public void abrirArquivoRecente(String path) {
+		AbrirAlgoritmo abrirAlgoritmo = new AbrirAlgoritmo();
+		
+		abrirAlgoritmo.abrirArquivo(path,this);
 	}
 }
