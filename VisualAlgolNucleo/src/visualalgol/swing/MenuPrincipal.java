@@ -1,12 +1,17 @@
 package visualalgol.swing;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+
+import visualalgol.entidades.ArquivoRecente;
 
 public class MenuPrincipal extends JMenuBar{
 	private static final long serialVersionUID = 1L;
@@ -14,26 +19,49 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenuItem salvarMenuItem;
 	private JMenuItem abrirMenuItem;
 
+	private AbrirRecenteListener abrirRecenteListener;
 	private JMenuItem verPseudoCodigo;
-	
+	private ArquivoRecente arquivoRecente;
+	private JMenu arquivo; 
+	private JMenu recentes;
 	public MenuPrincipal() {
 		//instancia
 		salvarMenuItem = new JMenuItem("Salvar");
 		abrirMenuItem = new JMenuItem("Abrir");
 		verPseudoCodigo = new JMenuItem("Ver Pseudo Codigo");
-		//configuracap
+		recentes = new JMenu("Recentes");
+		//configuracao
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		abrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-		JMenu arquivo = new JMenu("Arquivo");
+		arquivo = new JMenu("Arquivo");
 		JMenu visualizacao = new JMenu("Visualizar");
 		//layout
 		arquivo.add(abrirMenuItem);
+		arquivo.add(recentes);
 		arquivo.add(salvarMenuItem);
 		this.add(arquivo);
 		
 		visualizacao.add(verPseudoCodigo);
 		this.add(visualizacao);
 	}
+	
+	private void criarRecentes(){
+		List<String> paths = arquivoRecente.getPaths();
+		for(int i=0;i<paths.size();i++){
+			File file = new File(paths.get(i));
+			if(file.exists()){
+				JMenuItem recente = new JMenuItem(file.getName());
+				recentes.add(recente);
+				recente.setActionCommand(paths.get(i));
+				recente.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						abrirRecenteListener.abrirArquivoRecente(e.getActionCommand());
+					}
+				});
+			}
+		}
+	}
+	
 	/**
 	 * @return the salvarMenuItem
 	 */
@@ -64,5 +92,26 @@ public class MenuPrincipal extends JMenuBar{
 	}
 	public void setVerPseudoCodigo(JMenuItem verPseudoCodigo) {
 		this.verPseudoCodigo = verPseudoCodigo;
+	}
+	public ArquivoRecente getArquivoRecente() {
+		return arquivoRecente;
+	}
+	public void setArquivoRecente(ArquivoRecente arquivoRecente) {
+		this.arquivoRecente = arquivoRecente;
+		criarRecentes();
+	}
+
+	/**
+	 * @return the abrirRecenteListener
+	 */
+	public AbrirRecenteListener getAbrirRecenteListener() {
+		return abrirRecenteListener;
+	}
+
+	/**
+	 * @param abrirRecenteListener the abrirRecenteListener to set
+	 */
+	public void setAbrirRecenteListener(AbrirRecenteListener abrirRecenteListener) {
+		this.abrirRecenteListener = abrirRecenteListener;
 	}
 }

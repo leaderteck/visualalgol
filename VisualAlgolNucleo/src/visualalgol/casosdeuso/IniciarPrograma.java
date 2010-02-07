@@ -1,6 +1,12 @@
 package visualalgol.casosdeuso;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.ArquivoRecente;
 import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
@@ -31,5 +37,29 @@ public class IniciarPrograma extends CasoDeUso {
 		fim.setH(24);
 		algoritmo.setComandoFinal(fim);
 		algoritmo.getListComando().add(fim);
+		
+		// Iniciar a lista de recentes
+		iniciarListaDeRecentes(mainFrame);
+	}
+	
+	private void iniciarListaDeRecentes(MainFrame mainFrame){
+		File file = new File(getPastaDoPrograma(),"recentes.txt");
+		if(file.exists()){
+			FileInputStream fis = null;
+			ObjectInputStream in = null;
+			try {
+				fis = new FileInputStream(file);
+				in = new ObjectInputStream(fis);
+				ArquivoRecente arquivoRecente = (ArquivoRecente) in.readObject();
+				mainFrame.getMenuPrincipal().setArquivoRecente(arquivoRecente);
+				in.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+			}
+		}else{
+			mainFrame.getMenuPrincipal().setArquivoRecente(new ArquivoRecente());
+		}
 	}
 }
