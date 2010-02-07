@@ -2,7 +2,6 @@ package visualalgol.swing.menu;
 
 import javax.swing.JMenu;
 
-import visualalgol.swing.ItemBusca;
 
 public class MenuFerramentas extends JMenu {
 	
