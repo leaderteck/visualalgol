@@ -3,13 +3,6 @@ package visualalgol.swing.menu;
 import javax.swing.JMenu;
 import javax.swing.JSeparator;
 
-import visualalgol.swing.AbrirItemMenu;
-import visualalgol.swing.ExportarItemMenu;
-import visualalgol.swing.ImportarItemMenu;
-import visualalgol.swing.NovoItemMenu;
-import visualalgol.swing.SairItemMenu;
-import visualalgol.swing.SalvarComoItemMenu;
-import visualalgol.swing.SalvarItemMenu;
 
 public class MenuArquivo extends JMenu {
 	private static final long serialVersionUID = -5494580044322845379L;

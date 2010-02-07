@@ -17,16 +17,24 @@ import visualalgol.swing.MainFrame;
  */
 public class Fluxo2PseudoCodigo extends CasoDeUso {
 
+	private MainFrame mainFrame;
+	
 	/**
 	 * Navegar pelos nodes iniciando do Inicio, vamos navegar sempre pelas
 	 * linhas
 	 */
 	@Override
 	public void executar(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
 		navegarPeloGrafo(mainFrame, false);
 		navegarPeloGrafo(mainFrame, true);
 	}
 
+	private void print(String string){
+		String texto = mainFrame.getTelaPseudoCodigo().getText();
+		mainFrame.getTelaPseudoCodigo().setText(texto+"\n"+string);
+	}
+	
 	private void navegarPeloGrafo(MainFrame mainFrame, boolean printMode) {
 		List<CondicaoIf> pilhaCondicao = new ArrayList<CondicaoIf>();
 		Inicio inicio = mainFrame.getAlgoritmo().getComandoInicial();
@@ -47,12 +55,12 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					// modo para dar saida no pseudo codigo
 					if (condicao.isLoop()) {
 						if (!condicao.isVisitado()){
-							System.out.println("while("+condicao.getPseudoCodigo()+"){ ");
+							print("while("+condicao.getPseudoCodigo()+"){ ");
 						}else{
-							System.out.println("}//fim do loop ");
+							print("}//fim do loop ");
 						}
 					} else {
-						System.out.println("if("+condicao.getPseudoCodigo()+"){");
+						print("if("+condicao.getPseudoCodigo()+"){");
 					}
 				}
 				// pode ser um if ou um loop
@@ -76,9 +84,9 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 				proximaInstrucao = comando.getLinhaSaida().getDestino();
 				if (printMode) {
 					if(comando.getPseudoCodigo()!=null){
-						System.out.println(comando.getPseudoCodigo()+";");
+						print(comando.getPseudoCodigo()+";");
 					}else{
-						System.out.println("comando qualquer;");
+						print("comando qualquer;");
 					}
 				}
 			} else if (instrucao instanceof CondicaoFim) {
@@ -90,13 +98,13 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					// andar pelo false
 					proximaInstrucao = condicao.getLinhaFalsa().getDestino();
 					if (printMode) {
-						System.out.println("}else{");
+						print("}else{");
 					}
 				} else {
 					CondicaoFim condicaoFim = (CondicaoFim)instrucao;
 					proximaInstrucao = condicaoFim.getLinhaSaida().getDestino();
 					if (printMode) {
-						System.out.println("}//fim de condicao");
+						print("}//fim de condicao");
 					}
 				}
 			} else if (instrucao instanceof Fim) {

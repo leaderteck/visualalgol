@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 
 import visualalgol.casosdeuso.AbrirAlgoritmo;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
@@ -25,7 +26,8 @@ public class MainFrame extends JFrame {
 	private Ferramenta ferramentaAtual;
 	private Algoritmo algoritmo;
 	private MenuPrincipal menuPrincipal;
-
+	private TelaPseudoCodigo telaPseudoCodigo;
+	
 	public MainFrame() {
 		// Instanciando...
 		menuPrincipal = new MenuPrincipal();
@@ -33,6 +35,8 @@ public class MainFrame extends JFrame {
 		iconesFluxogramaToolBar = new IconesFluxogramaToolBar();
 		telaDesenhoFluxograma = new TelaDesenhoFluxograma();
 		menuPrincipal = new MenuPrincipal();
+		telaPseudoCodigo = new TelaPseudoCodigo();
+		
 		// Configurando...
 		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
 			@Override
@@ -89,15 +93,19 @@ public class MainFrame extends JFrame {
 		
 		this.setJMenuBar(menuPrincipal);
 		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
-		this.add(telaDesenhoFluxograma, BorderLayout.CENTER);
-
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,telaDesenhoFluxograma,telaPseudoCodigo);
+		this.add(splitPane, BorderLayout.CENTER);
+		splitPane.setDividerLocation(.5);
+		splitPane.setDividerLocation(400);
+		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+		
 		IniciarPrograma iniciarPrograma = new IniciarPrograma();
 		iniciarPrograma.executar(this);
 	}
 
+	
 	private void salvar(){
 		new SalvarAlgoritmo().executar(this);
 	}
@@ -172,5 +180,8 @@ public class MainFrame extends JFrame {
 	}
 	public void setMenuPrincipal(MenuPrincipal menuPrincipal) {
 		this.menuPrincipal = menuPrincipal;
+	}
+	public TelaPseudoCodigo getTelaPseudoCodigo() {
+		return telaPseudoCodigo;
 	}
 }
