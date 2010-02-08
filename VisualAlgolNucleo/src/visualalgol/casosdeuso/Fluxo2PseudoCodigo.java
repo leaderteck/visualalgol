@@ -18,7 +18,7 @@ import visualalgol.swing.MainFrame;
 public class Fluxo2PseudoCodigo extends CasoDeUso {
 
 	private MainFrame mainFrame;
-	
+	private int nTabs = 0;
 	/**
 	 * Navegar pelos nodes iniciando do Inicio, vamos navegar sempre pelas
 	 * linhas
@@ -32,7 +32,10 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 
 	private void print(String string){
 		String texto = mainFrame.getTelaPseudoCodigo().getText();
-		mainFrame.getTelaPseudoCodigo().setText(texto+"\n"+string);
+		StringBuilder tabs = new StringBuilder();
+		for(int i=0;i<nTabs;i++)
+			tabs.append('\t');
+		mainFrame.getTelaPseudoCodigo().setText(texto+"\n"+tabs.toString()+string);
 	}
 	
 	private void navegarPeloGrafo(MainFrame mainFrame, boolean printMode) {
@@ -56,11 +59,14 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					if (condicao.isLoop()) {
 						if (!condicao.isVisitado()){
 							print("while("+condicao.getPseudoCodigo()+"){ ");
+							nTabs++;
 						}else{
+							nTabs--;
 							print("}//fim do loop ");
 						}
 					} else {
 						print("if("+condicao.getPseudoCodigo()+"){");
+						nTabs++;
 					}
 				}
 				// pode ser um if ou um loop
@@ -98,12 +104,15 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					// andar pelo false
 					proximaInstrucao = condicao.getLinhaFalsa().getDestino();
 					if (printMode) {
+						nTabs--;
 						print("}else{");
+						nTabs++;
 					}
 				} else {
 					CondicaoFim condicaoFim = (CondicaoFim)instrucao;
 					proximaInstrucao = condicaoFim.getLinhaSaida().getDestino();
 					if (printMode) {
+						nTabs--;
 						print("}//fim de condicao");
 					}
 				}
