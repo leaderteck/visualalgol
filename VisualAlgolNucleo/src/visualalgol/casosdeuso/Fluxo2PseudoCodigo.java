@@ -13,12 +13,17 @@ import visualalgol.swing.MainFrame;
 
 /**
  * Conversor de fluxo para pseudo codigo
- * 
+ * TODO definir o estilo do pseudo codigo
  */
 public class Fluxo2PseudoCodigo extends CasoDeUso {
 
 	private MainFrame mainFrame;
+
+	/**
+	 * Contador de tabs para edentar o codigo
+	 */
 	private int nTabs = 0;
+
 	/**
 	 * Navegar pelos nodes iniciando do Inicio, vamos navegar sempre pelas
 	 * linhas
@@ -26,19 +31,33 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	@Override
 	public void executar(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
-		navegarPeloGrafo(mainFrame, false);
-		navegarPeloGrafo(mainFrame, true);
+		// detecta os loops
+		navegarPeloGrafo(false);
+		// imprime o codigo na tela
+		navegarPeloGrafo(true);
 	}
 
-	private void print(String string){
+	/**
+	 * Trata do print dentro da tela do Usuario, cuida dos tabs tamb&eacute;m
+	 * 
+	 * @param string
+	 *            codigo para colocar na tela
+	 */
+	private void print(String string) {
 		String texto = mainFrame.getTelaPseudoCodigo().getText();
 		StringBuilder tabs = new StringBuilder();
-		for(int i=0;i<nTabs;i++)
+		for (int i = 0; i < nTabs; i++)
 			tabs.append('\t');
-		mainFrame.getTelaPseudoCodigo().setText(texto+"\n"+tabs.toString()+string);
+		mainFrame.getTelaPseudoCodigo().setText(texto + "\n" + tabs.toString() + string);
 	}
-	
-	private void navegarPeloGrafo(MainFrame mainFrame, boolean printMode) {
+
+	/**
+	 * Navega pelas instrucoes inseridas dentro do fluxograma
+	 * 
+	 * @param printMode
+	 *            se estiver com true ira jogar o print na tela do usuario
+	 */
+	private void navegarPeloGrafo(boolean printMode) {
 		List<CondicaoIf> pilhaCondicao = new ArrayList<CondicaoIf>();
 		Inicio inicio = mainFrame.getAlgoritmo().getComandoInicial();
 		InstrucaoGenerica instrucao, proximaInstrucao = inicio.getLinhaSaida().getDestino();
@@ -57,15 +76,15 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 				if (printMode) {
 					// modo para dar saida no pseudo codigo
 					if (condicao.isLoop()) {
-						if (!condicao.isVisitado()){
-							print("while("+condicao.getPseudoCodigo()+"){ ");
+						if (!condicao.isVisitado()) {
+							print("while(" + condicao.getPseudoCodigo() + "){ ");
 							nTabs++;
-						}else{
+						} else {
 							nTabs--;
 							print("}//fim do loop ");
 						}
 					} else {
-						print("if("+condicao.getPseudoCodigo()+"){");
+						print("if(" + condicao.getPseudoCodigo() + "){");
 						nTabs++;
 					}
 				}
@@ -89,9 +108,9 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 				Comando comando = (Comando) instrucao;
 				proximaInstrucao = comando.getLinhaSaida().getDestino();
 				if (printMode) {
-					if(comando.getPseudoCodigo()!=null){
-						print(comando.getPseudoCodigo()+";");
-					}else{
+					if (comando.getPseudoCodigo() != null) {
+						print(comando.getPseudoCodigo() + ";");
+					} else {
 						print("comando qualquer;");
 					}
 				}
@@ -109,7 +128,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 						nTabs++;
 					}
 				} else {
-					CondicaoFim condicaoFim = (CondicaoFim)instrucao;
+					CondicaoFim condicaoFim = (CondicaoFim) instrucao;
 					proximaInstrucao = condicaoFim.getLinhaSaida().getDestino();
 					if (printMode) {
 						nTabs--;
