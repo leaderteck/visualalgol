@@ -7,6 +7,9 @@ import visualalgol.ferramenta.Ferramenta;
 public class TelaDesenhoFluxograma extends JButton{
 	private static final long serialVersionUID = 1L;
 
+	public TelaDesenhoFluxograma(){
+		this.setBorder(null);
+	}
 	public void removeListener(Ferramenta ferramenta) {
 		this.removeMouseListener(ferramenta);
 		this.removeMouseMotionListener(ferramenta);

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import visualalgol.casosdeuso.AbrirAlgoritmo;
@@ -95,7 +96,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		
 		this.setJMenuBar(menuPrincipal);
 		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,telaDesenhoFluxograma,telaPseudoCodigo);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),telaPseudoCodigo);
 		this.add(splitPane, BorderLayout.CENTER);
 		splitPane.setDividerLocation(.5);
 		splitPane.setDividerLocation(400);
