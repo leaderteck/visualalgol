@@ -9,6 +9,7 @@ import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.ArquivoRecente;
 import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
+import visualalgol.entidades.Linha;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.swing.MainFrame;
 
@@ -37,6 +38,14 @@ public class IniciarPrograma extends CasoDeUso {
 		fim.setH(24);
 		algoritmo.setComandoFinal(fim);
 		algoritmo.getListComando().add(fim);
+		
+		//ligar o inicio com o fim, conforme decisao de projeto
+		Linha linha = new Linha();
+		linha.setOrigem(inicio);
+		linha.setDestino(fim);
+		algoritmo.getListLinha().add(linha);
+		
+		inicio.setLinhaSaida(linha);
 		
 		// Iniciar a lista de recentes
 		iniciarListaDeRecentes(mainFrame);

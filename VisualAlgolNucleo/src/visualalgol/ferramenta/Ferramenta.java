@@ -1,5 +1,7 @@
 package visualalgol.ferramenta;
 
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -12,6 +14,7 @@ import java.util.List;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
+import visualalgol.entidades.Linha;
 
 public abstract class Ferramenta implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 	private Algoritmo algoritmo;
@@ -87,6 +90,30 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 		}
 	}
 
+	public Linha getLinhaEm(int x, int y){
+		Rectangle rec = new Rectangle(x-5,y-5,10,10);
+		List<Linha> linhas = getAlgoritmo().getListLinha();
+		for(Linha linha:linhas){
+			Point ultimo = new Point(linha.getOrigem().getX(),linha.getOrigem().getY());
+			List<Point> pontos = linha.getListPontos();
+			for(Point ponto:pontos){
+				if(rec.intersectsLine(ultimo.x, ultimo.y, ponto.x, ponto.y)){
+					//Colocar a instrucao aqui
+					linha.setPontoTemporario(ponto);
+					return linha;
+				}
+				ultimo = ponto;
+			}
+			Point pontoDest = new Point(linha.getDestino().getX(),linha.getDestino().getY());
+			if(rec.intersectsLine(ultimo.x, ultimo.y, pontoDest.x, pontoDest.y)){
+				//Colocar a instrucao aqui
+				linha.setPontoTemporario(null);
+				return linha;
+			}
+		}
+		return null;
+	}
+	
 	public InstrucaoGenerica getInstrucaoEm(int x, int y) {
 		List<InstrucaoGenerica> instrucoes = getAlgoritmo().getListComando();
 		for (int i = instrucoes.size() - 1; i >= 0; i--) {
