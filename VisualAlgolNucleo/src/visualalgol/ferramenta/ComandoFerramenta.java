@@ -32,12 +32,7 @@ public class ComandoFerramenta extends Ferramenta {
 				Comando comando = criarComando(e.getX(),e.getY());
 				
 				//Ligar as linhas
-				linhaB.setOrigem(comando);
-				linhaB.setDestino(linha.getDestino());
-				linha.setDestino(comando);
-				comando.setLinhaEntrada(linha);
-				comando.setLinhaSaida(linhaB);
-				getAlgoritmo().getListLinha().add(linhaB);
+				ligarLinhas(linha, linhaB, comando);
 			}else{//criar antes do destino
 				
 				//criar o comando
@@ -45,14 +40,18 @@ public class ComandoFerramenta extends Ferramenta {
 				Linha linhaB = new Linha();
 				
 				//Ligar as linhas
-				linhaB.setOrigem(comando);
-				linhaB.setDestino(linha.getDestino());
-				linha.setDestino(comando);
-				comando.setLinhaEntrada(linha);
-				comando.setLinhaSaida(linhaB);
-				getAlgoritmo().getListLinha().add(linhaB);
+				ligarLinhas(linha, linhaB, comando);
 			}
 		}
+	}
+
+	private void ligarLinhas(Linha linha, Linha linhaB, Comando comando) {
+		linhaB.setOrigem(comando);
+		linhaB.setDestino(linha.getDestino());
+		linha.setDestino(comando);
+		comando.setLinhaEntrada(linha);
+		comando.setLinhaSaida(linhaB);
+		getAlgoritmo().getListLinha().add(linhaB);
 	}
 	
 	private Comando criarComando(int x,int y){
