@@ -187,6 +187,7 @@ public class LigarBlocosFerramenta extends Ferramenta {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()!=1) return;
 		if (instrucaoOrigem == null) {
 			if(e.getButton()==MouseEvent.BUTTON1){
 				// tentar iniciar a linha

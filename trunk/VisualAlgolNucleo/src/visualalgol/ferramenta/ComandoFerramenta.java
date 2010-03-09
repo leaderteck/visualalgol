@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import visualalgol.casosdeuso.Ator;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
@@ -47,6 +48,7 @@ public class ComandoFerramenta extends Ferramenta {
 				//Ligar as linhas
 				ligarLinhas(linha, linhaB, comando);
 			}
+			Ator.getInstance().criouInstrucao();
 		}
 	}
 
