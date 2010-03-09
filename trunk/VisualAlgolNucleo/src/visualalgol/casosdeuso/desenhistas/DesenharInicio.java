@@ -17,8 +17,10 @@ public class DesenharInicio implements Desenhista{
 		int h = instrucao.getH();
 		int hPor2 = h / 2;
 		Graphics gra = bi.getGraphics();
-		gra.setColor(Color.BLACK);
+		gra.setColor(new Color(instrucao.getCor()));
 		gra.fillOval(instrucao.getX()-wPor2, instrucao.getY()-hPor2,w, h);
+		gra.setColor(Color.BLACK);
+		gra.drawOval(instrucao.getX()-wPor2, instrucao.getY()-hPor2,w, h);
 		//fazendo o "HIT"
 		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY()-hPor2);
 		Point b = new Point(a.x + w, a.y);

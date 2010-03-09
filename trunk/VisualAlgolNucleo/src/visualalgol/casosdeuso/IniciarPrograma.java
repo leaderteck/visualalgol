@@ -1,5 +1,6 @@
 package visualalgol.casosdeuso;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class IniciarPrograma extends CasoDeUso {
 		inicio.setY(30);
 		inicio.setW(24);
 		inicio.setH(24);
+		inicio.setCor(Color.BLACK.getRGB());
 		algoritmo.setComandoInicial(inicio);
 		algoritmo.getListComando().add(inicio);
 

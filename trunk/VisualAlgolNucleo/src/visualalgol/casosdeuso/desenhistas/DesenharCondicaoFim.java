@@ -1,5 +1,5 @@
 package visualalgol.casosdeuso.desenhistas;
 
-public class DesenharCondicaoFim extends DesenharComando {
+public class DesenharCondicaoFim extends DesenharInicio {
 
 }
