@@ -22,15 +22,14 @@ import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.entidades.Algoritmo;
-import visualalgol.ferramenta.ComandoFerramenta;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
-import visualalgol.ferramenta.CondicaoIfFerramenta;
 import visualalgol.ferramenta.EscreverFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 import visualalgol.ferramenta.LigarBlocosFerramenta;
 
 public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private static final long serialVersionUID = 1L;
+	private static final String PROGNAME="VisuAlgo";
 	private IconesFluxogramaToolBar iconesFluxogramaToolBar;
 	private TelaDesenhoFluxograma telaDesenhoFluxograma;
 	private Ferramenta ferramentaAtual;
@@ -107,7 +106,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		});
 		
 		// Layout
-		this.setTitle("VisuAlgo");
+		this.setTitle("");
 		this.setSize(800, 600);
 		
 		this.setJMenuBar(menuPrincipal);
@@ -130,6 +129,14 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		escreverFerramenta.setAlgoritmo(algoritmo);
 	}
 
+	@Override
+	public void setTitle(String title) {
+		if(title!=null && !title.equals("")){
+			super.setTitle(title + " - " + PROGNAME);
+		}else{
+			super.setTitle(PROGNAME);
+		}
+	}
 	
 	private void salvar(){
 		new SalvarAlgoritmo().executar(this);
