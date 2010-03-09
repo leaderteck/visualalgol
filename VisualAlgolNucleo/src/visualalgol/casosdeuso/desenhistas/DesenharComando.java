@@ -35,7 +35,8 @@ public class DesenharComando implements Desenhista {
 		gra.fillPolygon(p);
 		gra.setColor(Color.BLACK);
 		if(instrucao.getPseudoCodigo()!=null){
-			gra.drawString(instrucao.getPseudoCodigo(), d.x,d.y);
+			int larg = gra.getFontMetrics().stringWidth(instrucao.getPseudoCodigo());
+			gra.drawString(instrucao.getPseudoCodigo(), d.x+((w-larg)/2),d.y-15);
 		}
 		gra.drawPolygon(p);
 	}

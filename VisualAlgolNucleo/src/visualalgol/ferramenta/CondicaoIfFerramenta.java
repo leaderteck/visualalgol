@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import visualalgol.casosdeuso.Ator;
 import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -30,6 +31,7 @@ public class CondicaoIfFerramenta extends Ferramenta {
 				int y = e.getY();
 				criarIf(linha, destino, x, y,null);
 			}
+			Ator.getInstance().criouInstrucao();
 		}
 	}
 	private void criarIf(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
@@ -73,8 +75,8 @@ public class CondicaoIfFerramenta extends Ferramenta {
 			{//criar o desvio do false
 				//TODO verificar se colide com outra linha
 				//se colidir, colocar a linha para outro local
-				linhaFalsa.getListPontos().add(new Point(x+150,y));
-				linhaFalsa.getListPontos().add(new Point(x+150,condicaoFim.getY()));
+				linhaFalsa.getListPontos().add(new Point(x+120,y));
+				linhaFalsa.getListPontos().add(new Point(x+120,condicaoFim.getY()));
 			}
 			linhaFalsa.setDestino(condicaoFim);
 			getAlgoritmo().getListLinha().add(linhaFalsa);

@@ -1,14 +1,23 @@
 package visualalgol.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import visualalgol.casosdeuso.AbrirAlgoritmo;
+import visualalgol.casosdeuso.CriarComando;
+import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
@@ -29,6 +38,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private MenuPrincipal menuPrincipal;
 	private TelaPseudoCodigo telaPseudoCodigo;
 	private EscreverFerramenta escreverFerramenta;
+	private JTextField dialogo;
+	private JLabel saidaDialogo;
 	public MainFrame() {
 		// Instanciando...
 		menuPrincipal = new MenuPrincipal();
@@ -38,6 +49,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		menuPrincipal = new MenuPrincipal();
 		telaPseudoCodigo = new TelaPseudoCodigo();
 		escreverFerramenta = new EscreverFerramenta();
+		dialogo = new JTextField();
+		saidaDialogo = new JLabel();
 		
 		// Configurando...
 		telaDesenhoFluxograma.addListener(escreverFerramenta);
@@ -45,13 +58,15 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setFerramenta(new CondicaoIfFerramenta());
+				CriarCondicao criarCondicao = new CriarCondicao();
+				criarCondicao.executar(MainFrame.this);
 			}
 		});
 		iconesFluxogramaToolBar.getBtnComando().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setFerramenta(new ComandoFerramenta());
+				CriarComando criarComando = new CriarComando();
+				criarComando.executar(MainFrame.this);
 			}
 		});
 		iconesFluxogramaToolBar.getBtnFimDecisao().addActionListener(new ActionListener() {
@@ -101,9 +116,13 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		this.add(splitPane, BorderLayout.CENTER);
 		splitPane.setDividerLocation(.5);
 		splitPane.setDividerLocation(400);
-		
+		JPanel south = new JPanel(new GridLayout(0,2));
+		saidaDialogo.setHorizontalAlignment(SwingConstants.RIGHT);
+		south.add(dialogo);
+		south.add(saidaDialogo);
+		this.add(south,BorderLayout.SOUTH);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		IniciarPrograma iniciarPrograma = new IniciarPrograma();
 		iniciarPrograma.executar(this);
@@ -196,7 +215,14 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	@Override
 	public void abrirArquivoRecente(String path) {
 		AbrirAlgoritmo abrirAlgoritmo = new AbrirAlgoritmo();
-		
 		abrirAlgoritmo.abrirArquivo(path,this);
+	}
+
+
+	public void informar(String string) {
+		saidaDialogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		saidaDialogo.setText(string);
+		saidaDialogo.setOpaque(true);
+		saidaDialogo.setBackground(new Color(0xFFFFEE));
 	}
 }

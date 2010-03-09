@@ -35,7 +35,7 @@ public class IniciarPrograma extends CasoDeUso {
 
 		Fim fim = new Fim();
 		fim.setX(100);
-		fim.setY(500);
+		fim.setY(450);
 		fim.setW(24);
 		fim.setH(24);
 		algoritmo.setComandoFinal(fim);
