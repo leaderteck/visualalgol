@@ -8,11 +8,13 @@ import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import visualalgol.entidades.Algoritmo;
 import visualalgol.swing.MainFrame;
 
 public class SalvarAlgoritmo extends CasoDeUso {
 	static final String EXTENSAO = "alg";
 	static JFileChooser fc;
+	
 	static{
 		fc = new JFileChooser();
 		fc.addChoosableFileFilter(new FileFilter(){
@@ -51,24 +53,32 @@ public class SalvarAlgoritmo extends CasoDeUso {
         return ext;
     }
 
+    private void salvar(Algoritmo alg, File file){
+    	FileOutputStream fos = null;
+		ObjectOutputStream out = null;
+		try {
+			fos = new FileOutputStream(file);
+			out = new ObjectOutputStream(fos);
+			out.writeObject(alg);
+			out.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+    }
+    
 	@Override
 	public void executar(MainFrame mainFrame) {
-		int returnVal = fc.showSaveDialog(mainFrame);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			if(getExtension(file)==null){
-				//colocar extensao automaticamente
-				file = new File(file.getAbsolutePath()+'.'+EXTENSAO);
-			}
-			FileOutputStream fos = null;
-			ObjectOutputStream out = null;
-			try {
-				fos = new FileOutputStream(file);
-				out = new ObjectOutputStream(fos);
-				out.writeObject(mainFrame.getAlgoritmo());
-				out.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+		if(AbrirAlgoritmo.getAlgoritmoAberto()!=null){
+			salvar(mainFrame.getAlgoritmo(),AbrirAlgoritmo.getAlgoritmoAberto());
+		}else{
+			int returnVal = fc.showSaveDialog(mainFrame);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fc.getSelectedFile();
+				if(getExtension(file)==null){
+					//colocar extensao automaticamente
+					file = new File(file.getAbsolutePath()+'.'+EXTENSAO);
+				}
+				salvar(mainFrame.getAlgoritmo(),file);
 			}
 		}
 	}

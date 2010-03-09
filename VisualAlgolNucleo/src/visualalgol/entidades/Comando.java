@@ -81,9 +81,11 @@ public class Comando extends InstrucaoGenerica {
 	@Override
 	public void delete() {
 		//religar o que estivera ligado
-		linhaEntrada.setDestino(linhaSaida.getDestino());
-		for(Point ponto:linhaSaida.getListPontos()){
-			linhaEntrada.getListPontos().add(ponto);
+		if(linhaEntrada!=null && linhaSaida!=null){
+			linhaEntrada.setDestino(linhaSaida.getDestino());
+			for(Point ponto:linhaSaida.getListPontos()){
+				linhaEntrada.getListPontos().add(ponto);
+			}
 		}
 		getAlgoritmo().getListLinha().remove(linhaSaida);
 		//getAlgoritmo().getListLinha().remove(linhaEntrada);

@@ -14,17 +14,19 @@ import visualalgol.entidades.Algoritmo;
 import visualalgol.swing.MainFrame;
 
 public class AbrirAlgoritmo extends SalvarAlgoritmo {
-	
+	private static File algoritmoAberto;
+
 	@Override
 	public void executar(MainFrame mainFrame) {
 		int returnVal = fc.showOpenDialog(mainFrame);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			abrirArquivo(file, mainFrame);
+			
 		}
 	}
 
-	private void abrirArquivo(File file, MainFrame mainFrame){
+	private void abrirArquivo(File file, MainFrame mainFrame) {
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
@@ -34,12 +36,17 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			mainFrame.setAlgoritmo(algoritmo);
 			in.close();
 			
-			//Colocar na lista de recentes
+			//lembrar quem foi o ultimo aberto
+			algoritmoAberto = file;
+			
+			mainFrame.setTitle(file.getPath());
+			
+			// Colocar na lista de recentes
 			List<String> lista = mainFrame.getMenuPrincipal().getArquivoRecente().getPaths();
-			if(!lista.contains(file.getAbsolutePath())){
-				lista.add(0,file.getAbsolutePath());
-				//retirar o excesso
-				for(int i=10;i<lista.size();i++){
+			if (!lista.contains(file.getAbsolutePath())) {
+				lista.add(0, file.getAbsolutePath());
+				// retirar o excesso
+				for (int i = 10; i < lista.size(); i++) {
 					lista.remove(i);
 				}
 				salvarRecentes(mainFrame);
@@ -50,9 +57,9 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			ex.printStackTrace();
 		}
 	}
-	
-	private void salvarRecentes(MainFrame mainFrame){
-		File file = new File(getPastaDoPrograma(),"recentes.txt");
+
+	private void salvarRecentes(MainFrame mainFrame) {
+		File file = new File(getPastaDoPrograma(), "recentes.txt");
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
 		try {
@@ -64,9 +71,13 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void abrirArquivo(String path,MainFrame mainFrame) {
+
+	public void abrirArquivo(String path, MainFrame mainFrame) {
 		abrirArquivo(new File(path), mainFrame);
 	}
 
+	public static File getAlgoritmoAberto() {
+		return algoritmoAberto;
+	}
+	
 }
