@@ -8,6 +8,7 @@ public abstract class CasoDeUso {
 	protected MainFrame sistema;
 	private static File pastaDoPrograma;
 	protected Ator ator = Ator.getInstance();
+	private static Thread thread = null;
 	static {
 		File f=new File(System.getProperty("user.home"));
 		pastaDoPrograma = new File(f,".visualgo");
@@ -23,16 +24,19 @@ public abstract class CasoDeUso {
 	}
 	public void executar(MainFrame mainFrame){
 		sistema = mainFrame;
-		Thread t = new Thread(){
+		if(thread!=null){
+			thread.interrupt();
+		}
+		thread = new Thread(){
 			@Override
 			public void run() {
 				try {
 					executarComoThread();
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println("Abortado...");
 				}
 			}
 		};
-		t.start();
+		thread.start();
 	}
 }
