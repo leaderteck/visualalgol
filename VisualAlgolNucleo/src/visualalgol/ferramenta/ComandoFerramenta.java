@@ -5,11 +5,14 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import visualalgol.entidades.Comando;
+import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
 public class ComandoFerramenta extends Ferramenta {
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		InstrucaoGenerica instrucao = getInstrucaoEm(e.getX(), e.getY());
+		if(instrucao!=null) return;
 		// pegar a linha em x y do mouse
 		Linha linha = getLinhaEm(e.getX(), e.getY());
 		if(linha!=null){
@@ -17,10 +20,12 @@ public class ComandoFerramenta extends Ferramenta {
 				//separar a linha em duas, quebrando no ponto temporario
 				Linha linhaB = new Linha();
 				boolean copiar = false;
+				int x=e.getX();
 				for(int i=0;i<linha.getListPontos().size();i++){
 					Point point = linha.getListPontos().get(i);
 					if(point==linha.getPontoTemporario()){
 						copiar = true;
+						x = point.x;
 					}
 					if(copiar){
 						linha.getListPontos().remove(point);
@@ -29,14 +34,14 @@ public class ComandoFerramenta extends Ferramenta {
 				}
 				
 				//criar o comando
-				Comando comando = criarComando(e.getX(),e.getY());
+				Comando comando = criarComando(x,e.getY());
 				
 				//Ligar as linhas
 				ligarLinhas(linha, linhaB, comando);
 			}else{//criar antes do destino
-				
+				int x = linha.getDestino().getX();
 				//criar o comando
-				Comando comando = criarComando(e.getX(),e.getY());
+				Comando comando = criarComando(x,e.getY());
 				Linha linhaB = new Linha();
 				
 				//Ligar as linhas

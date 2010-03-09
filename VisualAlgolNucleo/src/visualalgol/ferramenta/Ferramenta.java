@@ -39,7 +39,6 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
 	}
 
 	@Override
@@ -133,7 +132,6 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (arrastando != null && e.getKeyCode() == KeyEvent.VK_DELETE) {
-			getAlgoritmo().getListComando().remove(arrastando);
 			arrastando.delete();
 		}
 	}
