@@ -1,5 +1,7 @@
 package visualalgol.entidades;
 
+import java.awt.Point;
+
 /**
  * Representa um comando do algoritmo. Como os famosos a, b, c do Manuel.
  */
@@ -78,8 +80,13 @@ public class Comando extends InstrucaoGenerica {
 	}
 	@Override
 	public void delete() {
+		//religar o que estivera ligado
+		linhaEntrada.setDestino(linhaSaida.getDestino());
+		for(Point ponto:linhaSaida.getListPontos()){
+			linhaEntrada.getListPontos().add(ponto);
+		}
 		getAlgoritmo().getListLinha().remove(linhaSaida);
-		getAlgoritmo().getListLinha().remove(linhaEntrada);
+		//getAlgoritmo().getListLinha().remove(linhaEntrada);
 		super.delete();
 	}
 }

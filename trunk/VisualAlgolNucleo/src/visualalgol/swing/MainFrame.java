@@ -28,7 +28,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private Algoritmo algoritmo;
 	private MenuPrincipal menuPrincipal;
 	private TelaPseudoCodigo telaPseudoCodigo;
-	
+	private EscreverFerramenta escreverFerramenta;
 	public MainFrame() {
 		// Instanciando...
 		menuPrincipal = new MenuPrincipal();
@@ -37,9 +37,10 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		telaDesenhoFluxograma = new TelaDesenhoFluxograma();
 		menuPrincipal = new MenuPrincipal();
 		telaPseudoCodigo = new TelaPseudoCodigo();
-		
+		escreverFerramenta = new EscreverFerramenta();
 		
 		// Configurando...
+		telaDesenhoFluxograma.addListener(escreverFerramenta);
 		menuPrincipal.setAbrirRecenteListener(this);
 		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
 			@Override
@@ -106,12 +107,15 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		
 		IniciarPrograma iniciarPrograma = new IniciarPrograma();
 		iniciarPrograma.executar(this);
+		
+		escreverFerramenta.setAlgoritmo(algoritmo);
 	}
 
 	
 	private void salvar(){
 		new SalvarAlgoritmo().executar(this);
 	}
+	
 	public void setFerramenta(Ferramenta ferramenta) {
 		if (ferramentaAtual != null) {
 			ferramentaAtual.setAlgoritmo(null);
@@ -119,6 +123,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 			telaDesenhoFluxograma.removeListener(ferramentaAtual);
 		}
 		telaDesenhoFluxograma.addListener(ferramenta);
+		escreverFerramenta.setAlgoritmo(algoritmo);
 		ferramenta.setAlgoritmo(algoritmo);
 		ferramentaAtual = ferramenta;
 	}

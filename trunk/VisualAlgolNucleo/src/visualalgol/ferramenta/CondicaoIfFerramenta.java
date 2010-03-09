@@ -71,6 +71,8 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		{//criar a linha para o false
 			linhaFalsa.setOrigem(condicaoIf);
 			{//criar o desvio do false
+				//TODO verificar se colide com outra linha
+				//se colidir, colocar a linha para outro local
 				linhaFalsa.getListPontos().add(new Point(x+150,y));
 				linhaFalsa.getListPontos().add(new Point(x+150,condicaoFim.getY()));
 			}
