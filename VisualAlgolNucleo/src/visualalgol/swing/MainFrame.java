@@ -112,7 +112,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		
 		this.setJMenuBar(menuPrincipal);
 		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),telaPseudoCodigo);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),new JScrollPane(telaPseudoCodigo));
 		this.add(splitPane, BorderLayout.CENTER);
 		splitPane.setDividerLocation(.5);
 		splitPane.setDividerLocation(400);
