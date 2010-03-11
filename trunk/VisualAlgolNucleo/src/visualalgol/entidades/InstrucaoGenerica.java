@@ -6,6 +6,7 @@ import java.io.Serializable;
 public abstract class InstrucaoGenerica implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private boolean foco;
+	private boolean executado;
 	private int cor;
 	private Polygon poligono = new Polygon();
 	private int w;
@@ -172,5 +173,19 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 	public String getPseudoCodigo() {
 		return pseudoCodigo;
+	}
+
+	/**
+	 * @return the executado
+	 */
+	public boolean isExecutado() {
+		return executado;
+	}
+
+	/**
+	 * @param executado the executado to set
+	 */
+	public void setExecutado(boolean executado) {
+		this.executado = executado;
 	}
 }
