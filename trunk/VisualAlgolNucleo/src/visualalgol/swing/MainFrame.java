@@ -20,6 +20,7 @@ import visualalgol.casosdeuso.CriarComando;
 import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
+import visualalgol.casosdeuso.InterpretarFluxograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
@@ -102,6 +103,12 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new Fluxo2PseudoCodigo().executar(MainFrame.this);
+			}
+		});
+		menuPrincipal.getRodar().addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new InterpretarFluxograma().executar(MainFrame.this);
 			}
 		});
 		

@@ -21,6 +21,7 @@ public class MenuPrincipal extends JMenuBar{
 
 	private AbrirRecenteListener abrirRecenteListener;
 	private JMenuItem verPseudoCodigo;
+	private JMenuItem rodar;
 	private ArquivoRecente arquivoRecente;
 	private JMenu arquivo; 
 	private JMenu recentes;
@@ -29,6 +30,7 @@ public class MenuPrincipal extends JMenuBar{
 		salvarMenuItem = new JMenuItem("Salvar");
 		abrirMenuItem = new JMenuItem("Abrir");
 		verPseudoCodigo = new JMenuItem("Ver Pseudo Codigo");
+		rodar = new JMenuItem("Executar");
 		recentes = new JMenu("Recentes");
 		//configuracao
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -42,6 +44,7 @@ public class MenuPrincipal extends JMenuBar{
 		this.add(arquivo);
 		
 		visualizacao.add(verPseudoCodigo);
+		visualizacao.add(rodar);
 		this.add(visualizacao);
 	}
 	
@@ -114,4 +117,12 @@ public class MenuPrincipal extends JMenuBar{
 	public void setAbrirRecenteListener(AbrirRecenteListener abrirRecenteListener) {
 		this.abrirRecenteListener = abrirRecenteListener;
 	}
+
+	/**
+	 * @return the rodar
+	 */
+	public JMenuItem getRodar() {
+		return rodar;
+	}
+
 }
