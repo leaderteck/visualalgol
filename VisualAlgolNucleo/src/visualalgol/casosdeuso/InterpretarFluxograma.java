@@ -76,10 +76,15 @@ public class InterpretarFluxograma extends CasoDeUso{
     				String s = comando.getPseudoCodigo();
     				
     				// Now evaluate the string we've colected.
-    	            Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
-
-    	            // Convert the result to a string and print it.
-    	            System.err.println(s +" -> "+ Context.toString(result));
+    				try{
+    					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
+    					 // Convert the result to a string and print it.
+        	            System.err.println(s +" -> "+ Context.toString(result));
+    				}catch(RuntimeException e){
+    					System.out.println("Erro: " + e.getMessage());
+    					return;
+    				}
+    	           
     	            comando.setExecutado(true);
     	            
     	            //load
