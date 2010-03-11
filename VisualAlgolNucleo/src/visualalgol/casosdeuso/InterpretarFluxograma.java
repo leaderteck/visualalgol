@@ -5,6 +5,7 @@ import org.mozilla.javascript.Scriptable;
 
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
+import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.Inicio;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -51,6 +52,10 @@ public class InterpretarFluxograma extends CasoDeUso{
 	}
 	
 	private static void interpretarAlgoritmo(Algoritmo alg){
+		//zerar os executados
+		for(InstrucaoGenerica instrucao: alg.getListComando()){
+			instrucao.setExecutado(false);
+		}
 		Inicio inicio = alg.getComandoInicial();
 		
 		// Creates and enters a Context. The Context stores information
@@ -75,6 +80,8 @@ public class InterpretarFluxograma extends CasoDeUso{
 
     	            // Convert the result to a string and print it.
     	            System.err.println(s +" -> "+ Context.toString(result));
+    	            comando.setExecutado(true);
+    	            
     	            //load
         			instrucao = comando.getLinhaSaida().getDestino();
     			}else if(instrucao instanceof CondicaoIf){
@@ -85,12 +92,18 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            String resposta = Context.toString(result);
     	            // Convert the result to a string and print it.
     	            System.err.println(s +" -> "+ resposta);
+    	            condicao.setExecutado(true);
     	            
     	            if(resposta.equals("true")){
     	            	instrucao = condicao.getLinhaVerdadeira().getDestino();
     	            }else{
     	            	instrucao = condicao.getLinhaFalsa().getDestino();
     	            }
+    			}else if(instrucao instanceof CondicaoFim){
+    				CondicaoFim condicaoFim = (CondicaoFim) instrucao;
+    				condicaoFim.setExecutado(true);
+    				//load
+        			instrucao = condicaoFim.getLinhaSaida().getDestino();
     			}else{
     				instrucao = null;
     			}

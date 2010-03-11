@@ -81,6 +81,7 @@ public class SalvarAlgoritmo extends CasoDeUso {
 				salvar(mainFrame.getAlgoritmo(),file);
 			}
 		}
+		mainFrame.informar("Salvo.");
 	}
 
 }
