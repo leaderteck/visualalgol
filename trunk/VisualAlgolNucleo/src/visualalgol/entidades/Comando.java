@@ -15,11 +15,6 @@ public class Comando extends InstrucaoGenerica {
 	private String descricao;
 
 	/**
-	 * Qual sera o proximo comando
-	 */
-	private InstrucaoGenerica proximoComando;
-
-	/**
 	 * @return the descricao
 	 */
 	public String getDescricao() {
@@ -32,21 +27,6 @@ public class Comando extends InstrucaoGenerica {
 	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	/**
-	 * @return the proximoComando
-	 */
-	public InstrucaoGenerica getProximoComando() {
-		return proximoComando;
-	}
-
-	/**
-	 * @param proximoComando
-	 *            the proximoComando to set
-	 */
-	public void setProximoComando(InstrucaoGenerica proximoComando) {
-		this.proximoComando = proximoComando;
 	}
 
 	/**

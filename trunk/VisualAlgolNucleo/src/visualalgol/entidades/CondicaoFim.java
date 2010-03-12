@@ -8,22 +8,9 @@ import java.util.List;
  */
 public class CondicaoFim extends InstrucaoGenerica{
 	private static final long serialVersionUID = 1L;
-	private InstrucaoGenerica proximoComando;
 	private Linha linhaSaida;
 	private List<Linha> listLinhaEntrada = new ArrayList<Linha>();
 
-	/**
-	 * @return the proximoComando
-	 */
-	public InstrucaoGenerica getProximoComando() {
-		return proximoComando;
-	}
-	/**
-	 * @param proximoComando the proximoComando to set
-	 */
-	public void setProximoComando(InstrucaoGenerica proximoComando) {
-		this.proximoComando = proximoComando;
-	}
 	/**
 	 * @return the linhaSaida
 	 */

@@ -39,15 +39,6 @@ public class CondicaoIf extends InstrucaoGenerica {
 	 */
 	private String descricaoCondicao;
 
-	/**
-	 * Para onde ir se resultado for verdadeiro
-	 */
-	private InstrucaoGenerica irVerdadeiro;
-
-	/**
-	 * Para onde ir se resultado for falso
-	 */
-	private InstrucaoGenerica irFalso;
 
 	/**
 	 * @return the linhaVerdadeira
@@ -92,36 +83,6 @@ public class CondicaoIf extends InstrucaoGenerica {
 	 */
 	public void setDescricaoCondicao(String descricaoCondicao) {
 		this.descricaoCondicao = descricaoCondicao;
-	}
-
-	/**
-	 * @return the irVerdadeiro
-	 */
-	public InstrucaoGenerica getIrVerdadeiro() {
-		return irVerdadeiro;
-	}
-
-	/**
-	 * @param irVerdadeiro
-	 *            the irVerdadeiro to set
-	 */
-	public void setIrVerdadeiro(InstrucaoGenerica irVerdadeiro) {
-		this.irVerdadeiro = irVerdadeiro;
-	}
-
-	/**
-	 * @return the irFalso
-	 */
-	public InstrucaoGenerica getIrFalso() {
-		return irFalso;
-	}
-
-	/**
-	 * @param irFalso
-	 *            the irFalso to set
-	 */
-	public void setIrFalso(InstrucaoGenerica irFalso) {
-		this.irFalso = irFalso;
 	}
 
 	/**
