@@ -232,11 +232,14 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		abrirAlgoritmo.abrirArquivo(path,this);
 	}
 
-
 	public void informar(String string) {
 		saidaDialogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		saidaDialogo.setText(string);
 		saidaDialogo.setOpaque(true);
 		saidaDialogo.setBackground(new Color(0xFFFFEE));
+	}
+	
+	public EscreverFerramenta getEscreverFerramenta() {
+		return escreverFerramenta;
 	}
 }

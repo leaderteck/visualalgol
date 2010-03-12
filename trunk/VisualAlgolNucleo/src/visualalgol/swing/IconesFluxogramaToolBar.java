@@ -24,7 +24,7 @@ public class IconesFluxogramaToolBar extends JToolBar{
 		this.add(btnComando);
 		this.add(btnFimDecisao);
 		this.add(btnLigarBlocos);
-		this.add(btnEscrever);
+		//this.add(btnEscrever);
 	}
 
 	/**
