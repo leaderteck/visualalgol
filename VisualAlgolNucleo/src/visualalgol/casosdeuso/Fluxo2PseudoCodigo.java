@@ -31,6 +31,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	@Override
 	public void executar(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
+		mainFrame.getTelaPseudoCodigo().setText("");
 		// detecta os loops
 		navegarPeloGrafo(false);
 		// imprime o codigo na tela

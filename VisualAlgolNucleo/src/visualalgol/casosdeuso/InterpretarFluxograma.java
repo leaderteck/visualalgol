@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso;
 
+import javax.swing.JOptionPane;
+
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
@@ -81,7 +83,10 @@ public class InterpretarFluxograma extends CasoDeUso{
     					 // Convert the result to a string and print it.
         	            System.err.println(s +" -> "+ Context.toString(result));
     				}catch(RuntimeException e){
+    					//TODO definir como tratar os erros
     					System.out.println("Erro: " + e.getMessage());
+    					e.printStackTrace();
+    					JOptionPane.showInputDialog(e.getMessage() + "?");
     					return;
     				}
     	           
