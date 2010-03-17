@@ -14,6 +14,7 @@ public class Linha implements Serializable{
 	private InstrucaoGenerica origem;
 	private InstrucaoGenerica destino;
 	private Point pontoTemporario;
+	private boolean executado;
 	private List<Point> listPontos = new ArrayList<Point>();
 	/**
 	 * @return the origem
@@ -62,5 +63,13 @@ public class Linha implements Serializable{
 	 */
 	public void setListPontos(List<Point> listPontos) {
 		this.listPontos = listPontos;
+	}
+	
+	public void setExecutado(boolean executado) {
+		this.executado = executado;
+	}
+	
+	public boolean isExecutado() {
+		return executado;
 	}
 }

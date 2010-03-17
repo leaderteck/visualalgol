@@ -82,13 +82,28 @@ public class AtualizarTela extends CasoDeUso {
 		Algoritmo algoritimo = mainFrame.getAlgoritmo();
 		int w = mainFrame.getTelaDesenhoFluxograma().getWidth();
 		int h = mainFrame.getTelaDesenhoFluxograma().getHeight();
+		//calcular o tamanho da imagem
+		int maxY=0,maxX=0;
+		for (InstrucaoGenerica instrucao : algoritimo.getListComando()) {
+			maxY = Math.max(maxY,instrucao.getY());
+			maxX = Math.max(maxX,instrucao.getX());
+		}
+		h=Math.max(maxY+100,h);
+		w=Math.max(maxX+100,w);
+		
 		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		Graphics gra = bi.getGraphics();
 		gra.setColor(Color.WHITE);
 		gra.fillRect(0, 0, w, h);
-		gra.setColor(Color.BLACK);
+		
 		// desenhar as linhas em baixo
 		for (Linha linha : algoritimo.getListLinha()) {
+			if(linha.isExecutado()){
+				gra.setColor(Color.GREEN);
+			}else{
+				gra.setColor(Color.BLACK);	
+			}
+			
 			Point lastPoint = new Point(linha.getOrigem().getX(), linha.getOrigem().getY());
 			for (Point point : linha.getListPontos()) {
 				gra.drawLine(lastPoint.x, lastPoint.y, point.x, point.y);

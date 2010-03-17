@@ -58,6 +58,9 @@ public class InterpretarFluxograma extends CasoDeUso{
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
 			instrucao.setExecutado(false);
 		}
+		for (Linha linha : alg.getListLinha()) {
+			linha.setExecutado(false);
+		}
 		Inicio inicio = alg.getComandoInicial();
 		
 		// Creates and enters a Context. The Context stores information
@@ -76,7 +79,6 @@ public class InterpretarFluxograma extends CasoDeUso{
     			if(instrucao instanceof Comando){
     				Comando comando = (Comando) instrucao;
     				String s = comando.getPseudoCodigo();
-    				
     				// Now evaluate the string we've colected.
     				try{
     					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
@@ -89,11 +91,10 @@ public class InterpretarFluxograma extends CasoDeUso{
     					JOptionPane.showInputDialog(e.getMessage() + "?");
     					return;
     				}
-    	           
     	            comando.setExecutado(true);
-    	            
     	            //load
         			instrucao = comando.getLinhaSaida().getDestino();
+        			comando.getLinhaSaida().setExecutado(true);
     			}else if(instrucao instanceof CondicaoIf){
     				CondicaoIf condicao = (CondicaoIf) instrucao;
     				String s = condicao.getPseudoCodigo();
@@ -103,23 +104,23 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            // Convert the result to a string and print it.
     	            System.err.println(s +" -> "+ resposta);
     	            condicao.setExecutado(true);
-    	            
     	            if(resposta.equals("true")){
     	            	instrucao = condicao.getLinhaVerdadeira().getDestino();
+    	            	condicao.getLinhaVerdadeira().setExecutado(true);
     	            }else{
     	            	instrucao = condicao.getLinhaFalsa().getDestino();
+    	            	condicao.getLinhaFalsa().setExecutado(true);
     	            }
     			}else if(instrucao instanceof CondicaoFim){
     				CondicaoFim condicaoFim = (CondicaoFim) instrucao;
     				condicaoFim.setExecutado(true);
     				//load
         			instrucao = condicaoFim.getLinhaSaida().getDestino();
+        			condicaoFim.getLinhaSaida().setExecutado(true);
     			}else{
     				instrucao = null;
     			}
-    			
     		}
-
         } finally {
             // Exit from the context.
             Context.exit();
