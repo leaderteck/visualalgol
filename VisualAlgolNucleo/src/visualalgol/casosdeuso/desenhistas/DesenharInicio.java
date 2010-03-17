@@ -19,7 +19,11 @@ public class DesenharInicio implements Desenhista{
 		Graphics gra = bi.getGraphics();
 		gra.setColor(new Color(instrucao.getCor()));
 		gra.fillOval(instrucao.getX()-wPor2, instrucao.getY()-hPor2,w, h);
-		gra.setColor(Color.BLACK);
+		if(instrucao.isExecutado()){
+			gra.setColor(Color.GREEN);
+		}else{
+			gra.setColor(Color.BLACK);
+		}
 		gra.drawOval(instrucao.getX()-wPor2, instrucao.getY()-hPor2,w, h);
 		//fazendo o "HIT"
 		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY()-hPor2);
