@@ -19,7 +19,14 @@ import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
 public class InterpretarFluxograma extends CasoDeUso{
+	private InterpretarWhy interpretarWhy;
+	
+	public void setInterpretarWhy(InterpretarWhy interpretarWhy) {
+		this.interpretarWhy = interpretarWhy;
+	}
+	
 	public static void main(String[] args) {
+		InterpretarFluxograma interpretador = new InterpretarFluxograma();
 		Algoritmo alg = new Algoritmo();
 		Inicio ini = new Inicio();
 		Linha linha = new Linha();
@@ -39,7 +46,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		comando.setLinhaSaida(linha);
 		
 		alg.setComandoInicial(ini);
-		interpretarAlgoritmo(alg);
+		interpretador.interpretarAlgoritmo(alg);
 	}
 	
 	private static Comando addComando(Comando pai,String pseudoCodigo){
@@ -58,7 +65,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		interpretarAlgoritmo(alg);
 	}
 	
-	private static void interpretarAlgoritmo(Algoritmo alg){
+	public void interpretarAlgoritmo(Algoritmo alg){
 		Terminal terminal = new Terminal();
 		//zerar os executados
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
@@ -82,6 +89,7 @@ public class InterpretarFluxograma extends CasoDeUso{
             // Collect the arguments into a single string.
             //load
     		InstrucaoGenerica instrucao = inicio.getLinhaSaida().getDestino();
+    		instrucao.setInstrucaoAnterior(inicio);
     		while(instrucao!=null){
     			if(instrucao instanceof Comando){
     				Comando comando = (Comando) instrucao;
@@ -91,6 +99,10 @@ public class InterpretarFluxograma extends CasoDeUso{
     					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
     					 // Convert the result to a string and print it.
     					terminal.write(s +" -> "+ Context.toString(result)+'\n');
+    					
+    					if(interpretarWhy!=null){
+    						interpretarWhy.informarComandoExecutado(comando, scope);
+    					}
     				}catch(RuntimeException e){
     					//TODO definir como tratar os erros
     					System.out.println("Erro: " + e.getMessage());
@@ -109,6 +121,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            
     	            //load
         			instrucao = comando.getLinhaSaida().getDestino();
+        			instrucao.setInstrucaoAnterior(comando);
         			comando.getLinhaSaida().setExecutado(true);
     			}else if(instrucao instanceof CondicaoIf){
     				CondicaoIf condicao = (CondicaoIf) instrucao;
@@ -120,10 +133,14 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            System.err.println(s +" -> "+ resposta);
     	            condicao.setExecutado(true);
     	            if(resposta.equals("true")){
+    	            	condicao.setResultado(true);
     	            	instrucao = condicao.getLinhaVerdadeira().getDestino();
+    	            	instrucao.setInstrucaoAnterior(condicao);
     	            	condicao.getLinhaVerdadeira().setExecutado(true);
     	            }else{
+    	            	condicao.setResultado(false);
     	            	instrucao = condicao.getLinhaFalsa().getDestino();
+    	            	instrucao.setInstrucaoAnterior(condicao);
     	            	condicao.getLinhaFalsa().setExecutado(true);
     	            }
     			}else if(instrucao instanceof CondicaoFim){
@@ -131,6 +148,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     				condicaoFim.setExecutado(true);
     				//load
         			instrucao = condicaoFim.getLinhaSaida().getDestino();
+        			instrucao.setInstrucaoAnterior(condicaoFim);
         			condicaoFim.getLinhaSaida().setExecutado(true);
     			}else{
     				instrucao = null;

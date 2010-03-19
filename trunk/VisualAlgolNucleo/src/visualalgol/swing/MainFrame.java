@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -12,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -21,12 +25,15 @@ import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
+import visualalgol.casosdeuso.InterpretarWhy;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.EscreverFerramenta;
 import visualalgol.ferramenta.Ferramenta;
 import visualalgol.ferramenta.LigarBlocosFerramenta;
+import visualalgol.swing.console.Console;
+import visualalgol.swing.console.OnEnter;
 
 public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private static final long serialVersionUID = 1L;
@@ -38,7 +45,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private MenuPrincipal menuPrincipal;
 	private TelaPseudoCodigo telaPseudoCodigo;
 	private EscreverFerramenta escreverFerramenta;
-	private JTextField dialogo;
+	private JTextField entradaDeTextoUsuario;
+	private Console console;
 	private JLabel saidaDialogo;
 	public MainFrame() {
 		// Instanciando...
@@ -49,7 +57,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		menuPrincipal = new MenuPrincipal();
 		telaPseudoCodigo = new TelaPseudoCodigo();
 		escreverFerramenta = new EscreverFerramenta();
-		dialogo = new JTextField();
+		console = new Console();
+		entradaDeTextoUsuario = console.getEntrada();
 		saidaDialogo = new JLabel();
 		
 		// Configurando...
@@ -111,22 +120,40 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 				new InterpretarFluxograma().executar(MainFrame.this);
 			}
 		});
+		console.addOnEnterListener(new OnEnter() {
+			public void textoDigitado(String texto) {
+				InterpretarWhy interpretador = new InterpretarWhy();
+				interpretador.setTextoDigitado(texto);
+				interpretador.executar(MainFrame.this);
+			}
+		});
+		
 		
 		// Layout
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("Console",console);
+		
+		
+		JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,new JScrollPane(telaPseudoCodigo),tabbedPane);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),splitPane2);
+		splitPane.setDividerLocation(.5);
+		splitPane.setDividerLocation(400);
+		splitPane2.setDividerLocation(.5);
+		splitPane2.setDividerLocation(400);
+		
+		saidaDialogo.setHorizontalAlignment(SwingConstants.RIGHT);
+		saidaDialogo.setText("VisuAlgo");
+		
+		
+		
 		this.setTitle("");
 		this.setSize(800, 600);
 		
 		this.setJMenuBar(menuPrincipal);
 		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),new JScrollPane(telaPseudoCodigo));
-		this.add(splitPane, BorderLayout.CENTER);
-		splitPane.setDividerLocation(.5);
-		splitPane.setDividerLocation(400);
-		JPanel south = new JPanel(new GridLayout(0,2));
-		saidaDialogo.setHorizontalAlignment(SwingConstants.RIGHT);
-		south.add(dialogo);
-		south.add(saidaDialogo);
-		this.add(south,BorderLayout.SOUTH);
+		
+		this.add(splitPane, BorderLayout.CENTER);		
+		this.add(saidaDialogo,BorderLayout.SOUTH);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -241,5 +268,9 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	
 	public EscreverFerramenta getEscreverFerramenta() {
 		return escreverFerramenta;
+	}
+	
+	public Console getConsole() {
+		return console;
 	}
 }
