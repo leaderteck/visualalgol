@@ -25,18 +25,22 @@ public class MenuPrincipal extends JMenuBar{
 	private ArquivoRecente arquivoRecente;
 	private JMenu arquivo; 
 	private JMenu recentes;
+	private JMenu compilar;
 	public MenuPrincipal() {
 		//instancia
 		salvarMenuItem = new JMenuItem("Salvar");
 		abrirMenuItem = new JMenuItem("Abrir");
 		verPseudoCodigo = new JMenuItem("Ver Pseudo Codigo");
 		rodar = new JMenuItem("Executar");
+		arquivo = new JMenu("Arquivo");
 		recentes = new JMenu("Recentes");
+		compilar = new JMenu("Compilar");
+		JMenu visualizacao = new JMenu("Visualizar");
+		
 		//configuracao
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		abrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-		arquivo = new JMenu("Arquivo");
-		JMenu visualizacao = new JMenu("Visualizar");
+		rodar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9,0));
 		//layout
 		arquivo.add(abrirMenuItem);
 		arquivo.add(recentes);
@@ -44,8 +48,9 @@ public class MenuPrincipal extends JMenuBar{
 		this.add(arquivo);
 		
 		visualizacao.add(verPseudoCodigo);
-		visualizacao.add(rodar);
 		this.add(visualizacao);
+		compilar.add(rodar);
+		this.add(compilar);
 	}
 	
 	private void criarRecentes(){
