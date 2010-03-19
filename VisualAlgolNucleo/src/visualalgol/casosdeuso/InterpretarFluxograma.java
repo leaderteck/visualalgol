@@ -66,6 +66,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		// Creates and enters a Context. The Context stores information
         // about the execution environment of a script.
         Context cx = Context.enter();
+        cx.setDebugger(null, null);
         try {
             // Initialize the standard objects (Object, Function, etc.)
             // This must be done before scripts can be executed. Returns
@@ -92,6 +93,12 @@ public class InterpretarFluxograma extends CasoDeUso{
     					return;
     				}
     	            comando.setExecutado(true);
+    	            //print chinezinho
+    	            Object obj[] = scope.getIds();
+    	    		for(int i=0;i<obj.length;i++){
+    	    			System.err.println(obj[i] + " <-- " + scope.get(obj[i].toString(),scope ));
+    	    		}
+    	            
     	            //load
         			instrucao = comando.getLinhaSaida().getDestino();
         			comando.getLinhaSaida().setExecutado(true);
@@ -120,7 +127,9 @@ public class InterpretarFluxograma extends CasoDeUso{
     			}else{
     				instrucao = null;
     			}
-    		}
+    		}//end the while
+    		
+    		
         } finally {
             // Exit from the context.
             Context.exit();
