@@ -27,7 +27,7 @@ public abstract class InstrucaoGenerica implements Serializable{
 	 */
 	private boolean visitado;
 	
-	private InstrucaoGenerica comandoAnterior;
+	private InstrucaoGenerica instrucaoAnterior;
 	private String pseudoCodigo;
 
 	/**
@@ -72,12 +72,12 @@ public abstract class InstrucaoGenerica implements Serializable{
 		this.visitado = visitado;
 	}
 	
-	public InstrucaoGenerica getComandoAnterior() {
-		return comandoAnterior;
+	public InstrucaoGenerica getInstrucaoAnterior() {
+		return instrucaoAnterior;
 	}
 	
-	public void setComandoAnterior(InstrucaoGenerica comandoAnterior) {
-		this.comandoAnterior = comandoAnterior;
+	public void setInstrucaoAnterior(InstrucaoGenerica comandoAnterior) {
+		this.instrucaoAnterior = comandoAnterior;
 	}
 
 	/**
