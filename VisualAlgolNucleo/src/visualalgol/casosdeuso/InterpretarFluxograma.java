@@ -1,6 +1,11 @@
 package visualalgol.casosdeuso;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -54,6 +59,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 	}
 	
 	private static void interpretarAlgoritmo(Algoritmo alg){
+		Terminal terminal = new Terminal();
 		//zerar os executados
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
 			instrucao.setExecutado(false);
@@ -84,7 +90,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     				try{
     					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
     					 // Convert the result to a string and print it.
-        	            System.err.println(s +" -> "+ Context.toString(result));
+    					terminal.write(s +" -> "+ Context.toString(result)+'\n');
     				}catch(RuntimeException e){
     					//TODO definir como tratar os erros
     					System.out.println("Erro: " + e.getMessage());
@@ -96,7 +102,9 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            //print chinezinho
     	            Object obj[] = scope.getIds();
     	    		for(int i=0;i<obj.length;i++){
-    	    			System.err.println(obj[i] + " <-- " + scope.get(obj[i].toString(),scope ));
+    	    			String key = obj[i].toString();
+    	    			Object value = scope.get(key,scope);
+    	    			System.err.println(key + " <-- " + value);
     	    		}
     	            
     	            //load
@@ -128,11 +136,26 @@ public class InterpretarFluxograma extends CasoDeUso{
     				instrucao = null;
     			}
     		}//end the while
-    		
-    		
         } finally {
             // Exit from the context.
             Context.exit();
         }
+	}
+}
+class Terminal{
+	//pular uma janela como o pascalzim?
+	JFrame frame = new JFrame();
+	JTextArea textarea = new JTextArea();
+	public Terminal() {
+		frame.add(new JScrollPane(textarea),BorderLayout.CENTER);
+		frame.setSize(400, 300);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+	public void kill(){
+		frame.setVisible(false);
+	}
+	public void write(String string){
+		textarea.setText(textarea.getText()+string);
 	}
 }
