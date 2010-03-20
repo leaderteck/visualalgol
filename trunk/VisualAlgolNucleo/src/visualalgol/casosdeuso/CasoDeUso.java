@@ -16,6 +16,11 @@ public abstract class CasoDeUso {
 			pastaDoPrograma.mkdirs();
 		}
 	}
+	
+	/**
+	 * Pasta para guardar configuracoes do programa
+	 * @return "user.home" + ".visualgo"
+	 */
 	public static File getPastaDoPrograma() {
 		return pastaDoPrograma;
 	}

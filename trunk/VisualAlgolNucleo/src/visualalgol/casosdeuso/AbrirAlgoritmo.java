@@ -45,14 +45,15 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			
 			// Colocar na lista de recentes
 			List<String> lista = mainFrame.getMenuPrincipal().getArquivoRecente().getPaths();
-			if (!lista.contains(file.getAbsolutePath())) {
-				lista.add(0, file.getAbsolutePath());
-				// retirar o excesso
-				for (int i = 10; i < lista.size(); i++) {
-					lista.remove(i);
-				}
-				salvarRecentes(mainFrame);
+			//remove uma possivel entrada duplicada
+			lista.remove(file.getAbsolutePath());
+			//coloca em primeiro
+			lista.add(0, file.getAbsolutePath());
+			// retirar o excesso
+			for (int i = 10; i < lista.size(); i++) {
+				lista.remove(i);
 			}
+			salvarRecentes(mainFrame);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} catch (ClassNotFoundException ex) {
