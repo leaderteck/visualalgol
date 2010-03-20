@@ -79,6 +79,7 @@ public class SalvarAlgoritmo extends CasoDeUso {
 					file = new File(file.getAbsolutePath()+'.'+EXTENSAO);
 				}
 				salvar(mainFrame.getAlgoritmo(),file);
+				AbrirAlgoritmo.setAlgoritmoAberto(file);
 			}
 		}
 		mainFrame.informar("Salvo.");

@@ -19,7 +19,6 @@ public class IniciarPrograma extends CasoDeUso {
 	@Override
 	public void executar(MainFrame mainFrame) {
 		mainFrame.informar("Iniciando...");
-		
 		mainFrame.setFerramenta(new CondicaoIfFerramenta());
 		
 		// Iniciar a lista de recentes
@@ -33,6 +32,7 @@ public class IniciarPrograma extends CasoDeUso {
 			mainFrame.informar("Iniciado um algoritmo vazio.");
 		}
 		
+		
 		AtualizarTela atualizarTela = new AtualizarTela();
 		atualizarTela.executar(mainFrame);
 	}
@@ -41,6 +41,9 @@ public class IniciarPrograma extends CasoDeUso {
 		Algoritmo algoritmo = new Algoritmo();
 		sistema.setAlgoritmo(algoritmo);
 		sistema.setTitle(null);
+		sistema.getFerramentaAtual().setAlgoritmo(algoritmo);
+		sistema.getEscreverFerramenta().setAlgoritmo(algoritmo);
+		
 		AbrirAlgoritmo.setAlgoritmoAberto(null);
 		
 		// criar o inicio e o fim
