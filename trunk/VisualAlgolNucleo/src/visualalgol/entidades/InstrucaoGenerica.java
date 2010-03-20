@@ -188,4 +188,6 @@ public abstract class InstrucaoGenerica implements Serializable{
 	public void setExecutado(boolean executado) {
 		this.executado = executado;
 	}
+
+	public abstract void substituirEntrada(Linha procurarPor, Linha substituirPor);
 }

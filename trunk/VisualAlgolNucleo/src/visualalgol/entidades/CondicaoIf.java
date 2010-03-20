@@ -123,4 +123,9 @@ public class CondicaoIf extends InstrucaoGenerica {
 		getAlgoritmo().getListLinha().remove(linhaEntradaLoopBack);
 		super.delete();
 	}
+
+	@Override
+	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
+		linhaEntrada = substituirPor;
+	}
 }

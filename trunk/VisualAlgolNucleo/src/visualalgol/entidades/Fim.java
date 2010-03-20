@@ -21,4 +21,9 @@ public class Fim extends InstrucaoGenerica{
 	public void setLinhaEntrada(Linha linhaEntrada) {
 		this.linhaEntrada = linhaEntrada;
 	}
+
+	@Override
+	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
+		this.linhaEntrada = substituirPor;
+	}
 }

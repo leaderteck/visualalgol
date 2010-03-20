@@ -15,22 +15,22 @@ public class ComandoFerramenta extends Ferramenta {
 		InstrucaoGenerica instrucao = getInstrucaoEm(e.getX(), e.getY());
 		if(instrucao!=null) return;
 		// pegar a linha em x y do mouse
-		Linha linha = getLinhaEm(e.getX(), e.getY());
-		if(linha!=null){
-			if(linha.getPontoTemporario()!=null){//Criar antes deste ponto
+		Linha linhaEntrada = getLinhaEm(e.getX(), e.getY());
+		if(linhaEntrada!=null){
+			if(linhaEntrada.getPontoTemporario()!=null){//Criar antes deste ponto
 				//separar a linha em duas, quebrando no ponto temporario
-				Linha linhaB = new Linha();
+				Linha linhaSaida = new Linha();
 				boolean copiar = false;
 				int x=e.getX();
-				for(int i=0;i<linha.getListPontos().size();i++){
-					Point point = linha.getListPontos().get(i);
-					if(point==linha.getPontoTemporario()){
+				for(int i=0;i<linhaEntrada.getListPontos().size();i++){
+					Point point = linhaEntrada.getListPontos().get(i);
+					if(point==linhaEntrada.getPontoTemporario()){
 						copiar = true;
 						x = point.x;
 					}
 					if(copiar){
-						linha.getListPontos().remove(point);
-						linhaB.getListPontos().add(point);
+						if(!linhaEntrada.getListPontos().remove(point)) throw new RuntimeException("Nao removido");
+						linhaSaida.getListPontos().add(point);
 					}
 				}
 				
@@ -38,27 +38,32 @@ public class ComandoFerramenta extends Ferramenta {
 				Comando comando = criarComando(x,e.getY());
 				
 				//Ligar as linhas
-				ligarLinhas(linha, linhaB, comando);
+				ligarLinhas(linhaEntrada, linhaSaida, comando);
 			}else{//criar antes do destino
-				int x = linha.getDestino().getX();
+				int x = linhaEntrada.getDestino().getX();
 				//criar o comando
 				Comando comando = criarComando(x,e.getY());
-				Linha linhaB = new Linha();
+				Linha linhaSaida = new Linha();
 				
 				//Ligar as linhas
-				ligarLinhas(linha, linhaB, comando);
+				ligarLinhas(linhaEntrada, linhaSaida, comando);
 			}
 			Ator.getInstance().criouInstrucao();
 		}
 	}
 
-	private void ligarLinhas(Linha linha, Linha linhaB, Comando comando) {
-		linhaB.setOrigem(comando);
-		linhaB.setDestino(linha.getDestino());
-		linha.setDestino(comando);
-		comando.setLinhaEntrada(linha);
-		comando.setLinhaSaida(linhaB);
-		getAlgoritmo().getListLinha().add(linhaB);
+	private void ligarLinhas(Linha linhaEntrada, Linha linhaSaida, Comando comando) {
+		//a saida deve ser a entrada do destino
+		InstrucaoGenerica destino = linhaEntrada.getDestino();
+		destino.substituirEntrada(linhaEntrada,linhaSaida);
+		linhaSaida.setOrigem(comando);
+		linhaSaida.setDestino(destino);
+		
+		linhaEntrada.setDestino(comando);
+		
+		comando.setLinhaEntrada(linhaEntrada);
+		comando.setLinhaSaida(linhaSaida);
+		getAlgoritmo().getListLinha().add(linhaSaida);
 	}
 	
 	private Comando criarComando(int x,int y){
