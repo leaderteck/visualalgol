@@ -26,16 +26,22 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenu arquivo; 
 	private JMenu recentes;
 	private JMenu compilar;
+	private JMenuItem novo;
 	public MenuPrincipal() {
 		//instancia
 		salvarMenuItem = new JMenuItem("Salvar");
 		abrirMenuItem = new JMenuItem("Abrir");
+		
 		verPseudoCodigo = new JMenuItem("Ver Pseudo Codigo");
 		rodar = new JMenuItem("Executar");
 		arquivo = new JMenu("Arquivo");
 		recentes = new JMenu("Recentes");
 		compilar = new JMenu("Compilar");
+		novo = new JMenuItem("Novo");
 		JMenu visualizacao = new JMenu("Visualizar");
+		
+		novo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		novo.setMnemonic('N');
 		
 		//configuracao
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -43,6 +49,7 @@ public class MenuPrincipal extends JMenuBar{
 		rodar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9,0));
 		//layout
 		arquivo.add(abrirMenuItem);
+		arquivo.add(novo);
 		arquivo.add(recentes);
 		arquivo.add(salvarMenuItem);
 		this.add(arquivo);
@@ -129,5 +136,7 @@ public class MenuPrincipal extends JMenuBar{
 	public JMenuItem getRodar() {
 		return rodar;
 	}
-
+	public JMenuItem getNovo() {
+		return novo;
+	}
 }

@@ -27,9 +27,9 @@ public class IniciarPrograma extends CasoDeUso {
 		if(arquivoRecente.getPaths().size()>0){
 			AbrirAlgoritmo abrir = new AbrirAlgoritmo();
 			abrir.abrirArquivo(arquivoRecente.getPaths().get(0), mainFrame);
-			mainFrame.informar("Aberto o último algoritmo salvo.");
+			mainFrame.informar("Aberto o último algoritmo.");
 		}else{
-			criarAlgoritmoVazio();
+			criarAlgoritmoVazio(mainFrame);
 			mainFrame.informar("Iniciado um algoritmo vazio.");
 		}
 		
@@ -37,9 +37,11 @@ public class IniciarPrograma extends CasoDeUso {
 		atualizarTela.executar(mainFrame);
 	}
 	
-	private void criarAlgoritmoVazio(){
+	public static void criarAlgoritmoVazio(MainFrame sistema){
 		Algoritmo algoritmo = new Algoritmo();
 		sistema.setAlgoritmo(algoritmo);
+		sistema.setTitle(null);
+		AbrirAlgoritmo.setAlgoritmoAberto(null);
 		
 		// criar o inicio e o fim
 		Inicio inicio = new Inicio();

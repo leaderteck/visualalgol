@@ -82,5 +82,7 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 	public static File getAlgoritmoAberto() {
 		return algoritmoAberto;
 	}
-	
+	public static void setAlgoritmoAberto(File algoritmoAberto) {
+		AbrirAlgoritmo.algoritmoAberto = algoritmoAberto;
+	}
 }
