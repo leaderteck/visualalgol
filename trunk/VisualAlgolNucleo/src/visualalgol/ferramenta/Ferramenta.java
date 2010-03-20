@@ -1,6 +1,7 @@
 package visualalgol.ferramenta;
 
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,7 +20,8 @@ import visualalgol.entidades.Linha;
 public abstract class Ferramenta implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 	private Algoritmo algoritmo;
 	private InstrucaoGenerica arrastando;
-
+	private Point arrastandoPonto;
+	protected Linha linha;
 	public void finalizar(){
 		
 	}
@@ -67,16 +69,48 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	public void mouseDragged(MouseEvent e) {
 		int difX = ultimoX - e.getX();
 		int difY = ultimoY - e.getY();
-		if (arrastando != null) {
-			arrastando.setX(arrastando.getX() - difX);
-			arrastando.setY(arrastando.getY() - difY);
+		if (arrastandoPonto != null) {
+			arrastandoPonto.x = arrastandoPonto.x - difX;
+			arrastandoPonto.y = arrastandoPonto.y - difY;
+			ultimoX = e.getX();
+			ultimoY = e.getY();
+		} else {
+			if (arrastando != null) {
+				arrastando.setX(arrastando.getX() - difX);
+				arrastando.setY(arrastando.getY() - difY);
+				
+			}
+			ultimoX = e.getX();
+			ultimoY = e.getY();
 		}
-		ultimoX = e.getX();
-		ultimoY = e.getY();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		// desenhar um quadrado do hit do mouse
+		Polygon p = new Polygon();
+		p.addPoint(x - 5, y - 5);
+		p.addPoint(x + 5, y - 5);
+		p.addPoint(x + 5, y + 5);
+		p.addPoint(x - 5, y + 5);
+
+		// listar os join points das linhas
+		for (Linha lin : getAlgoritmo().getListLinha()) {
+			for (Point point : lin.getListPontos()) {
+				if (p.contains(point)) {
+					arrastandoPonto = point;
+					ultimoX = x;
+					ultimoY = y;
+					setArrastando(null);
+					linha = lin;
+					return;
+				}
+			}
+		}
+		arrastandoPonto = null;
+		
 		ultimoX = e.getX();
 		ultimoY = e.getY();
 		// verificar se esta selecionando um dos comandos
@@ -131,8 +165,13 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (arrastando != null && e.getKeyCode() == KeyEvent.VK_DELETE) {
-			arrastando.delete();
+		if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+			if (linha != null && arrastandoPonto != null) {
+				linha.getListPontos().remove(arrastandoPonto);
+			}
+			if (arrastando != null) {
+				arrastando.delete();
+			}
 		}
 	}
 

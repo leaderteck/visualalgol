@@ -24,8 +24,8 @@ public class LigarBlocosFerramenta extends Ferramenta {
 	private InstrucaoGenerica instrucaoOrigem = null;
 	private InstrucaoGenerica instrucaoDestino = null;
 	private boolean caminhoValor;
-	private Linha linha;
-	private Point arrastandoPonto;
+	
+	
 	private int ultimoX, ultimoY;
 
 	public LigarBlocosFerramenta() {
@@ -131,58 +131,6 @@ public class LigarBlocosFerramenta extends Ferramenta {
 			condicaoFim.setLinhaSaida(linha);
 		}
 		getAlgoritmo().getListLinha().add(linha);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		// desenhar um quadrado do hit do mouse
-		Polygon p = new Polygon();
-		p.addPoint(x - 5, y - 5);
-		p.addPoint(x + 5, y - 5);
-		p.addPoint(x + 5, y + 5);
-		p.addPoint(x - 5, y + 5);
-
-		// listar os join points das linhas
-		for (Linha lin : getAlgoritmo().getListLinha()) {
-			for (Point point : lin.getListPontos()) {
-				if (p.contains(point)) {
-					arrastandoPonto = point;
-					ultimoX = x;
-					ultimoY = y;
-					setArrastando(null);
-					linha = lin;
-					return;
-				}
-			}
-		}
-		arrastandoPonto = null;
-
-		super.mousePressed(e);
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if (linha != null && arrastandoPonto != null) {
-			linha.getListPontos().remove(arrastandoPonto);
-		} else {
-			super.keyReleased(e);
-		}
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		int difX = ultimoX - e.getX();
-		int difY = ultimoY - e.getY();
-		if (arrastandoPonto != null) {
-			arrastandoPonto.x = arrastandoPonto.x - difX;
-			arrastandoPonto.y = arrastandoPonto.y - difY;
-			ultimoX = e.getX();
-			ultimoY = e.getY();
-		} else {
-			super.mouseDragged(e);
-		}
 	}
 
 	@Override
