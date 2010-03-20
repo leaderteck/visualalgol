@@ -18,6 +18,7 @@ public class InterpretarWhy extends CasoDeUso{
 		if(!textoDigitado.startsWith("why ")){
 			return;
 		}
+		textoDigitado = textoDigitado.replaceAll("=+","=");
 		textoDigitado = textoDigitado.replace("?", " ? ");
 		textoDigitado = textoDigitado.replace("=", " = ");
 		textoDigitado = textoDigitado.replaceAll("\\s+"," ");
