@@ -12,12 +12,21 @@ public class DesenharComando implements Desenhista {
 
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
+		Graphics gra = bi.getGraphics();
+		
+		int larg = 0;
 		int w = instrucao.getW();
+		
+		
+		if(instrucao.getPseudoCodigo()!=null){
+			larg = gra.getFontMetrics().stringWidth(instrucao.getPseudoCodigo());
+			if(larg>w){
+				w=larg+6;
+			}
+		}
 		int wPor2 = w / 2;
 		int h = instrucao.getH();
 		int hPor2 = h / 2;
-		
-		Graphics gra = bi.getGraphics();
 		
 		// Retangulo com pontos A=top left,B=top right,C=bottom right,D=bottom left
 		Point a = new Point(instrucao.getX() - wPor2, instrucao.getY()-hPor2);
@@ -35,7 +44,6 @@ public class DesenharComando implements Desenhista {
 		gra.fillPolygon(p);
 		gra.setColor(Color.BLACK);
 		if(instrucao.getPseudoCodigo()!=null){
-			int larg = gra.getFontMetrics().stringWidth(instrucao.getPseudoCodigo());
 			gra.drawString(instrucao.getPseudoCodigo(), d.x+((w-larg)/2),d.y-15);
 		}
 		if(instrucao.isExecutado()){

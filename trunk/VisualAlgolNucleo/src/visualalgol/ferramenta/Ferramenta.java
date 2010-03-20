@@ -22,6 +22,8 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	private InstrucaoGenerica arrastando;
 	private Point arrastandoPonto;
 	protected Linha linha;
+	private int ultimoX, ultimoY;
+	
 	public void finalizar(){
 		
 	}
@@ -62,8 +64,6 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	public void mouseWheelMoved(MouseWheelEvent e) {
 
 	}
-
-	private int ultimoX, ultimoY;
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -175,7 +175,6 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 		}
 	}
 
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
 
