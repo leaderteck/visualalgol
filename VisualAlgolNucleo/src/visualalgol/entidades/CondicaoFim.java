@@ -43,5 +43,10 @@ public class CondicaoFim extends InstrucaoGenerica{
 	public void setListLinhaEntrada(List<Linha> listLinhaEntrada) {
 		this.listLinhaEntrada = listLinhaEntrada;
 	}
+	@Override
+	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
+		if(!listLinhaEntrada.remove(procurarPor)) throw new RuntimeException("Not found");
+		listLinhaEntrada.add(substituirPor);
+	}
 	
 }

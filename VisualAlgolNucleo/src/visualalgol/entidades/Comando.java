@@ -71,4 +71,10 @@ public class Comando extends InstrucaoGenerica {
 		//getAlgoritmo().getListLinha().remove(linhaEntrada);
 		super.delete();
 	}
+
+	@Override
+	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
+		this.linhaEntrada = substituirPor;
+	}
+
 }

@@ -20,4 +20,9 @@ public class Inicio extends InstrucaoGenerica{
 	public void setLinhaSaida(Linha linhaSaida) {
 		this.linhaSaida = linhaSaida;
 	}
+
+	@Override
+	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
+		
+	}
 }

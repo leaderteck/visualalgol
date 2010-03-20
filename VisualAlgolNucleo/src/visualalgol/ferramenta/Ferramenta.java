@@ -12,6 +12,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.List;
 
+import visualalgol.casosdeuso.Mover;
+import visualalgol.casosdeuso.MoverUsabilidade2;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -22,6 +24,9 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	private InstrucaoGenerica arrastando;
 	private Point arrastandoPonto;
 	protected Linha linha;
+	
+	private Mover mover = new MoverUsabilidade2();
+	
 	private int ultimoX, ultimoY;
 	
 	public void finalizar(){
@@ -67,22 +72,13 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		int difX = ultimoX - e.getX();
-		int difY = ultimoY - e.getY();
-		if (arrastandoPonto != null) {
-			arrastandoPonto.x = arrastandoPonto.x - difX;
-			arrastandoPonto.y = arrastandoPonto.y - difY;
-			ultimoX = e.getX();
-			ultimoY = e.getY();
-		} else {
-			if (arrastando != null) {
-				arrastando.setX(arrastando.getX() - difX);
-				arrastando.setY(arrastando.getY() - difY);
-				
-			}
-			ultimoX = e.getX();
-			ultimoY = e.getY();
-		}
+		int difX = e.getX() - ultimoX;
+		int difY = e.getY() - ultimoY;
+		
+		mover.mover(arrastandoPonto, arrastando, difX, difY);
+		
+		ultimoX = e.getX();
+		ultimoY = e.getY();
 	}
 
 	@Override
