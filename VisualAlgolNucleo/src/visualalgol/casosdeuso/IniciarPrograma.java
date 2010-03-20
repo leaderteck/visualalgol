@@ -18,11 +18,29 @@ public class IniciarPrograma extends CasoDeUso {
 
 	@Override
 	public void executar(MainFrame mainFrame) {
-		Algoritmo algoritmo = new Algoritmo();
-		mainFrame.setAlgoritmo(algoritmo);
+		mainFrame.informar("Iniciando...");
+		
+		mainFrame.setFerramenta(new CondicaoIfFerramenta());
+		
+		// Iniciar a lista de recentes
+		ArquivoRecente arquivoRecente = iniciarListaDeRecentes(mainFrame);
+		if(arquivoRecente.getPaths().size()>0){
+			AbrirAlgoritmo abrir = new AbrirAlgoritmo();
+			abrir.abrirArquivo(arquivoRecente.getPaths().get(0), mainFrame);
+			mainFrame.informar("Aberto o último algoritmo salvo.");
+		}else{
+			criarAlgoritmoVazio();
+			mainFrame.informar("Iniciado um algoritmo vazio.");
+		}
+		
 		AtualizarTela atualizarTela = new AtualizarTela();
 		atualizarTela.executar(mainFrame);
-		mainFrame.setFerramenta(new CondicaoIfFerramenta());
+	}
+	
+	private void criarAlgoritmoVazio(){
+		Algoritmo algoritmo = new Algoritmo();
+		sistema.setAlgoritmo(algoritmo);
+		
 		// criar o inicio e o fim
 		Inicio inicio = new Inicio();
 		inicio.setX(100);
@@ -48,12 +66,10 @@ public class IniciarPrograma extends CasoDeUso {
 		algoritmo.getListLinha().add(linha);
 		
 		inicio.setLinhaSaida(linha);
-		
-		// Iniciar a lista de recentes
-		iniciarListaDeRecentes(mainFrame);
 	}
 	
-	private void iniciarListaDeRecentes(MainFrame mainFrame){
+	private ArquivoRecente iniciarListaDeRecentes(MainFrame mainFrame){
+		ArquivoRecente retorno = new ArquivoRecente();
 		File file = new File(getPastaDoPrograma(),"recentes.txt");
 		if(file.exists()){
 			FileInputStream fis = null;
@@ -61,8 +77,8 @@ public class IniciarPrograma extends CasoDeUso {
 			try {
 				fis = new FileInputStream(file);
 				in = new ObjectInputStream(fis);
-				ArquivoRecente arquivoRecente = (ArquivoRecente) in.readObject();
-				mainFrame.getMenuPrincipal().setArquivoRecente(arquivoRecente);
+				retorno = (ArquivoRecente) in.readObject();
+				mainFrame.getMenuPrincipal().setArquivoRecente(retorno);
 				in.close();
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -70,7 +86,8 @@ public class IniciarPrograma extends CasoDeUso {
 				ex.printStackTrace();
 			}
 		}else{
-			mainFrame.getMenuPrincipal().setArquivoRecente(new ArquivoRecente());
+			mainFrame.getMenuPrincipal().setArquivoRecente(retorno);
 		}
+		return retorno;
 	}
 }

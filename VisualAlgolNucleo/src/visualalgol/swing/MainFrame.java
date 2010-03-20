@@ -1,25 +1,20 @@
 package visualalgol.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import visualalgol.casosdeuso.AbrirAlgoritmo;
+import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.casosdeuso.CriarComando;
 import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
@@ -45,7 +40,6 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	private MenuPrincipal menuPrincipal;
 	private TelaPseudoCodigo telaPseudoCodigo;
 	private EscreverFerramenta escreverFerramenta;
-	private JTextField entradaDeTextoUsuario;
 	private Console console;
 	private JLabel saidaDialogo;
 	public MainFrame() {
@@ -58,10 +52,10 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		telaPseudoCodigo = new TelaPseudoCodigo();
 		escreverFerramenta = new EscreverFerramenta();
 		console = new Console();
-		entradaDeTextoUsuario = console.getEntrada();
 		saidaDialogo = new JLabel();
 		
 		// Configurando...
+		console.setPersistirEmArquivo(new File(CasoDeUso.getPastaDoPrograma(), "comandos.txt"));
 		telaDesenhoFluxograma.addListener(escreverFerramenta);
 		menuPrincipal.setAbrirRecenteListener(this);
 		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
@@ -142,10 +136,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		splitPane2.setDividerLocation(400);
 		
 		saidaDialogo.setHorizontalAlignment(SwingConstants.RIGHT);
-		saidaDialogo.setText("VisuAlgo");
-		
-		
-		
+			
 		this.setTitle("");
 		this.setSize(800, 600);
 		
@@ -154,13 +145,19 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		
 		this.add(splitPane, BorderLayout.CENTER);		
 		this.add(saidaDialogo,BorderLayout.SOUTH);
-		this.setVisible(true);
+
+		//Toolkit tool = Toolkit.getDefaultToolkit();
+        //this.setSize(tool.getScreenSize());
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		IniciarPrograma iniciarPrograma = new IniciarPrograma();
 		iniciarPrograma.executar(this);
 		
 		escreverFerramenta.setAlgoritmo(algoritmo);
+		
+		this.setVisible(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}
 
 	@Override
@@ -260,10 +257,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	}
 
 	public void informar(String string) {
-		saidaDialogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		saidaDialogo.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 		saidaDialogo.setText(string);
-		saidaDialogo.setOpaque(true);
-		saidaDialogo.setBackground(new Color(0xFFFFEE));
 	}
 	
 	public EscreverFerramenta getEscreverFerramenta() {

@@ -66,7 +66,6 @@ public class InterpretarFluxograma extends CasoDeUso{
 	}
 	
 	public void interpretarAlgoritmo(Algoritmo alg){
-		Terminal terminal = new Terminal();
 		//zerar os executados
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
 			instrucao.setExecutado(false);
@@ -98,7 +97,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     				try{
     					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
     					 // Convert the result to a string and print it.
-    					terminal.write(s +" -> "+ Context.toString(result)+'\n');
+    					//terminal.write(s +" -> "+ Context.toString(result)+'\n');
     					
     					if(interpretarWhy!=null){
     						interpretarWhy.informarComandoExecutado(comando, scope);
