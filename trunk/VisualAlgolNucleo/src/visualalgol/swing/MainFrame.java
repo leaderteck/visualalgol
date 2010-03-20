@@ -91,27 +91,28 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 			}
 		});
 		menuPrincipal.getSalvarMenuItem().addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				salvar();
 			}
 		});
 		menuPrincipal.getAbrirMenuItem().addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				new AbrirAlgoritmo().executar(MainFrame.this);
 			}
 		});
 		menuPrincipal.getVerPseudoCodigo().addActionListener(new ActionListener(){
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new Fluxo2PseudoCodigo().executar(MainFrame.this);
 			}
 		});
 		menuPrincipal.getRodar().addActionListener(new ActionListener(){
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new InterpretarFluxograma().executar(MainFrame.this);
+			}
+		});
+		menuPrincipal.getNovo().addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);
 			}
 		});
 		console.addOnEnterListener(new OnEnter() {
