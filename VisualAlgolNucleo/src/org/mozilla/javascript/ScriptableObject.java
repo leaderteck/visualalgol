@@ -334,7 +334,6 @@ public abstract class ScriptableObject implements Scriptable, Serializable,
     {
         if (putImpl(null, index, start, value, EMPTY))
             return;
-
         if (start == this) throw Kit.codeBug();
         start.put(index, start, value);
     }
