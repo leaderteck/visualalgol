@@ -2,6 +2,7 @@ package visualalgol.casosdeuso;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import visualalgol.entidades.Algoritmo;
 import visualalgol.swing.MainFrame;
@@ -21,12 +23,16 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 		int returnVal = fc.showOpenDialog(mainFrame);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
-			abrirArquivo(file, mainFrame);
-			
+			try {
+				abrirArquivo(file, mainFrame);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(mainFrame, "Erro: Arquivo inexistente.");
+			}
 		}
 	}
 
-	private void abrirArquivo(File file, MainFrame mainFrame) {
+	private void abrirArquivo(File file, MainFrame mainFrame) throws FileNotFoundException{
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
@@ -54,10 +60,12 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 				lista.remove(i);
 			}
 			salvarRecentes(mainFrame);
-		} catch (IOException ex) {
-			ex.printStackTrace();
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
+		} catch(FileNotFoundException e){
+			throw e;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -75,7 +83,7 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 		}
 	}
 
-	public void abrirArquivo(String path, MainFrame mainFrame) {
+	public void abrirArquivo(String path, MainFrame mainFrame) throws FileNotFoundException {
 		abrirArquivo(new File(path), mainFrame);
 	}
 

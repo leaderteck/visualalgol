@@ -95,7 +95,12 @@ public class InterpretarFluxograma extends CasoDeUso{
     				String s = comando.getPseudoCodigo();
     				if(s.startsWith("leia ")){
     					s = s.substring(5);
-    					s += " = " + JOptionPane.showInputDialog("Informe um valor para " + s);
+    					String input = JOptionPane.showInputDialog("Informe um valor para " + s);
+    					//TODO verificar a virgula de um numero
+    					if(input.matches("^[0-9]*,[0-9]*$")){
+    						input = input.replace(",",".");
+    					}
+    					s += " = " + input;
     				}
     				// Now evaluate the string we've colected.
     				try{

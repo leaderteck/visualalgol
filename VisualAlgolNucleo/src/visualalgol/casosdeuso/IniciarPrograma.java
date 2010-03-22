@@ -3,6 +3,7 @@ package visualalgol.casosdeuso;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -20,32 +21,40 @@ public class IniciarPrograma extends CasoDeUso {
 	public void executar(MainFrame mainFrame) {
 		mainFrame.informar("Iniciando...");
 		mainFrame.setFerramenta(new CondicaoIfFerramenta());
-		
+
 		// Iniciar a lista de recentes
 		ArquivoRecente arquivoRecente = iniciarListaDeRecentes(mainFrame);
-		if(arquivoRecente.getPaths().size()>0){
-			AbrirAlgoritmo abrir = new AbrirAlgoritmo();
-			abrir.abrirArquivo(arquivoRecente.getPaths().get(0), mainFrame);
-			mainFrame.informar("Aberto o último algoritmo.");
-		}else{
+		boolean arquivoAberto = false;
+		try {
+			if (arquivoRecente.getPaths().size() > 0) {
+				AbrirAlgoritmo abrir = new AbrirAlgoritmo();
+				abrir.abrirArquivo(arquivoRecente.getPaths().get(0), mainFrame);
+				mainFrame.informar("Aberto o último algoritmo.");
+				arquivoAberto = true;
+			}
+		} catch (FileNotFoundException e) {
+			mainFrame.informar("Arquivo inexistente: " + arquivoRecente.getPaths().get(0));
+			e.printStackTrace();
+		}
+
+		if (!arquivoAberto) {
 			criarAlgoritmoVazio(mainFrame);
 			mainFrame.informar("Iniciado um algoritmo vazio.");
 		}
-		
-		
+
 		AtualizarTela atualizarTela = new AtualizarTela();
 		atualizarTela.executar(mainFrame);
 	}
-	
-	public static void criarAlgoritmoVazio(MainFrame sistema){
+
+	public static void criarAlgoritmoVazio(MainFrame sistema) {
 		Algoritmo algoritmo = new Algoritmo();
 		sistema.setAlgoritmo(algoritmo);
 		sistema.setTitle(null);
 		sistema.getFerramentaAtual().setAlgoritmo(algoritmo);
 		sistema.getEscreverFerramenta().setAlgoritmo(algoritmo);
-		
+
 		AbrirAlgoritmo.setAlgoritmoAberto(null);
-		
+
 		// criar o inicio e o fim
 		Inicio inicio = new Inicio();
 		inicio.setX(100);
@@ -63,20 +72,20 @@ public class IniciarPrograma extends CasoDeUso {
 		fim.setH(24);
 		algoritmo.setComandoFinal(fim);
 		algoritmo.getListComando().add(fim);
-		
-		//ligar o inicio com o fim, conforme decisao de projeto
+
+		// ligar o inicio com o fim, conforme decisao de projeto
 		Linha linha = new Linha();
 		linha.setOrigem(inicio);
 		linha.setDestino(fim);
 		algoritmo.getListLinha().add(linha);
-		
+
 		inicio.setLinhaSaida(linha);
 	}
-	
-	private ArquivoRecente iniciarListaDeRecentes(MainFrame mainFrame){
+
+	private ArquivoRecente iniciarListaDeRecentes(MainFrame mainFrame) {
 		ArquivoRecente retorno = new ArquivoRecente();
-		File file = new File(getPastaDoPrograma(),"recentes.txt");
-		if(file.exists()){
+		File file = new File(getPastaDoPrograma(), "recentes.txt");
+		if (file.exists()) {
 			FileInputStream fis = null;
 			ObjectInputStream in = null;
 			try {
@@ -90,7 +99,7 @@ public class IniciarPrograma extends CasoDeUso {
 			} catch (ClassNotFoundException ex) {
 				ex.printStackTrace();
 			}
-		}else{
+		} else {
 			mainFrame.getMenuPrincipal().setArquivoRecente(retorno);
 		}
 		return retorno;
