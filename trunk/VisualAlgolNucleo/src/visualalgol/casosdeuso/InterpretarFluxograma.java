@@ -93,6 +93,10 @@ public class InterpretarFluxograma extends CasoDeUso{
     			if(instrucao instanceof Comando){
     				Comando comando = (Comando) instrucao;
     				String s = comando.getPseudoCodigo();
+    				if(s.startsWith("leia ")){
+    					s = s.substring(5);
+    					s += " = " + JOptionPane.showInputDialog("Informe um valor para " + s);
+    				}
     				// Now evaluate the string we've colected.
     				try{
     					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
