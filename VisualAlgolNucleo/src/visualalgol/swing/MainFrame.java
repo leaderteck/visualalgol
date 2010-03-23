@@ -119,7 +119,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		});
 		console.addOnEnterListener(new OnEnter() {
 			public void textoDigitado(String texto) {
-				InterpretarWhy interpretador = new InterpretarWhy();
+				InterpretarWhy interpretador = InterpretarWhy.getInstance();
 				interpretador.setTextoDigitado(texto);
 				interpretador.executar(MainFrame.this);
 			}

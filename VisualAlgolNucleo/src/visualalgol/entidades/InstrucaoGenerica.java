@@ -2,8 +2,10 @@ package visualalgol.entidades;
 
 import java.awt.Polygon;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class InstrucaoGenerica implements Serializable{
+public abstract class InstrucaoGenerica implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private boolean foco;
 	private boolean executado;
@@ -12,24 +14,40 @@ public abstract class InstrucaoGenerica implements Serializable{
 	private int w;
 	private int h;
 	private Algoritmo algoritmo;
+	
+	private List<Variavel> variaveis = new ArrayList<Variavel>();
+
 	/**
 	 * Coordenada X para a posicao no fluxograma
 	 */
 	private int x;
-	
+
 	/**
 	 * Coordenada Y para a posicao no fluxograma
 	 */
 	private int y;
-	
+
 	/**
-	 * Flag para saber se ja foi visitado 
+	 * Flag para saber se ja foi visitado
 	 */
 	private boolean visitado;
-	
+
 	private InstrucaoGenerica instrucaoAnterior;
 	private String pseudoCodigo;
 
+	/**
+	 * Guarda as variaveis atribuidas
+	 * @param key nome da variavel
+	 * @param value valor da variavel
+	 */
+	public void put(String key,Object value){
+		if(variaveis==null){//serialization bug
+			variaveis = new ArrayList<Variavel>();
+		}
+		Variavel var = new Variavel(key,value);
+		variaveis.add(var);
+	}
+	
 	/**
 	 * @return the x
 	 */
@@ -38,7 +56,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param x the x to set
+	 * @param x
+	 *            the x to set
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -52,7 +71,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param y the y to set
+	 * @param y
+	 *            the y to set
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -66,16 +86,17 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param visitado the visitado to set
+	 * @param visitado
+	 *            the visitado to set
 	 */
 	public void setVisitado(boolean visitado) {
 		this.visitado = visitado;
 	}
-	
+
 	public InstrucaoGenerica getInstrucaoAnterior() {
 		return instrucaoAnterior;
 	}
-	
+
 	public void setInstrucaoAnterior(InstrucaoGenerica comandoAnterior) {
 		this.instrucaoAnterior = comandoAnterior;
 	}
@@ -88,7 +109,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param w the w to set
+	 * @param w
+	 *            the w to set
 	 */
 	public void setW(int w) {
 		this.w = w;
@@ -102,7 +124,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param h the h to set
+	 * @param h
+	 *            the h to set
 	 */
 	public void setH(int h) {
 		this.h = h;
@@ -116,7 +139,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param poligono the poligono to set
+	 * @param poligono
+	 *            the poligono to set
 	 */
 	public void setPoligono(Polygon poligono) {
 		this.poligono = poligono;
@@ -130,7 +154,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param cor the cor to set
+	 * @param cor
+	 *            the cor to set
 	 */
 	public void setCor(int cor) {
 		this.cor = cor;
@@ -144,7 +169,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param foco the foco to set
+	 * @param foco
+	 *            the foco to set
 	 */
 	public void setFoco(boolean foco) {
 		this.foco = foco;
@@ -158,7 +184,8 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param algoritmo the algoritmo to set
+	 * @param algoritmo
+	 *            the algoritmo to set
 	 */
 	public void setAlgoritmo(Algoritmo algoritmo) {
 		this.algoritmo = algoritmo;
@@ -171,6 +198,7 @@ public abstract class InstrucaoGenerica implements Serializable{
 	public void setPseudoCodigo(String pseudoCodigo) {
 		this.pseudoCodigo = pseudoCodigo;
 	}
+
 	public String getPseudoCodigo() {
 		return pseudoCodigo;
 	}
@@ -183,11 +211,24 @@ public abstract class InstrucaoGenerica implements Serializable{
 	}
 
 	/**
-	 * @param executado the executado to set
+	 * @param executado
+	 *            the executado to set
 	 */
 	public void setExecutado(boolean executado) {
 		this.executado = executado;
 	}
 
 	public abstract void substituirEntrada(Linha procurarPor, Linha substituirPor);
+
+	public int contemVariavel(String nomeVariavel, String valor) {
+		if(variaveis==null) return -1;//Serializable bug
+		for(int i=0;i<variaveis.size();i++){
+			Variavel var = variaveis.get(i);
+			if(var.getName().equals(nomeVariavel) && var.getValue().equals(valor)){
+				return i;
+			}
+		}
+		return -1;
+	}
+
 }

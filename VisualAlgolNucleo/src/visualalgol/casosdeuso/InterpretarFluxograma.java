@@ -1,11 +1,6 @@
 package visualalgol.casosdeuso;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -19,11 +14,6 @@ import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
 public class InterpretarFluxograma extends CasoDeUso{
-	private InterpretarWhy interpretarWhy;
-	
-	public void setInterpretarWhy(InterpretarWhy interpretarWhy) {
-		this.interpretarWhy = interpretarWhy;
-	}
 	
 	public static void main(String[] args) {
 		InterpretarFluxograma interpretador = new InterpretarFluxograma();
@@ -73,6 +63,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		for (Linha linha : alg.getListLinha()) {
 			linha.setExecutado(false);
 		}
+		
 		Inicio inicio = alg.getComandoInicial();
 		
 		// Creates and enters a Context. The Context stores information
@@ -84,7 +75,8 @@ public class InterpretarFluxograma extends CasoDeUso{
             // This must be done before scripts can be executed. Returns
             // a scope object that we use in later calls.
             Scriptable scope = cx.initStandardObjects();
-
+            //Iniciar log
+    		InterpretarWhy.getInstance().apagarLog();
             // Collect the arguments into a single string.
             //load
     		InstrucaoGenerica instrucao = inicio.getLinhaSaida().getDestino();
@@ -115,9 +107,7 @@ public class InterpretarFluxograma extends CasoDeUso{
         				}else{//just execute
         					cx.evaluateString(scope, s, "<cmd>", 1, null);
         				}
-    					if(interpretarWhy!=null){
-    						interpretarWhy.informarComandoExecutado(comando, scope);
-    					}
+    					InterpretarWhy.getInstance().informarComandoExecutado(comando, scope,s);
     				}catch(RuntimeException e){
     					//TODO definir como tratar os erros
     					System.out.println("Erro: " + e.getMessage());
@@ -147,6 +137,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            // Convert the result to a string and print it.
     	            System.err.println(s +" -> "+ resposta);
     	            condicao.setExecutado(true);
+    	            InterpretarWhy.getInstance().informarComandoExecutado(condicao, scope, s);
     	            if(resposta.equals("true")){
     	            	condicao.setResultado(true);
     	            	instrucao = condicao.getLinhaVerdadeira().getDestino();
@@ -173,22 +164,5 @@ public class InterpretarFluxograma extends CasoDeUso{
             // Exit from the context.
             Context.exit();
         }
-	}
-}
-class Terminal{
-	//pular uma janela como o pascalzim?
-	JFrame frame = new JFrame();
-	JTextArea textarea = new JTextArea();
-	public Terminal() {
-		frame.add(new JScrollPane(textarea),BorderLayout.CENTER);
-		frame.setSize(400, 300);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
-	public void kill(){
-		frame.setVisible(false);
-	}
-	public void write(String string){
-		textarea.setText(textarea.getText()+string);
 	}
 }
