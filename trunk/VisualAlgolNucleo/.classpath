@@ -7,5 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/js.jar"/>
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.4.jar" sourcepath="commons-io-1.4/commons-io-1.4-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
