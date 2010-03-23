@@ -65,7 +65,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		interpretarAlgoritmo(alg);
 	}
 	
-	public void interpretarAlgoritmo(Algoritmo alg){
+	public synchronized void interpretarAlgoritmo(Algoritmo alg){
 		//zerar os executados
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
 			instrucao.setExecutado(false);
@@ -93,21 +93,28 @@ public class InterpretarFluxograma extends CasoDeUso{
     			if(instrucao instanceof Comando){
     				Comando comando = (Comando) instrucao;
     				String s = comando.getPseudoCodigo();
-    				if(s.startsWith("leia ")){
-    					s = s.substring(5);
-    					String input = JOptionPane.showInputDialog("Informe um valor para " + s);
-    					//TODO verificar a virgula de um numero
-    					if(input.matches("^[0-9]*,[0-9]*$")){
-    						input = input.replace(",",".");
-    					}
-    					s += " = " + input;
-    				}
+    				
     				// Now evaluate the string we've colected.
     				try{
-    					Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
-    					 // Convert the result to a string and print it.
-    					//terminal.write(s +" -> "+ Context.toString(result)+'\n');
-    					
+    					if(s.startsWith("leia ")){
+        					s = s.substring(5);
+        					String input = JOptionPane.showInputDialog("Informe um valor para " + s);
+        					// verificar o tipo
+        					if(input.matches("^[0-9]*,[0-9]+$")){
+        						input = input.replace(",",".");
+        					}else if(input.matches("^[0-9]+$")){
+        						input = input.replace(",",".");
+        					}else{//tratar como string
+        						input = "\"" + input.replace("\"", "\\\"")+"\"";
+        					}
+        					s += " = " + input;
+        					cx.evaluateString(scope, s, "<cmd>", 1, null);
+        				}else if(s.startsWith("imprima ")){
+    						Object result = cx.evaluateString(scope, s.substring(8), "<cmd>", 1, null);
+        					JOptionPane.showMessageDialog(null,result);
+        				}else{//just execute
+        					cx.evaluateString(scope, s, "<cmd>", 1, null);
+        				}
     					if(interpretarWhy!=null){
     						interpretarWhy.informarComandoExecutado(comando, scope);
     					}

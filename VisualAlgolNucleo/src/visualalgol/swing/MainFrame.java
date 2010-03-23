@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -254,7 +256,11 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	@Override
 	public void abrirArquivoRecente(String path) {
 		AbrirAlgoritmo abrirAlgoritmo = new AbrirAlgoritmo();
-		abrirAlgoritmo.abrirArquivo(path,this);
+		try {
+			abrirAlgoritmo.abrirArquivo(path,this);
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(this, "Inexistente " + path);
+		}
 	}
 
 	public void informar(String string) {
