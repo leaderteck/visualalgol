@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class Variavel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private Object value;
+	private String value;
 	
 	public Variavel(){
 		
 	}
 	
-	public Variavel(String name, Object value) {
+	public Variavel(String name, String value) {
 		super();
 		this.name = name;
 		this.value = value;
@@ -25,11 +25,11 @@ public class Variavel implements Serializable{
 		return name;
 	}
 	
-	public void setValue(Object value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	
-	public Object getValue() {
+	public String getValue() {
 		return value;
 	}
 }
