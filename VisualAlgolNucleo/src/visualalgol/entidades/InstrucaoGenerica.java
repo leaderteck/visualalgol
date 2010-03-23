@@ -44,7 +44,7 @@ public abstract class InstrucaoGenerica implements Serializable {
 		if(variaveis==null){//serialization bug
 			variaveis = new ArrayList<Variavel>();
 		}
-		Variavel var = new Variavel(key,value);
+		Variavel var = new Variavel(key,value.toString());
 		variaveis.add(var);
 	}
 	
@@ -230,5 +230,12 @@ public abstract class InstrucaoGenerica implements Serializable {
 		}
 		return -1;
 	}
+	
+	public List<Variavel> getVariaveis() {
+		return variaveis;
+	}
 
+	public void setVariaveis(List<Variavel> variaveis) {
+		this.variaveis = variaveis;
+	}
 }

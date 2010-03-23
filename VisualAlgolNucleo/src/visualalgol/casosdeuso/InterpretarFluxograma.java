@@ -59,6 +59,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		//zerar os executados
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
 			instrucao.setExecutado(false);
+			instrucao.getVariaveis().clear();
 		}
 		for (Linha linha : alg.getListLinha()) {
 			linha.setExecutado(false);
@@ -94,6 +95,8 @@ public class InterpretarFluxograma extends CasoDeUso{
         					// verificar o tipo
         					if(input.matches("^[0-9]*,[0-9]+$")){
         						input = input.replace(",",".");
+        					}else if(input.matches("^[0-9]*\\.[0-9]+$")){
+        						//do nothing
         					}else if(input.matches("^[0-9]+$")){
         						input = input.replace(",",".");
         					}else{//tratar como string

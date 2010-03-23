@@ -9,6 +9,7 @@ import org.mozilla.javascript.Scriptable;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
+import visualalgol.entidades.Variavel;
 import visualalgol.utils.LogSimples;
 
 public class InterpretarWhy extends CasoDeUso{
@@ -34,6 +35,7 @@ public class InterpretarWhy extends CasoDeUso{
 		if(!textoDigitado.startsWith("why ")){
 			return;
 		}
+		encontrado = false;
 		textoDigitado = textoDigitado.replaceAll("=+","=");
 		textoDigitado = textoDigitado.replace("?", " ? ");
 		textoDigitado = textoDigitado.replace("=", " = ");
@@ -53,7 +55,12 @@ public class InterpretarWhy extends CasoDeUso{
 					InstrucaoGenerica aux = executados.get(j);
 					if(aux instanceof CondicaoIf){
 						CondicaoIf condicao = (CondicaoIf) aux;
-						sistema.getConsole().write("because " + condicao.getPseudoCodigo() + " is " + condicao.isResultado());
+						//Por solicitacao do clemilson, devemos saber o valor da variavel da condicao
+						String valoresDasVariaveis = " the values are ";
+						for(Variavel var: condicao.getVariaveis()){
+							valoresDasVariaveis +=var.getName()+"="+var.getValue()+ ";";
+						}
+						sistema.getConsole().write("because " + condicao.getPseudoCodigo() + " is " + condicao.isResultado()+"\n"+valoresDasVariaveis);
 						encontrado = true;
 						break;
 					}
@@ -73,13 +80,23 @@ public class InterpretarWhy extends CasoDeUso{
 
 	public void informarComandoExecutado(InstrucaoGenerica instrucao, Scriptable scope, String s) {
 		//procurar por alteracoes de variavel
-		if(instrucao instanceof Comando){
-			if(s!=null){
+		if(s!=null){
+			if(instrucao instanceof Comando){
 				int iIgual = s.indexOf("=");
 				if(iIgual!=-1){
 					String varName = s.substring(0,iIgual);
 					Object value = scope.get(varName, scope);
 					instrucao.put(varName, value.toString());
+				}
+			}else if(instrucao instanceof CondicaoIf){
+				//Por solicitacao do clemilson, guardar as variaveis da condicional
+				String tokens[] = s.split("(==|>=|<=)");
+				for(int i=0;i<tokens.length;i++){
+					Object value = scope.get(tokens[i].trim(),scope);
+					if(!Scriptable.NOT_FOUND.equals(value)){
+						System.out.println("valor da variavel '"+tokens[i]+"' na condicao '"+s+"' é '" + value + "'");
+						instrucao.put(tokens[i], value);
+					}
 				}
 			}
 		}
