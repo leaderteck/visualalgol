@@ -2,7 +2,7 @@ package variaveis;
 
 import org.mozilla.javascript.Scriptable;
 
-import visualalgol.casosdeuso.InterpretarWhy;
+import visualalgol.casosdeuso.comandos.InterpretarWhy;
 
 public aspect ScriptableVariables {
 	pointcut publicOperation():
