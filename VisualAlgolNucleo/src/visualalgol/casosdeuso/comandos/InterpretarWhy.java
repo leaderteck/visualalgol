@@ -1,4 +1,4 @@
-package visualalgol.casosdeuso;
+package visualalgol.casosdeuso.comandos;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,8 +12,7 @@ import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Variavel;
 import visualalgol.utils.LogSimples;
 
-public class InterpretarWhy extends CasoDeUso{
-	private String textoDigitado;
+public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 	private boolean encontrado = false;
 	private String nomeVariavel;
 	private String valor;
@@ -73,10 +72,6 @@ public class InterpretarWhy extends CasoDeUso{
 			sistema.getConsole().write("I don't know. Sorry...");
 		}
 	}
-	
-	public void setTextoDigitado(String textoDigitado) {
-		this.textoDigitado = textoDigitado;
-	}
 
 	public void informarComandoExecutado(InstrucaoGenerica instrucao, Scriptable scope, String s) {
 		//procurar por alteracoes de variavel
@@ -116,6 +111,11 @@ public class InterpretarWhy extends CasoDeUso{
 	public void apagarLog() {
 		logSimples.apagar();
 		executados.clear();
+	}
+
+	@Override
+	public boolean podeTratar(String comando) {
+		return comando.startsWith("why ");
 	}
 	
 }
