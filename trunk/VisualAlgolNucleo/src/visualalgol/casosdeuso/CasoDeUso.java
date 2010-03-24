@@ -24,9 +24,11 @@ public abstract class CasoDeUso {
 	public static File getPastaDoPrograma() {
 		return pastaDoPrograma;
 	}
+	
 	public void executarComoThread() throws InterruptedException{
 		
 	}
+	
 	public void executar(MainFrame mainFrame){
 		sistema = mainFrame;
 		if(thread!=null){

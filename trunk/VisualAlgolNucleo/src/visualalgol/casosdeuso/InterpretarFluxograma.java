@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
+import visualalgol.casosdeuso.comandos.InterpretarWhy;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoFim;

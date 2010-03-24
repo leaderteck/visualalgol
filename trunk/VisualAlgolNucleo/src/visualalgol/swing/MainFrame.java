@@ -22,8 +22,9 @@ import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
-import visualalgol.casosdeuso.InterpretarWhy;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
+import visualalgol.casosdeuso.comandos.InterpretadorMediador;
+import visualalgol.casosdeuso.comandos.InterpretarWhy;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.EscreverFerramenta;
@@ -119,7 +120,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		});
 		console.addOnEnterListener(new OnEnter() {
 			public void textoDigitado(String texto) {
-				InterpretarWhy interpretador = InterpretarWhy.getInstance();
+				InterpretadorMediador interpretador = InterpretadorMediador.getInstance();
 				interpretador.setTextoDigitado(texto);
 				interpretador.executar(MainFrame.this);
 			}
