@@ -146,6 +146,7 @@ public class AtualizarTela extends CasoDeUso {
 				e.printStackTrace();
 			}
 		}
-		mainFrame.getTelaDesenhoFluxograma().setIcon(new ImageIcon(bi));
+	
+		mainFrame.getTelaDesenhoFluxograma().setImage(bi);
 	}
 }

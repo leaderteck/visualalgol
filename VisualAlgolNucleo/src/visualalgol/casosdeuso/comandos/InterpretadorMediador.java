@@ -3,14 +3,16 @@ package visualalgol.casosdeuso.comandos;
 import java.util.ArrayList;
 import java.util.List;
 
+import visualalgol.casosdeuso.Ator;
 import visualalgol.casosdeuso.CasoDeUso;
+import visualalgol.swing.MainFrame;
 
 /**
  * Mediador dos outros interpretadores
  */
 public class InterpretadorMediador extends CasoDeUso{
 	private String textoDigitado;
-	
+	private InterpretadorDeComandoAbstrato interpretadorAtual = null;
 	/**
 	 * Chain, corrente de interpretadores 
 	 */
@@ -21,15 +23,29 @@ public class InterpretadorMediador extends CasoDeUso{
 	}
 	
 	@Override
-	public void executarComoThread() throws InterruptedException {
-		//TODO lembrar quem foi o ultimo e jogar para ele antes de jogar para os outros
+	public void executar(MainFrame sistema){
 		boolean interpretado = false;
-		for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
-			if(interpretador.podeTratar(textoDigitado)){
+		// lembrar quem foi o ultimo e jogar para ele antes de jogar para os outros
+		if(interpretadorAtual!=null && interpretadorAtual.podeTratar(textoDigitado)){
+			try{
+				interpretadorAtual.setTextoDigitado(textoDigitado);
+				Ator.getInstance().digitouTexto(textoDigitado);
 				interpretado = true;
-				interpretador.setSistema(sistema);
-				interpretador.setTextoDigitado(textoDigitado);
-				interpretador.executarComoThread();//como a thread ja esta aberta, chamamos este metodo
+			}catch(Exception e){
+				interpretadorAtual.aoEncerrar();
+				interpretadorAtual = null;
+				System.err.println("Erro: " + e.getMessage());
+			}
+		}
+		if(!interpretado){
+			for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
+				if(interpretador.podeTratar(textoDigitado)){
+					interpretador.setSistema(sistema);
+					interpretador.setTextoDigitado(textoDigitado);
+					interpretador.executar(sistema);//Abre outra thread
+					interpretado = true;
+					interpretadorAtual = interpretador;
+				}
 			}
 		}
 	}

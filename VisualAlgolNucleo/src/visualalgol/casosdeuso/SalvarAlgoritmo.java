@@ -82,7 +82,7 @@ public class SalvarAlgoritmo extends CasoDeUso {
 				AbrirAlgoritmo.setAlgoritmoAberto(file);
 			}
 		}
-		mainFrame.informar("Salvo.");
+		mainFrame.informarNoRodape("Salvo.");
 	}
 
 }
