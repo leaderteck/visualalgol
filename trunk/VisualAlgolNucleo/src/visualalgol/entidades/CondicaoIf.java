@@ -128,4 +128,6 @@ public class CondicaoIf extends InstrucaoGenerica {
 	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
 		linhaEntrada = substituirPor;
 	}
+
+
 }

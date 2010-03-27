@@ -1,6 +1,7 @@
 package visualalgol.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -23,9 +24,10 @@ import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
+import visualalgol.casosdeuso.Sistema;
 import visualalgol.casosdeuso.comandos.InterpretadorMediador;
-import visualalgol.casosdeuso.comandos.InterpretarWhy;
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.EscreverFerramenta;
 import visualalgol.ferramenta.Ferramenta;
@@ -33,7 +35,7 @@ import visualalgol.ferramenta.LigarBlocosFerramenta;
 import visualalgol.swing.console.Console;
 import visualalgol.swing.console.OnEnter;
 
-public class MainFrame extends JFrame implements AbrirRecenteListener{
+public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 	private static final long serialVersionUID = 1L;
 	private static final String PROGNAME="VisuAlgo";
 	private IconesFluxogramaToolBar iconesFluxogramaToolBar;
@@ -56,7 +58,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		escreverFerramenta = new EscreverFerramenta();
 		console = new Console();
 		saidaDialogo = new JLabel();
-		
+
 		// Configurando...
 		console.setPersistirEmArquivo(new File(CasoDeUso.getPastaDoPrograma(), "comandos.txt"));
 		telaDesenhoFluxograma.addListener(escreverFerramenta);
@@ -122,7 +124,11 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 			public void textoDigitado(String texto) {
 				InterpretadorMediador interpretador = InterpretadorMediador.getInstance();
 				interpretador.setTextoDigitado(texto);
-				interpretador.executar(MainFrame.this);
+				try {
+					interpretador.executar(MainFrame.this);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -264,7 +270,11 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 		}
 	}
 
-	public void informar(String string) {
+	public void informar(String string){
+		console.write(string);
+	}
+	
+	public void informarNoRodape(String string) {
 		saidaDialogo.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 		saidaDialogo.setText(string);
 	}
@@ -272,8 +282,12 @@ public class MainFrame extends JFrame implements AbrirRecenteListener{
 	public EscreverFerramenta getEscreverFerramenta() {
 		return escreverFerramenta;
 	}
-	
-	public Console getConsole() {
-		return console;
+
+	public void apontarPara(InstrucaoGenerica instrucao) {
+		if(instrucao==null){
+			telaDesenhoFluxograma.apontarPara(-1,-1);
+		}else{
+			telaDesenhoFluxograma.apontarPara(instrucao.getX(),instrucao.getY());
+		}
 	}
 }

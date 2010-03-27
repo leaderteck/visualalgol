@@ -6,15 +6,17 @@ public class Variavel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String value;
+	private int passo=-1;
 	
 	public Variavel(){
 		
 	}
 	
-	public Variavel(String name, String value) {
+	public Variavel(String name, String value, int passo) {
 		super();
 		this.name = name;
 		this.value = value;
+		this.passo = passo;
 	}
 	
 	public void setName(String name) {
@@ -31,5 +33,19 @@ public class Variavel implements Serializable{
 	
 	public String getValue() {
 		return value;
+	}
+
+	/**
+	 * @return the passo
+	 */
+	public int getPasso() {
+		return passo;
+	}
+
+	/**
+	 * @param passo the passo to set
+	 */
+	public void setPasso(int passo) {
+		this.passo = passo;
 	}
 }

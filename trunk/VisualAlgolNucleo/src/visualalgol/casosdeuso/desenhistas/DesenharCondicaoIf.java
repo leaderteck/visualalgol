@@ -45,6 +45,12 @@ public class DesenharCondicaoIf implements Desenhista {
 			gra.setColor(Color.GREEN);
 		}
 		gra.drawPolygon(p);
+		if(instrucao.isFoco()){
+			gra.setColor(Color.BLACK);
+			for(int i=0;i<p.npoints;i++){
+				gra.fillRect(p.xpoints[i]-2, p.ypoints[i]-2, 5, 5);
+			}
+		}
 	}
 
 }

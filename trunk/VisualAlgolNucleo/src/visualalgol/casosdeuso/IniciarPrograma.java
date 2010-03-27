@@ -19,7 +19,7 @@ public class IniciarPrograma extends CasoDeUso {
 
 	@Override
 	public void executar(MainFrame mainFrame) {
-		mainFrame.informar("Iniciando...");
+		mainFrame.informarNoRodape("Iniciando...");
 		mainFrame.setFerramenta(new CondicaoIfFerramenta());
 
 		// Iniciar a lista de recentes
@@ -29,17 +29,17 @@ public class IniciarPrograma extends CasoDeUso {
 			if (arquivoRecente.getPaths().size() > 0) {
 				AbrirAlgoritmo abrir = new AbrirAlgoritmo();
 				abrir.abrirArquivo(arquivoRecente.getPaths().get(0), mainFrame);
-				mainFrame.informar("Aberto o último algoritmo.");
+				mainFrame.informarNoRodape("Aberto o último algoritmo.");
 				arquivoAberto = true;
 			}
 		} catch (FileNotFoundException e) {
-			mainFrame.informar("Arquivo inexistente: " + arquivoRecente.getPaths().get(0));
+			mainFrame.informarNoRodape("Arquivo inexistente: " + arquivoRecente.getPaths().get(0));
 			e.printStackTrace();
 		}
 
 		if (!arquivoAberto) {
 			criarAlgoritmoVazio(mainFrame);
-			mainFrame.informar("Iniciado um algoritmo vazio.");
+			mainFrame.informarNoRodape("Iniciado um algoritmo vazio.");
 		}
 
 		AtualizarTela atualizarTela = new AtualizarTela();

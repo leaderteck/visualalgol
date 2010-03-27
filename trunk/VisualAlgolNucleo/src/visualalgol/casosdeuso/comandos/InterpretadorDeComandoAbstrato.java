@@ -12,4 +12,5 @@ public abstract class InterpretadorDeComandoAbstrato extends CasoDeUso{
 	public void setSistema(MainFrame sistema) {
 		this.sistema = sistema;
 	}
+	public abstract void aoEncerrar();
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,9 +28,12 @@ public class Console extends JPanel{
 	private File persistirEmArquivo;
 	private static final int MAX=20;
 	private String bkpEntrada;
+	private JScrollPane scrollPane;
 	public Console() {
 		textAreaOutConsole = new JTextArea();
 		entrada = new JTextField();
+		scrollPane = new JScrollPane(textAreaOutConsole);
+		
 		entrada.addKeyListener(new KeyListener(){ 
 			public void keyTyped(KeyEvent e) {}
 			public void keyReleased(KeyEvent e) {
@@ -42,9 +46,12 @@ public class Console extends JPanel{
 						}
 					}
 					iUltimos = 0;
-					ultimosComandos.add(textoDigitado);
+					//verificar se o ultimo nao eh igual
+					if(ultimosComandos.size()>0 && !ultimosComandos.get(ultimosComandos.size()-1).equals(textoDigitado)){
+						ultimosComandos.add(textoDigitado);
+						persistir(ultimosComandos);
+					}
 					entrada.setText("");
-					persistir(ultimosComandos);
 				}
 			}
 			public void keyPressed(KeyEvent e) {
@@ -72,8 +79,11 @@ public class Console extends JPanel{
 			}
 		});
 		this.setLayout(new BorderLayout());
-		this.add(new JScrollPane(textAreaOutConsole),BorderLayout.CENTER);
+		this.add(scrollPane,BorderLayout.CENTER);
 		this.add(entrada,BorderLayout.SOUTH);
+		
+		
+		
 	}
 	
 	private void persistir(List<String> ultimosComandos){
@@ -100,7 +110,21 @@ public class Console extends JPanel{
 	}
 	
 	public void write(String texto){
-		textAreaOutConsole.setText(textAreaOutConsole.getText() + texto + "\n");
+		textAreaOutConsole.append(texto + "\n");
+		Thread t = new Thread(){
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+				}
+				JScrollBar vBar = scrollPane.getVerticalScrollBar();
+				//if (vBar.getValue() == (vBar.getMaximum() - vBar.getVisibleAmount())) {
+					vBar.setValue(vBar.getMaximum());
+				//}
+			}
+		};
+		t.start();
 	}
 	
 	public JTextField getEntrada() {
