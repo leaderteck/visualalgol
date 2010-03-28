@@ -9,7 +9,7 @@ import java.util.List;
  * Linha grafica da instrucao de origem
  * para a instrucao de destino
  */
-public class Linha implements Serializable{
+public class Linha implements Serializable, Cloneable{
 	private static final long serialVersionUID = 1L;
 	private InstrucaoGenerica origem;
 	private InstrucaoGenerica destino;
@@ -130,5 +130,16 @@ public class Linha implements Serializable{
 		} else if (!pontoTemporario.equals(other.pontoTemporario))
 			return false;
 		return true;
+	}
+
+
+	public Linha deepClone() {
+		try {
+			Linha linha = (Linha)this.clone();
+			linha.setListPontos(this.listPontos);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

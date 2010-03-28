@@ -93,9 +93,9 @@ public class InterpretadorMediador extends CasoDeUso{
 		}
 	}
 
-
 	public void interpretadorFluxogramaIniciado() {
-		// TODO Auto-generated method stub
-		
+		for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
+			interpretador.interpretadorFluxogramaIniciado();
+		}
 	}
 }
