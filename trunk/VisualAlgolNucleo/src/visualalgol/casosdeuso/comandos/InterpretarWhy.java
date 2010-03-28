@@ -35,67 +35,6 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 		entrada = entrada.replaceAll("\\s+"," ");
 		return entrada.split("\\s");
 	}
-	@Override
-	public void executarComoThread() throws InterruptedException {
-		if(!podeTratar(textoDigitado))return;
-		encontrado = false;
-		String args[] = tratarEntrada(textoDigitado);
-		while(args.length<3){
-			sistema.informar("Please type something like \"why variable=value?\".");
-			textoDigitado = ator.digitarTexto();
-			args = tratarEntrada(textoDigitado);
-		}
-		nomeVariavel =  args[1];
-		valor = args[3];
-		
-		sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
-		int i = 0,direcao=1;
-		while (i < executados.size()&& i>=0) {
-			InstrucaoGenerica instrucao = executados.get(i);
-			int pos = instrucao.contemVariavel(nomeVariavel,valor,i);
-			if(pos!=-1){// contem a variavel
-				sistema.apontarPara(instrucao);// coloca a criacao de michelangelo
-				sistema.informar("because of '"+instrucao.getPseudoCodigo()+"'");
-				String texto = ator.digitarTexto();// ver se o usuario quer continuar
-				if(!texto.equals("why?")) return;
-				for(int j=i-1;j>=0;j--){// procurar o proximo if
-					InstrucaoGenerica aux = executados.get(j);
-					if(aux instanceof CondicaoIf){
-						CondicaoIf condicao = (CondicaoIf) aux;
-						sistema.apontarPara(condicao);
-						//Por solicitacao do clemilson, devemos saber o valor da variavel da condicao
-						List<Variavel> variaveis = condicao.getVariaveis(j);
-						sistema.informar("because " + condicao.getPseudoCodigo() + " is " + condicao.isResultado()+"\n"+toString(variaveis));
-						encontrado = true;
-						texto = ator.digitarTexto();
-						if(texto.equals("why?")){//continua indo para tras?
-							encontrado = false;
-							{//poderia entrar uma recursao?
-								direcao=-1;
-								i=j;
-								if(variaveis.size()==1){// nao precisa perguntar qual variavel
-									Variavel novoParametro = variaveis.get(0);
-									nomeVariavel = novoParametro.getName();
-									valor = novoParametro.getValue();
-									sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
-								}else{//TODO perguntar qual variavel
-									
-								}
-							}
-						}
-						break;
-					}
-				}
-			}
-			if(encontrado) break;
-			i+=direcao;
-		}
-		
-		if(!encontrado){
-			sistema.informar("I don't know. Sorry...");
-		}
-		
-	}
 
 	private String toString(List<Variavel> variaveis) {
 		String retorno = " the values are ";
@@ -149,13 +88,78 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 
 	@Override
 	public boolean podeTratar(String comando) {
-		if(comando.equals("why?")) return true;
 		return comando.startsWith("why ");
 	}
 
 	@Override
 	public void aoEncerrar() {
 		sistema.apontarPara(null);
+	}
+
+	@Override
+	public void interpretar() throws InterruptedException, EntradaInesperadaException {
+		encontrado = false;
+		String args[] = tratarEntrada(textoDigitado);
+		while(args.length<3){
+			sistema.informar("Please type something like \"why variable=value?\".");
+			textoDigitado = ator.digitarTexto();
+			args = tratarEntrada(textoDigitado);
+		}
+		nomeVariavel =  args[1];
+		valor = args[3];
+		
+		sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
+		int i = 0,direcao=1;
+		while (i < executados.size()&& i>=0) {
+			InstrucaoGenerica instrucao = executados.get(i);
+			int pos = instrucao.contemVariavel(nomeVariavel,valor,i);
+			if(pos!=-1){// contem a variavel
+				sistema.apontarPara(instrucao);// coloca a criacao de michelangelo
+				sistema.informar("because of '"+instrucao.getPseudoCodigo()+"'");
+				String texto = ator.digitarTexto();// ver se o usuario quer continuar
+				if(!texto.equals("why?")) throw new EntradaInesperadaException();
+				for(int j=i-1;j>=0;j--){// procurar o proximo if
+					InstrucaoGenerica aux = executados.get(j);
+					if(aux instanceof CondicaoIf){
+						CondicaoIf condicao = (CondicaoIf) aux;
+						sistema.apontarPara(condicao);
+						//Por solicitacao do clemilson, devemos saber o valor da variavel da condicao
+						List<Variavel> variaveis = condicao.getVariaveis(j);
+						sistema.informar("because " + condicao.getPseudoCodigo() + " is " + condicao.isResultado()+"\n"+toString(variaveis));
+						encontrado = true;
+						texto = ator.digitarTexto();
+						if(texto.equals("why?")){//continua indo para tras?
+							encontrado = false;
+							{//poderia entrar uma recursao?
+								direcao=-1;
+								i=j;
+								if(variaveis.size()==1){// nao precisa perguntar qual variavel
+									Variavel novoParametro = variaveis.get(0);
+									nomeVariavel = novoParametro.getName();
+									valor = novoParametro.getValue();
+									sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
+								}else{//TODO perguntar qual variavel
+									
+								}
+							}
+						}
+						break;
+					}
+				}
+			}
+			if(encontrado) break;
+			i+=direcao;
+		}
+		
+		if(!encontrado){
+			sistema.informar("I don't know. Sorry...");
+		}
+		
+	}
+
+	@Override
+	public String exemplo() {
+		return "why someVariable=someValue?";
 	}
 	
 }
