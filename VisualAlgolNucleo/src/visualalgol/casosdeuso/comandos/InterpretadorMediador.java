@@ -57,7 +57,7 @@ public class InterpretadorMediador extends CasoDeUso{
 				}
 			}
 		}
-		if(!interpretado){
+		if(!interpretado && textoDigitado!=null && !textoDigitado.trim().equals("")){
 			//informar exemplos de comandos
 			sistema.informar("Nothing to do, please try: ");
 			for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
