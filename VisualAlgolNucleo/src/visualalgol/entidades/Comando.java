@@ -62,6 +62,7 @@ public class Comando extends InstrucaoGenerica {
 	public void delete() {
 		//religar o que estivera ligado
 		if(linhaEntrada!=null && linhaSaida!=null){
+			linhaSaida.getDestino().substituirEntrada(linhaSaida, linhaEntrada);
 			linhaEntrada.setDestino(linhaSaida.getDestino());
 			for(Point ponto:linhaSaida.getListPontos()){
 				linhaEntrada.getListPontos().add(ponto);

@@ -13,7 +13,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.List;
 
 import visualalgol.casosdeuso.Mover;
-import visualalgol.casosdeuso.MoverUsabilidade2;
+import visualalgol.casosdeuso.MoverUsabilidade3;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -25,7 +25,7 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	private Point arrastandoPonto;
 	protected Linha linha;
 	
-	private Mover mover = new MoverUsabilidade2();
+	private Mover mover = new MoverUsabilidade3();
 	
 	private int ultimoX, ultimoY;
 	

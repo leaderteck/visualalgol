@@ -88,6 +88,8 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 
 	@Override
 	public void aoEncerrar() {
+		nomeVariavel = null;
+		valor = null;
 		sistema.apontarPara(null);
 	}
 
@@ -105,9 +107,9 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 		
 		sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
 		int i = 0,direcao=1;
-		while (i < executados.size()&& i>=-1) {
-			if(i==-1 && direcao==-1){//se voltou ao inicio
-				sistema.informar("because you pressed start (F9)");
+		while (i < executados.size()) {
+			if(i<0 && direcao==-1){//se voltou ao inicio
+				sistema.informar("because you pressed run (F9)");
 				encontrado = true;
 				break;
 			}
@@ -118,13 +120,13 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 				sistema.informar("because of '"+instrucao.getPseudoCodigo()+"'");
 				String texto = ator.digitarTexto();// ver se o usuario quer continuar
 				if(!texto.equals("why?")) throw new EntradaInesperadaException();
-				for(int j=i-1;j>=0;j--){// procurar o proximo if
-					InstrucaoGenerica aux = executados.get(j);
+				for(i=i-1;i>=0;){// procurar o proximo if
+					InstrucaoGenerica aux = executados.get(i);
 					if(aux instanceof CondicaoIf){
 						CondicaoIf condicao = (CondicaoIf) aux;
 						sistema.apontarPara(condicao);
 						//Por solicitacao do clemilson, devemos saber o valor da variavel da condicao
-						List<Variavel> variaveis = condicao.getVariaveis(j);
+						List<Variavel> variaveis = condicao.getVariaveis(i);
 						sistema.informar("because " + condicao.getPseudoCodigo() + " is " + condicao.isResultado()+"\n"+toString(variaveis));
 						encontrado = true;
 						texto = ator.digitarTexto();
@@ -132,7 +134,6 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 							encontrado = false;
 							{//poderia entrar uma recursao?
 								direcao=-1;
-								i=j;
 								if(variaveis.size()==1){// nao precisa perguntar qual variavel
 									Variavel novoParametro = variaveis.get(0);
 									nomeVariavel = novoParametro.getName();
@@ -145,6 +146,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 						}
 						break;
 					}
+					i--;
 				}
 			}
 			if(encontrado) break;
