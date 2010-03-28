@@ -111,12 +111,13 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 		
 		sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
 		int i = 0,direcao=1;
-		while (i < executados.size()&& i>=0) {
-			InstrucaoGenerica instrucao = executados.get(i);
-			if(i==0 && direcao==-1){//se voltou ao inicio
+		while (i < executados.size()&& i>=-1) {
+			if(i==-1 && direcao==-1){//se voltou ao inicio
 				sistema.informar("because you pressed start (F9)");
 				encontrado = true;
+				break;
 			}
+			InstrucaoGenerica instrucao = executados.get(i);
 			int pos = instrucao.contemVariavel(nomeVariavel,valor,i);
 			if(pos!=-1){// contem a variavel
 				sistema.apontarPara(instrucao);// coloca a criacao de michelangelo
@@ -143,8 +144,8 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 									nomeVariavel = novoParametro.getName();
 									valor = novoParametro.getValue();
 									sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
-								}else{//TODO perguntar qual variavel
-									
+								}else{// perguntar qual variavel
+									perguntarQualVariavel(variaveis);
 								}
 							}
 						}
@@ -155,11 +156,24 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 			if(encontrado) break;
 			i+=direcao;
 		}
-		
 		if(!encontrado){
 			sistema.informar("I don't know. Sorry...");
 		}
-		
+	}
+
+	private void perguntarQualVariavel(List<Variavel> variaveis) throws InterruptedException {
+		sistema.informar("Choose a variable:");
+		int k=1;
+		for(Variavel var: variaveis) sistema.informar("    " + (k++) + " - " + var.getName());
+		String escolha = ator.digitarTexto();
+		try{
+			k=Integer.parseInt(escolha);
+			Variavel var = variaveis.get(k-1);
+			nomeVariavel = var.getName();
+			valor = var.getValue();
+		}catch(Exception e){
+			throw new EntradaInesperadaException();
+		}
 	}
 
 	@Override

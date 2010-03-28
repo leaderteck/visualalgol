@@ -16,9 +16,17 @@ public abstract class InterpretadorDeComandoAbstrato extends CasoDeUso{
 	@Override
 	public final void executarComoThread() throws InterruptedException {
 		terminado = false;
-		interpretar();
-		aoEncerrar();
-		terminado = true;
+		try{
+			interpretar();
+		}catch(Exception e){
+			System.err.println("Erro: " + e.getMessage());
+		}finally{
+			try{
+				aoEncerrar();
+			}finally{
+				terminado = true;
+			}
+		}
 	}
 	public boolean isTerminado() {
 		return terminado;
