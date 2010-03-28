@@ -22,19 +22,24 @@ public class InterpretadorMediador extends CasoDeUso{
 		listaDeInterpretadores.add(InterpretarWhy.getInstance());
 	}
 	
+	
 	@Override
 	public void executar(MainFrame sistema){
 		boolean interpretado = false;
 		// lembrar quem foi o ultimo e jogar para ele antes de jogar para os outros
-		if(interpretadorAtual!=null && interpretadorAtual.podeTratar(textoDigitado)){
-			try{
-				interpretadorAtual.setTextoDigitado(textoDigitado);
-				Ator.getInstance().digitouTexto(textoDigitado);
-				interpretado = true;
-			}catch(Exception e){
-				interpretadorAtual.aoEncerrar();
-				interpretadorAtual = null;
-				System.err.println("Erro: " + e.getMessage());
+		if(interpretadorAtual!=null){
+			if(interpretadorAtual.isTerminado()){//se terminou de interpretar
+				interpretadorAtual=null;
+			}else{
+				try{
+					interpretadorAtual.setTextoDigitado(textoDigitado);
+					Ator.getInstance().digitouTexto(textoDigitado);
+					interpretado = true;
+				}catch(Exception e){
+					interpretadorAtual.aoEncerrar();
+					interpretadorAtual=null;
+					System.err.println("Erro: " + e.getMessage());
+				}
 			}
 		}
 		if(!interpretado){
@@ -48,6 +53,13 @@ public class InterpretadorMediador extends CasoDeUso{
 				}
 			}
 		}
+		if(!interpretado){
+			//informar exemplos de comandos
+			sistema.informar("Nothing to do, please try: ");
+			for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
+				sistema.informar("    " + interpretador.exemplo());
+			}
+		}
 	}
 	
 	public void setTextoDigitado(String textoDigitado) {
@@ -55,7 +67,7 @@ public class InterpretadorMediador extends CasoDeUso{
 	}
 	
 	/**
-	 * Anti lazy loader 
+	 * Anti lazy loader overhead
 	 */
 	private static class Holder{
 		static InterpretadorMediador instance = new InterpretadorMediador();
