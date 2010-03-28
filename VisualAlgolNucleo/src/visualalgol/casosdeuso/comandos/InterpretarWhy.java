@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.mozilla.javascript.Scriptable;
 
+import visualalgol.casosdeuso.Ator;
+import visualalgol.casosdeuso.Sistema;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoIf;
-import visualalgol.entidades.Inicio;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Variavel;
 import visualalgol.utils.LogSimples;
@@ -29,14 +30,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 	public static InterpretarWhy getInstance() {
 		return instance;
 	}
-	private String[] tratarEntrada(String entrada){
-		entrada = entrada.replaceAll("=+","=");
-		entrada = entrada.replace("?", " ? ");
-		entrada = entrada.replace("=", " = ");
-		entrada = entrada.replaceAll("\\s+"," ");
-		return entrada.split("\\s");
-	}
-
+	
 	private String toString(List<Variavel> variaveis) {
 		String retorno = " the values are ";
 		for(Variavel var: variaveis){
@@ -82,7 +76,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 		logSimples.append(name+" = "+newValue+"; //"+oldValue+"\n");
 	}
 
-	public void apagarLog() {
+	public void interpretadorFluxogramaIniciado() {
 		logSimples.apagar();
 		executados.clear();
 	}
@@ -98,7 +92,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 	}
 
 	@Override
-	public void interpretar() throws InterruptedException, EntradaInesperadaException {
+	public void interpretar(Sistema sistema, Ator ator, String textoDigitado) throws InterruptedException, EntradaInesperadaException {
 		encontrado = false;
 		String args[] = tratarEntrada(textoDigitado);
 		while(args.length<3){
@@ -172,6 +166,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 			nomeVariavel = var.getName();
 			valor = var.getValue();
 		}catch(Exception e){
+			sistema.informar("Unexpected value.");
 			throw new EntradaInesperadaException();
 		}
 	}

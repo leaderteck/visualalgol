@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
+import visualalgol.casosdeuso.comandos.InterpretadorMediador;
 import visualalgol.casosdeuso.comandos.InterpretarWhy;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
@@ -78,7 +79,7 @@ public class InterpretarFluxograma extends CasoDeUso{
             // a scope object that we use in later calls.
             Scriptable scope = cx.initStandardObjects();
             //Iniciar log
-    		InterpretarWhy.getInstance().apagarLog();
+            InterpretadorMediador.getInstance().interpretadorFluxogramaIniciado();
             // Collect the arguments into a single string.
             //load
     		InstrucaoGenerica instrucao = inicio.getLinhaSaida().getDestino();
@@ -111,7 +112,7 @@ public class InterpretarFluxograma extends CasoDeUso{
         				}else{//just execute
         					cx.evaluateString(scope, s, "<cmd>", 1, null);
         				}
-    					InterpretarWhy.getInstance().informarComandoExecutado(comando, scope,s);
+    					InterpretadorMediador.getInstance().informarComandoExecutado(comando, scope,s);
     				}catch(RuntimeException e){
     					//TODO definir como tratar os erros
     					System.out.println("Erro: " + e.getMessage());
@@ -141,7 +142,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     	            // Convert the result to a string and print it.
     	            System.err.println(s +" -> "+ resposta);
     	            condicao.setExecutado(true);
-    	            InterpretarWhy.getInstance().informarComandoExecutado(condicao, scope, s);
+    	            InterpretadorMediador.getInstance().informarComandoExecutado(condicao, scope, s);
     	            if(resposta.equals("true")){
     	            	condicao.setResultado(true);
     	            	instrucao = condicao.getLinhaVerdadeira().getDestino();

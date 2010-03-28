@@ -1,7 +1,6 @@
 package visualalgol.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -137,11 +136,10 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Console",console);
 		
-		
 		JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,new JScrollPane(telaPseudoCodigo),tabbedPane);
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),splitPane2);
 		splitPane.setDividerLocation(.5);
-		splitPane.setDividerLocation(400);
+		splitPane.setDividerLocation(500);
 		splitPane2.setDividerLocation(.5);
 		splitPane2.setDividerLocation(400);
 		

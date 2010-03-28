@@ -3,8 +3,11 @@ package visualalgol.casosdeuso.comandos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mozilla.javascript.Scriptable;
+
 import visualalgol.casosdeuso.Ator;
 import visualalgol.casosdeuso.CasoDeUso;
+import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.swing.MainFrame;
 
 /**
@@ -20,6 +23,7 @@ public class InterpretadorMediador extends CasoDeUso{
 	
 	private InterpretadorMediador(){
 		listaDeInterpretadores.add(InterpretarWhy.getInstance());
+		listaDeInterpretadores.add(new InterpretarWhen());
 	}
 	
 	
@@ -75,5 +79,23 @@ public class InterpretadorMediador extends CasoDeUso{
 	
 	public static InterpretadorMediador getInstance(){
 		return Holder.instance; 
+	}
+	
+	/**
+	 * Repassa para os interpretadores
+	 * @param instrucao
+	 * @param scope
+	 * @param s
+	 */
+	public void informarComandoExecutado(InstrucaoGenerica instrucao, Scriptable scope, String s) {
+		for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
+			interpretador.informarComandoExecutado(instrucao, scope, s);
+		}
+	}
+
+
+	public void interpretadorFluxogramaIniciado() {
+		// TODO Auto-generated method stub
+		
 	}
 }
