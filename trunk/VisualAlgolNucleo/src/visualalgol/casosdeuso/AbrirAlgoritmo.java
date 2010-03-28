@@ -13,6 +13,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.InstrucaoGenerica;
+import visualalgol.entidades.Linha;
 import visualalgol.swing.MainFrame;
 
 public class AbrirAlgoritmo extends SalvarAlgoritmo {
@@ -44,6 +46,15 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			
 			//lembrar quem foi o ultimo aberto
 			algoritmoAberto = file;
+
+			{//limpar execucao
+				for(InstrucaoGenerica instrucao:algoritmo.getListComando()){
+					instrucao.setExecutado(false);
+				}
+				for(Linha linha:algoritmo.getListLinha()){
+					linha.setExecutado(false);
+				}
+			}
 			
 			mainFrame.setTitle(file.getPath());
 			mainFrame.getFerramentaAtual().setAlgoritmo(algoritmo);

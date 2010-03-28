@@ -3,6 +3,8 @@ package visualalgol.casosdeuso;
 import java.awt.Point;
 
 import visualalgol.entidades.Comando;
+import visualalgol.entidades.CondicaoFim;
+import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
@@ -23,6 +25,7 @@ public class MoverUsabilidade2 implements Mover{
 		} else {
 			if (arrastando != null) {
 				int xLinhaDivisoria = arrastando.getX();
+				int yLinhaDivisoria = arrastando.getY();
 				if(arrastando instanceof Comando){
 					Comando comando = (Comando) arrastando;
 					for(Point point:comando.getLinhaSaida().getListPontos()){
@@ -31,6 +34,27 @@ public class MoverUsabilidade2 implements Mover{
 						}
 					}
 					for(Point point:comando.getLinhaEntrada().getListPontos()){
+						if(point.x==xLinhaDivisoria){
+							point.x += x;
+						}
+					}
+				}else if(arrastando instanceof CondicaoIf){
+					CondicaoIf condicaoIf = (CondicaoIf) arrastando;
+					for(Point point:condicaoIf.getLinhaFalsa().getListPontos()){
+						if(point.y==yLinhaDivisoria){
+							point.y += y;
+						}
+					}
+				}else if(arrastando instanceof CondicaoFim){
+					CondicaoFim condicaoFim = (CondicaoFim) arrastando;
+					for (Linha linha : condicaoFim.getListLinhaEntrada()) {
+						for (Point point : linha.getListPontos()) {
+							if (point.y == yLinhaDivisoria) {
+								point.y += y;
+							}
+						}
+					}
+					for(Point point:condicaoFim.getLinhaSaida().getListPontos()){
 						if(point.x==xLinhaDivisoria){
 							point.x += x;
 						}

@@ -8,6 +8,7 @@ import org.mozilla.javascript.Scriptable;
 
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoIf;
+import visualalgol.entidades.Inicio;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Variavel;
 import visualalgol.utils.LogSimples;
@@ -112,6 +113,10 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 		int i = 0,direcao=1;
 		while (i < executados.size()&& i>=0) {
 			InstrucaoGenerica instrucao = executados.get(i);
+			if(i==0 && direcao==-1){//se voltou ao inicio
+				sistema.informar("because you pressed start (F9)");
+				encontrado = true;
+			}
 			int pos = instrucao.contemVariavel(nomeVariavel,valor,i);
 			if(pos!=-1){// contem a variavel
 				sistema.apontarPara(instrucao);// coloca a criacao de michelangelo
