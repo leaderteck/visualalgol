@@ -47,7 +47,7 @@ public class Console extends JPanel{
 					}
 					iUltimos = 0;
 					//verificar se o ultimo nao eh igual
-					if(ultimosComandos.size()>0 && !ultimosComandos.get(ultimosComandos.size()-1).equals(textoDigitado)){
+					if(ultimosComandos.size()==0 || (ultimosComandos.size()>0 && !ultimosComandos.get(ultimosComandos.size()-1).equals(textoDigitado))){
 						ultimosComandos.add(textoDigitado);
 						persistir(ultimosComandos);
 					}
