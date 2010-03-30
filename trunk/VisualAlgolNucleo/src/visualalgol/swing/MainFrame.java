@@ -19,6 +19,7 @@ import visualalgol.casosdeuso.AbrirAlgoritmo;
 import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.casosdeuso.CriarComando;
 import visualalgol.casosdeuso.CriarCondicao;
+import visualalgol.casosdeuso.CriarWhile;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
@@ -67,6 +68,13 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 			public void actionPerformed(ActionEvent e) {
 				CriarCondicao criarCondicao = new CriarCondicao();
 				criarCondicao.executar(MainFrame.this);
+			}
+		});
+		iconesFluxogramaToolBar.getBtnWhile().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CriarWhile criarWhile = new CriarWhile();
+				criarWhile.executar(MainFrame.this);
 			}
 		});
 		iconesFluxogramaToolBar.getBtnComando().addActionListener(new ActionListener() {

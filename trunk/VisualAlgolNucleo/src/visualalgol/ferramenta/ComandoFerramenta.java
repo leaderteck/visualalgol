@@ -3,6 +3,7 @@ package visualalgol.ferramenta;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 
 import visualalgol.casosdeuso.Ator;
 import visualalgol.entidades.Comando;
@@ -22,18 +23,22 @@ public class ComandoFerramenta extends Ferramenta {
 				Linha linhaSaida = new Linha();
 				boolean copiar = false;
 				int x=e.getX();
-				for(int i=0;i<linhaEntrada.getListPontos().size();i++){
+				
+				System.out.println("linhaEntrada.getListPontos().size() = " + linhaEntrada.getListPontos().size());
+				
+				//for(int i=0;i<linhaEntrada.getListPontos().size();i++){
+				for(int i=linhaEntrada.getListPontos().size()-1;i>=0;i--){
 					Point point = linhaEntrada.getListPontos().get(i);
+					if(!linhaEntrada.getListPontos().remove(point)) throw new RuntimeException("Nao removido");
+					linhaSaida.getListPontos().add(point);
 					if(point==linhaEntrada.getPontoTemporario()){
 						copiar = true;
 						x = point.x;
+						break;
 					}
-					if(copiar){
-						if(!linhaEntrada.getListPontos().remove(point)) throw new RuntimeException("Nao removido");
-						linhaSaida.getListPontos().add(point);
-					}
+					System.out.println("i="+i);
 				}
-				
+				Collections.reverse(linhaSaida.getListPontos());
 				//criar o comando
 				Comando comando = criarComando(x,e.getY());
 				
