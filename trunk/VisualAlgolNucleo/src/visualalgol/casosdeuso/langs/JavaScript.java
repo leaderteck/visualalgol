@@ -29,6 +29,9 @@ public class JavaScript implements Linguagem {
 		if(comando.startsWith("leia ")){
 			String var = comando.substring(5);
 			return var + " = prompt(\"Informe um valor para "+var+"\", \"\");";
+		}else if(comando.startsWith("imprima ")){
+			String var = comando.substring(8);
+			return "alert("+var+");";
 		}
 		return comando + ";";
 	}
