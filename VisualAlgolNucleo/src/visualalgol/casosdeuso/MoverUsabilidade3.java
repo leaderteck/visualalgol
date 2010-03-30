@@ -1,6 +1,7 @@
 package visualalgol.casosdeuso;
 
 import java.awt.Point;
+import java.util.HashSet;
 
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoFim;
@@ -20,10 +21,10 @@ public class MoverUsabilidade3 implements Mover{
 	 * Implementa um movimento complexo
 	 */
 	public void mover(Point arrastandoPonto,InstrucaoGenerica arrastando,final int x,final int y){
-		mover(arrastandoPonto, arrastando, x, y,false);
+		mover(arrastandoPonto, arrastando, x, y,null);
 	}
 	
-	private void moverDelayLine(final Linha linha,final int x,final int y,final boolean propagarComFimCondicao){
+	private void moverDelayLine(final Linha linha,final int x,final int y,final HashSet<InstrucaoGenerica> visitado){
 		final InstrucaoGenerica prox = linha.getDestino();
 		//mover os pontos da linha
 		Thread t = new Thread(){
@@ -31,22 +32,19 @@ public class MoverUsabilidade3 implements Mover{
 			public void run() {
 				for(Point p: linha.getListPontos()){
 					try {Thread.sleep(200);} catch (InterruptedException e) {}
-					mover(p, null, x, y, propagarComFimCondicao);
+					mover(p, null, x, y, visitado);
 				}
 				try {Thread.sleep(200);} catch (InterruptedException e) {}
-				if(prox instanceof CondicaoFim){
-					if(propagarComFimCondicao){
-						mover(null, prox, x, y, propagarComFimCondicao);
-					}
-				}else{
-					mover(null, prox, x, y, propagarComFimCondicao);
+				if(!visitado.contains(prox)){
+					visitado.add(prox);
+					mover(null, prox, x, y,visitado);
 				}
 			}
 		};
 		t.start();
 	}
 	
-	private void mover(Point arrastandoPonto,InstrucaoGenerica arrastando,final int x,final int y,boolean propagarComFimCondicao){
+	private void mover(Point arrastandoPonto,InstrucaoGenerica arrastando,final int x,final int y, HashSet<InstrucaoGenerica> visitado){
 		if (arrastandoPonto != null) {
 			arrastandoPonto.x += x;
 			arrastandoPonto.y += y;
@@ -56,11 +54,11 @@ public class MoverUsabilidade3 implements Mover{
 				int yLinhaDivisoria = arrastando.getY();
 				if(arrastando instanceof Inicio){
 					final Inicio inicio = (Inicio) arrastando;
-					moverDelayLine(inicio.getLinhaSaida(), x, y, true);
+					moverDelayLine(inicio.getLinhaSaida(), x, y, new HashSet<InstrucaoGenerica>());
 				}else if(arrastando instanceof Comando){
 					Comando comando = (Comando) arrastando;
-					if(propagarComFimCondicao){
-						moverDelayLine(comando.getLinhaSaida(), x ,y , propagarComFimCondicao);
+					if(visitado!=null){
+						moverDelayLine(comando.getLinhaSaida(), x ,y , visitado);
 					}else{
 						for(Point point:comando.getLinhaSaida().getListPontos()){
 							if(point.x==xLinhaDivisoria){
@@ -75,9 +73,9 @@ public class MoverUsabilidade3 implements Mover{
 					}
 				}else if(arrastando instanceof CondicaoIf){
 					CondicaoIf condicaoIf = (CondicaoIf) arrastando;
-					if(propagarComFimCondicao){
-						moverDelayLine(condicaoIf.getLinhaFalsa(), x, y, propagarComFimCondicao);
-						moverDelayLine(condicaoIf.getLinhaVerdadeira(), x, y, false);
+					if(visitado!=null){
+						moverDelayLine(condicaoIf.getLinhaFalsa(), x, y, visitado);
+						moverDelayLine(condicaoIf.getLinhaVerdadeira(), x, y, visitado);
 					}else{
 						for(Point point:condicaoIf.getLinhaFalsa().getListPontos()){
 							if(point.y==yLinhaDivisoria){
@@ -87,8 +85,8 @@ public class MoverUsabilidade3 implements Mover{
 					}
 				}else if(arrastando instanceof CondicaoFim){
 					CondicaoFim condicaoFim = (CondicaoFim) arrastando;
-					if(propagarComFimCondicao){
-						moverDelayLine(condicaoFim.getLinhaSaida(),x, y, propagarComFimCondicao);
+					if(visitado!=null){
+						moverDelayLine(condicaoFim.getLinhaSaida(),x, y, visitado);
 					}else{
 						for (Linha linha : condicaoFim.getListLinhaEntrada()) {
 							for (Point point : linha.getListPontos()) {
