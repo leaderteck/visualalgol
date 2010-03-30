@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -26,6 +27,9 @@ import visualalgol.casosdeuso.InterpretarFluxograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.casosdeuso.Sistema;
 import visualalgol.casosdeuso.comandos.InterpretadorMediador;
+import visualalgol.casosdeuso.langs.JavaScript;
+import visualalgol.casosdeuso.langs.Linguagem;
+import visualalgol.casosdeuso.langs.Portugol;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
@@ -127,6 +131,10 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);
 			}
 		});
+		//linguagens
+		adicionarMenuLinguagem(new Portugol());
+		adicionarMenuLinguagem(new JavaScript());
+		
 		console.addOnEnterListener(new OnEnter() {
 			public void textoDigitado(String texto) {
 				InterpretadorMediador interpretador = InterpretadorMediador.getInstance();
@@ -295,5 +303,17 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		}else{
 			telaDesenhoFluxograma.apontarPara(instrucao.getX(),instrucao.getY());
 		}
+	}
+	private void adicionarMenuLinguagem(final Linguagem linguagem ){
+		JMenuItem menuItem = new JMenuItem(linguagem.getNome());
+		menuPrincipal.getCodigo().add(menuItem);
+		menuItem.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Fluxo2PseudoCodigo flux = new Fluxo2PseudoCodigo();
+				flux.setLinguagem(linguagem);
+				flux.executar(MainFrame.this);
+			}
+		});
 	}
 }

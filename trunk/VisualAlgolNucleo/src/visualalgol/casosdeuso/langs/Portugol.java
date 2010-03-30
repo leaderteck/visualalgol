@@ -1,39 +1,32 @@
 package visualalgol.casosdeuso.langs;
 
-public class JavaScript implements Linguagem {
+public class Portugol implements Linguagem {
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
 	public String escreverWhile(String condicao){
-		return "while(" + condicao + "){";
+		return "enquanto " + condicao + " faça";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
 	 */
 	public String escreverEndWhile() {
-		return "}//fim do loop ";
+		return "fim enquanto ";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
 	public String escreverIf(String pseudoCodigo) {
-		return "if(" + pseudoCodigo + "){";
+		return "se " + pseudoCodigo + " então ";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComando(java.lang.String)
 	 */
 	public String escreverComando(String comando) {
-		if(comando.startsWith("leia ")){
-			String var = comando.substring(5);
-			return var + " = prompt(\"Informe um valor para "+var+"\", \"\");";
-		}else if(comando.startsWith("imprima ")){
-			String var = comando.substring(8);
-			return "alert("+var+");";
-		}
-		return comando + ";";
+		return comando;
 	}
 
 	/* (non-Javadoc)
@@ -47,18 +40,18 @@ public class JavaScript implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
 	 */
 	public String escreverElse() {
-		return "}else{";
+		return "senão";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
 	 */
 	public String escreverFimCondicao() {
-		return "}//fim de condicao";
+		return "fim da condição";
 	}
 
 	@Override
 	public String getNome() {
-		return "JavaScript";
+		return "Portugol";
 	}
 }

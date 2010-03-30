@@ -3,8 +3,8 @@ package visualalgol.casosdeuso;
 import java.util.ArrayList;
 import java.util.List;
 
-import visualalgol.casosdeuso.langs.JavaScript;
 import visualalgol.casosdeuso.langs.Linguagem;
+import visualalgol.casosdeuso.langs.Portugol;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
@@ -15,11 +15,14 @@ import visualalgol.swing.MainFrame;
 
 /**
  * Conversor de fluxo para pseudo codigo
- * TODO definir o estilo do pseudo codigo
+ * definir o estilo do pseudo codigo
  */
 public class Fluxo2PseudoCodigo extends CasoDeUso {
 
 	private MainFrame mainFrame;
+	
+	private Linguagem linguagem = new Portugol();
+
 
 	/**
 	 * Contador de tabs para edentar o codigo
@@ -61,7 +64,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	 *            se estiver com true ira jogar o print na tela do usuario
 	 */
 	private void navegarPeloGrafo(boolean printMode) {
-		Linguagem linguagem = new JavaScript();
+		
 		List<CondicaoIf> pilhaCondicao = new ArrayList<CondicaoIf>();
 		Inicio inicio = mainFrame.getAlgoritmo().getComandoInicial();
 		InstrucaoGenerica instrucao, proximaInstrucao = inicio.getLinhaSaida().getDestino();
@@ -144,6 +147,9 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 			}
 			instrucao.setVisitado(true);
 		}
-
+	}
+	
+	public void setLinguagem(Linguagem linguagem) {
+		this.linguagem = linguagem;
 	}
 }
