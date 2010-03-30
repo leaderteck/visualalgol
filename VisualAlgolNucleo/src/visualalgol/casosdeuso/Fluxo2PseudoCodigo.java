@@ -3,6 +3,8 @@ package visualalgol.casosdeuso;
 import java.util.ArrayList;
 import java.util.List;
 
+import visualalgol.casosdeuso.langs.JavaScript;
+import visualalgol.casosdeuso.langs.Linguagem;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
@@ -59,6 +61,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	 *            se estiver com true ira jogar o print na tela do usuario
 	 */
 	private void navegarPeloGrafo(boolean printMode) {
+		Linguagem linguagem = new JavaScript();
 		List<CondicaoIf> pilhaCondicao = new ArrayList<CondicaoIf>();
 		Inicio inicio = mainFrame.getAlgoritmo().getComandoInicial();
 		InstrucaoGenerica instrucao, proximaInstrucao = inicio.getLinhaSaida().getDestino();
@@ -78,14 +81,14 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					// modo para dar saida no pseudo codigo
 					if (condicao.isLoop()) {
 						if (!condicao.isVisitado()) {
-							print("while(" + condicao.getPseudoCodigo() + "){ ");
+							print(linguagem.escreverWhile(condicao.getPseudoCodigo()));
 							nTabs++;
 						} else {
 							nTabs--;
-							print("}//fim do loop ");
+							print(linguagem.escreverEndWhile());
 						}
 					} else {
-						print("if(" + condicao.getPseudoCodigo() + "){");
+						print(linguagem.escreverIf(condicao.getPseudoCodigo()));
 						nTabs++;
 					}
 				}
@@ -110,9 +113,9 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 				proximaInstrucao = comando.getLinhaSaida().getDestino();
 				if (printMode) {
 					if (comando.getPseudoCodigo() != null) {
-						print(comando.getPseudoCodigo() + ";");
+						print(linguagem.escreverComando(comando.getPseudoCodigo()));
 					} else {
-						print("comando qualquer;");
+						print(linguagem.escreverComandoVazio());
 					}
 				}
 			} else if (instrucao instanceof CondicaoFim) {
@@ -125,7 +128,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					proximaInstrucao = condicao.getLinhaFalsa().getDestino();
 					if (printMode) {
 						nTabs--;
-						print("}else{");
+						print(linguagem.escreverElse());
 						nTabs++;
 					}
 				} else {
@@ -133,7 +136,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					proximaInstrucao = condicaoFim.getLinhaSaida().getDestino();
 					if (printMode) {
 						nTabs--;
-						print("}//fim de condicao");
+						print(linguagem.escreverFimCondicao());
 					}
 				}
 			} else if (instrucao instanceof Fim) {
