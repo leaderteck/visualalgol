@@ -65,7 +65,9 @@ public class Comando extends InstrucaoGenerica {
 			linhaSaida.getDestino().substituirEntrada(linhaSaida, linhaEntrada);
 			linhaEntrada.setDestino(linhaSaida.getDestino());
 			for(Point ponto:linhaSaida.getListPontos()){
-				linhaEntrada.getListPontos().add(ponto);
+				if(!linhaEntrada.getListPontos().contains(ponto)){
+					linhaEntrada.getListPontos().add(ponto);
+				}
 			}
 		}
 		getAlgoritmo().getListLinha().remove(linhaSaida);

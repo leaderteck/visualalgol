@@ -21,7 +21,6 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		if(linha!=null){
 			if(linha.getPontoTemporario()!=null){//Criar antes deste ponto
 				InstrucaoGenerica destino = linha.getDestino(); 
-				linha.getListPontos().remove(linha.getPontoTemporario());
 				int x = linha.getPontoTemporario().x;//alinhar o x com o ponto inferior
 				int y = e.getY();
 				criarIf(linha, destino,x , y,linha.getPontoTemporario());
@@ -54,7 +53,11 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		//criar o end if
 		CondicaoFim condicaoFim = new CondicaoFim();
 		condicaoFim.setX(x);//alinhar o x com o destino
-		condicaoFim.setY(destino.getY()-30);//proximo do destino
+		if(point==null){
+			condicaoFim.setY(destino.getY()-30);//proximo do destino
+		}else{
+			condicaoFim.setY(point.y-30);//proximo do destino
+		}
 		condicaoFim.setW(10);
 		condicaoFim.setH(10);
 		condicaoFim.setCor(new Color(0xff, 0xf0, 0xf0).getRGB());
@@ -84,11 +87,9 @@ public class CondicaoIfFerramenta extends Ferramenta {
 			condicaoIf.setLinhaFalsa(linhaFalsa);
 		}
 		//ligar o end if ao comando posterior, criando uma linha
-		Linha fimSeAoDestino = new Linha();
+		//Linha fimSeAoDestino = new Linha();
+		Linha fimSeAoDestino = quebrarLinha(linha);
 		fimSeAoDestino.setOrigem(condicaoFim);
-		if(point!=null){//colocar o ponto removido no proximo
-			fimSeAoDestino.getListPontos().add(point);
-		}
 		fimSeAoDestino.setDestino(destino);
 		getAlgoritmo().getListLinha().add(fimSeAoDestino);
 		condicaoFim.setLinhaSaida(fimSeAoDestino);
