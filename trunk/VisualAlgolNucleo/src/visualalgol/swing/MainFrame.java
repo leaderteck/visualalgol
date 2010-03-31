@@ -30,6 +30,7 @@ import visualalgol.casosdeuso.Sistema;
 import visualalgol.casosdeuso.comandos.InterpretadorMediador;
 import visualalgol.casosdeuso.langs.JavaScript;
 import visualalgol.casosdeuso.langs.Linguagem;
+import visualalgol.casosdeuso.langs.Pascal;
 import visualalgol.casosdeuso.langs.Portugol;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -122,12 +123,11 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 				new Fluxo2PseudoCodigo().executar(MainFrame.this);
 			}
 		});
-		menuPrincipal.getSairMenuItem().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new FecharVisuAlgo().executar(MainFrame.this);
-				
-			}
-		});
+		//menuPrincipal.getSairMenuItem().addActionListener(new ActionListener() {
+		//	public void actionPerformed(ActionEvent e) {
+		//		new FecharVisuAlgo().executar(MainFrame.this);
+		//	}
+		//});
 		menuPrincipal.getRodar().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				new InterpretarFluxograma().executar(MainFrame.this);
@@ -141,6 +141,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		//linguagens
 		adicionarMenuLinguagem(new Portugol());
 		adicionarMenuLinguagem(new JavaScript());
+		adicionarMenuLinguagem(new Pascal());
 		
 		console.addOnEnterListener(new OnEnter() {
 			public void textoDigitado(String texto) {

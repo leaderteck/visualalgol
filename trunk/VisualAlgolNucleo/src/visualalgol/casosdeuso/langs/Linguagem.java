@@ -2,6 +2,10 @@ package visualalgol.casosdeuso.langs;
 
 public interface Linguagem {
 
+	public abstract String getFim();
+	
+	public abstract String getInicio();
+	
 	public abstract String getNome();
 	
 	public abstract String escreverWhile(String condicao);

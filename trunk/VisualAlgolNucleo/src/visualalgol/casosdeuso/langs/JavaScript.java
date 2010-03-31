@@ -61,4 +61,14 @@ public class JavaScript implements Linguagem {
 	public String getNome() {
 		return "JavaScript";
 	}
+
+	@Override
+	public String getInicio() {
+		return "<script type=\"text/javascript\"><!--";
+	}
+
+	@Override
+	public String getFim() {
+		return "//-->\n</script>";
+	}
 }
