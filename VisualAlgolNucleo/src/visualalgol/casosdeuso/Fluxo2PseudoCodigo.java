@@ -23,7 +23,6 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	
 	private Linguagem linguagem = new Portugol();
 
-
 	/**
 	 * Contador de tabs para edentar o codigo
 	 */
@@ -71,6 +70,10 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 		// Zerar
 		for (InstrucaoGenerica aux : mainFrame.getAlgoritmo().getListComando()) {
 			aux.setVisitado(false);
+		}
+		if (printMode) {
+			print(linguagem.getInicio());
+			nTabs++;
 		}
 		while (true) {
 			// para deixar mais claro. Ao final do loop existe o
@@ -146,6 +149,10 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 				break;
 			}
 			instrucao.setVisitado(true);
+		}
+		if (printMode) {
+			nTabs--;
+			print(linguagem.getFim());
 		}
 	}
 	

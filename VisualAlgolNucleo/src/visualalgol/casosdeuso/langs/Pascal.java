@@ -1,11 +1,11 @@
 package visualalgol.casosdeuso.langs;
 
-public class Portugol implements Linguagem {
+public class Pascal implements Linguagem {
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
 	public String escreverWhile(String condicao){
-		return "enquanto " + condicao + " faça";
+		return "while " + condicao + " do begin";
 	}
 
 	/* (non-Javadoc)
@@ -19,49 +19,57 @@ public class Portugol implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
 	public String escreverIf(String pseudoCodigo) {
-		return "se " + pseudoCodigo + " então ";
+		return "if " + pseudoCodigo + " then begin ";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComando(java.lang.String)
 	 */
 	public String escreverComando(String comando) {
-		return comando;
+		if(comando.startsWith("leia ")){
+			String var = comando.substring(5);
+			return "read(" + var + ");";
+		}else if(comando.startsWith("imprima ")){
+			String var = comando.substring(8);
+			return "writeln("+var+");";
+		}
+		comando = comando.replaceFirst("=", ":=");
+		return comando + ";";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
 	 */
 	public String escreverComandoVazio() {
-		return "//comando qualquer";
+		return "{comando qualquer}";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
 	 */
 	public String escreverElse() {
-		return "senão";
+		return "end else begin";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
 	 */
 	public String escreverFimCondicao() {
-		return "fim da condição";
+		return "end; { Fim condicao }";
 	}
 
 	@Override
 	public String getNome() {
-		return "Portugol";
+		return "Pascal";
 	}
 
 	@Override
 	public String getInicio() {
-		return "Inicio";
+		return "begin {Programa principal}";
 	}
 
 	@Override
 	public String getFim() {
-		return "Fim";
+		return "end.";
 	}
 }
