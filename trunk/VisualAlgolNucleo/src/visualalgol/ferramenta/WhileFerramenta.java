@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import visualalgol.casosdeuso.Ator;
-import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.InstrucaoWhile;
@@ -66,11 +65,10 @@ public class WhileFerramenta extends Ferramenta {
 			linhaVerdadeira.setOrigem(instrucaoWhile);
 			//TODO criar a volta
 			linhaVerdadeira.getListPontos().add(new Point(x,destino.getY()-60));
-			linhaVerdadeira.getListPontos().add(new Point(x-100,destino.getY()-60));
-			linhaVerdadeira.getListPontos().add(new Point(x-100,y));
+			linhaVerdadeira.getListPontos().add(new Point(x-80,destino.getY()-60));
+			linhaVerdadeira.getListPontos().add(new Point(x-80,y));
 			linhaVerdadeira.setDestino(instrucaoWhile);
 			getAlgoritmo().getListLinha().add(linhaVerdadeira);
-			
 			instrucaoWhile.setLinhaVerdadeira(linhaVerdadeira);
 		}
 		Linha linhaFalsa = new Linha();

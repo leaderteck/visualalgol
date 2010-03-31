@@ -189,4 +189,22 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	public void setArrastando(InstrucaoGenerica arrastando) {
 		this.arrastando = arrastando;
 	}
+	
+	/**
+	 * Quebra a linha em duas no pontoTemporario
+	 * @param linhaEntrada linha
+	 * @return novaLinha
+	 */
+	public Linha quebrarLinha(Linha linhaEntrada){
+		Linha linhaSaida = new Linha();
+		for(int i=linhaEntrada.getListPontos().size()-1;i>=0;i--){
+			Point point = linhaEntrada.getListPontos().get(i);
+			if(!linhaEntrada.getListPontos().remove(point)) throw new RuntimeException("Nao removido");
+			linhaSaida.getListPontos().add(0,point);
+			if(point==linhaEntrada.getPontoTemporario()){
+				break;
+			}
+		}
+		return linhaSaida;
+	}
 }
