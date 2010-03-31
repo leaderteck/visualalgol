@@ -23,6 +23,7 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenuItem verPseudoCodigo;
 	private JMenuItem rodar;
 	private JMenuItem sairMenuItem;
+	
 	private ArquivoRecente arquivoRecente;
 	private JMenu arquivo; 
 	private JMenu recentes;
@@ -140,6 +141,7 @@ public class MenuPrincipal extends JMenuBar{
 	}
 
 	/**
+	 * Run F9
 	 * @return the rodar
 	 */
 	public JMenuItem getRodar() {

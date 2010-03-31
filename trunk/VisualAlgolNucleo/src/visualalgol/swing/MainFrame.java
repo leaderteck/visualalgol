@@ -69,29 +69,13 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		console.setPersistirEmArquivo(new File(CasoDeUso.getPastaDoPrograma(), "comandos.txt"));
 		telaDesenhoFluxograma.addListener(escreverFerramenta);
 		menuPrincipal.setAbrirRecenteListener(this);
-		iconesFluxogramaToolBar.getBtnCondicao().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CriarCondicao criarCondicao = new CriarCondicao();
-				criarCondicao.executar(MainFrame.this);
-			}
-		});
-		iconesFluxogramaToolBar.getBtnWhile().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CriarWhile criarWhile = new CriarWhile();
-				criarWhile.executar(MainFrame.this);
-			}
-		});
-		iconesFluxogramaToolBar.getBtnComando().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CriarComando criarComando = new CriarComando();
-				criarComando.executar(MainFrame.this);
-			}
-		});
+		iconesFluxogramaToolBar.getBtnCondicao()
+			.addActionListener(new StrongAdapter(this,CriarCondicao.class));
+		iconesFluxogramaToolBar.getBtnWhile()
+			.addActionListener(new StrongAdapter(this,CriarWhile.class));
+		iconesFluxogramaToolBar.getBtnComando()
+			.addActionListener(new StrongAdapter(this,CriarComando.class));
 		iconesFluxogramaToolBar.getBtnFimDecisao().addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFerramenta(new CondicaoFimFerramenta());
 			}
@@ -108,31 +92,19 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 				setFerramenta(new EscreverFerramenta());
 			}
 		});
-		menuPrincipal.getSalvarMenuItem().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				salvar();
-			}
-		});
-		menuPrincipal.getAbrirMenuItem().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new AbrirAlgoritmo().executar(MainFrame.this);
-			}
-		});
-		menuPrincipal.getVerPseudoCodigo().addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				new Fluxo2PseudoCodigo().executar(MainFrame.this);
-			}
-		});
+		menuPrincipal.getSalvarMenuItem()
+			.addActionListener(new StrongAdapter(this,SalvarAlgoritmo.class));
+		menuPrincipal.getAbrirMenuItem()
+			.addActionListener(new StrongAdapter(this,AbrirAlgoritmo.class));
+		menuPrincipal.getVerPseudoCodigo()
+			.addActionListener(new StrongAdapter(this,Fluxo2PseudoCodigo.class));
 		//menuPrincipal.getSairMenuItem().addActionListener(new ActionListener() {
 		//	public void actionPerformed(ActionEvent e) {
 		//		new FecharVisuAlgo().executar(MainFrame.this);
 		//	}
 		//});
-		menuPrincipal.getRodar().addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				new InterpretarFluxograma().executar(MainFrame.this);
-			}
-		});
+		menuPrincipal.getRodar()
+			.addActionListener(new StrongAdapter(this,InterpretarFluxograma.class));
 		menuPrincipal.getNovo().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);
@@ -201,9 +173,6 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		}
 	}
 	
-	private void salvar(){
-		new SalvarAlgoritmo().executar(this);
-	}
 	
 	public void setFerramenta(Ferramenta ferramenta) {
 		if (ferramentaAtual != null) {
@@ -312,6 +281,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 			telaDesenhoFluxograma.apontarPara(instrucao.getX(),instrucao.getY());
 		}
 	}
+	
 	private void adicionarMenuLinguagem(final Linguagem linguagem ){
 		JMenuItem menuItem = new JMenuItem(linguagem.getNome());
 		menuPrincipal.getCodigo().add(menuItem);
