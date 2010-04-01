@@ -18,7 +18,7 @@ import visualalgol.entidades.Linha;
 public class MoverUsabilidade4 implements Mover{
 
 	private HashSet<InstrucaoGenerica> visitado;
-	private HashSet<Point> linhasVisitadas = new HashSet<Point>();
+	private HashSet<Linha> linhasVisitadas = new HashSet<Linha>();
 	
 	public void setVisitado(HashSet<InstrucaoGenerica> visitado) {
 		this.visitado = visitado;
@@ -31,30 +31,28 @@ public class MoverUsabilidade4 implements Mover{
 		mover(arrastandoPonto, arrastando, x, y,visitado);
 	}
 	
-	private void moverDelayLine(final Linha linha,final int x,final int y,final HashSet<InstrucaoGenerica> visitado){
-		
+	private synchronized void moverDelayLine(final Linha linha,final int x,final int y,final HashSet<InstrucaoGenerica> visitado){
+		if(linhasVisitadas.contains(linha)) return;
+		linhasVisitadas.add(linha);
 		
 		final InstrucaoGenerica prox = linha.getDestino();
 		final InstrucaoGenerica ant = linha.getOrigem();
-		//mover os pontos da linha
 		Thread t = new Thread(){
-			@Override
 			public void run() {
+				try {Thread.sleep(200);} catch (InterruptedException e) {}
+				//mover os pontos da linha
 				for(Point p: linha.getListPontos()){
-					if(linhasVisitadas.contains(p)) continue;
-						linhasVisitadas.add(p);
-						
 					try {Thread.sleep(200);} catch (InterruptedException e) {}
 					mover(p, null, x, y, visitado);
-				}
-				try {Thread.sleep(200);} catch (InterruptedException e) {}
-				if(!visitado.contains(prox)){
-					visitado.add(prox);
-					mover(null, prox, x, y,visitado);
 				}
 				if(!visitado.contains(ant)){
 					visitado.add(ant);
 					mover(null, ant, x, y,visitado);
+				}
+				
+				if(!visitado.contains(prox)){
+					visitado.add(prox);
+					mover(null, prox, x, y,visitado);
 				}
 			}
 		};
@@ -69,6 +67,8 @@ public class MoverUsabilidade4 implements Mover{
 			if (arrastando != null) {
 				int xLinhaDivisoria = arrastando.getX();
 				int yLinhaDivisoria = arrastando.getY();
+				arrastando.setX(arrastando.getX() + x);
+				arrastando.setY(arrastando.getY() + y);
 				if(arrastando instanceof Inicio){
 					final Inicio inicio = (Inicio) arrastando;
 					moverDelayLine(inicio.getLinhaSaida(), x, y, new HashSet<InstrucaoGenerica>());
@@ -124,8 +124,7 @@ public class MoverUsabilidade4 implements Mover{
 						}
 					}
 				}
-				arrastando.setX(arrastando.getX() + x);
-				arrastando.setY(arrastando.getY() + y);
+				
 			}
 		}
 	}
