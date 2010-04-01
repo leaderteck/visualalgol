@@ -16,25 +16,26 @@ public class ComandoFerramenta extends Ferramenta {
 		// pegar a linha em x y do mouse
 		Linha linhaEntrada = getLinhaEm(e.getX(), e.getY());
 		if(linhaEntrada!=null){
+			Comando comando = null;
 			if(linhaEntrada.getPontoTemporario()!=null){//Criar antes deste ponto
 				//separar a linha em duas, quebrando no ponto temporario
 				Linha linhaSaida = quebrarLinha(linhaEntrada);
 				
 				//criar o comando
-				Comando comando = criarComando(linhaEntrada.getPontoTemporario().x,e.getY());
+				comando = criarComando(linhaEntrada.getPontoTemporario().x,e.getY());
 				
 				//Ligar as linhas
 				ligarLinhas(linhaEntrada, linhaSaida, comando);
 			}else{//criar antes do destino
 				int x = linhaEntrada.getDestino().getX();
 				//criar o comando
-				Comando comando = criarComando(x,e.getY());
+				comando = criarComando(x,e.getY());
 				Linha linhaSaida = new Linha();
 				
 				//Ligar as linhas
 				ligarLinhas(linhaEntrada, linhaSaida, comando);
 			}
-			Ator.getInstance().criouInstrucao();
+			Ator.getInstance().criouInstrucao(comando);
 		}
 	}
 

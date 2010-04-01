@@ -19,21 +19,22 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		// pegar a linha em x y do mouse
 		Linha linha = getLinhaEm(e.getX(), e.getY());
 		if(linha!=null){
+			CondicaoIf condicaoIf = null;
 			if(linha.getPontoTemporario()!=null){//Criar antes deste ponto
 				InstrucaoGenerica destino = linha.getDestino(); 
 				int x = linha.getPontoTemporario().x;//alinhar o x com o ponto inferior
 				int y = e.getY();
-				criarIf(linha, destino,x , y,linha.getPontoTemporario());
+				condicaoIf = criarIf(linha, destino,x , y,linha.getPontoTemporario());
 			}else{//criar antes do destino
 				InstrucaoGenerica destino = linha.getDestino(); 
 				int x = destino.getX();//alinhar o x com o destino
 				int y = e.getY();
-				criarIf(linha, destino, x, y,null);
+				condicaoIf = criarIf(linha, destino, x, y,null);
 			}
-			Ator.getInstance().criouInstrucao();
+			Ator.getInstance().criouInstrucao(condicaoIf);
 		}
 	}
-	private void criarIf(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
+	private CondicaoIf criarIf(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
 		//Criar a intrucao if
 		CondicaoIf condicaoIf = new CondicaoIf();
 		condicaoIf.setX(x);//alinhar o x com o destino
@@ -95,6 +96,8 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		condicaoFim.setLinhaSaida(fimSeAoDestino);
 		condicaoFim.getListLinhaEntrada().add(linhaVerdadeira);
 		condicaoFim.getListLinhaEntrada().add(linhaFalsa);
+		
+		return condicaoIf;
 	}
 	private void implementacaoAntiga(MouseEvent e){
 		if (getInstrucaoEm(e.getX(), e.getY()) == null) {

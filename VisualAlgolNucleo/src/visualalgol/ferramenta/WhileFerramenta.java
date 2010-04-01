@@ -19,19 +19,20 @@ public class WhileFerramenta extends Ferramenta {
 		// pegar a linha em x y do mouse
 		Linha linha = getLinhaEm(e.getX(), e.getY());
 		if(linha!=null){
+			InstrucaoWhile instrucaoWhile = null;
 			if(linha.getPontoTemporario()!=null){//Criar antes deste ponto
 				InstrucaoGenerica destino = linha.getDestino(); 
 				linha.getListPontos().remove(linha.getPontoTemporario());
 				int x = linha.getPontoTemporario().x;//alinhar o x com o ponto inferior
 				int y = e.getY();
-				criarWhile(linha, destino,x , y,linha.getPontoTemporario());
+				instrucaoWhile = criarWhile(linha, destino,x , y,linha.getPontoTemporario());
 			}else{//criar antes do destino
 				InstrucaoGenerica destino = linha.getDestino(); 
 				int x = destino.getX();//alinhar o x com o destino
 				int y = e.getY();
-				criarWhile(linha, destino, x, y,null);
+				instrucaoWhile = criarWhile(linha, destino, x, y,null);
 			}
-			Ator.getInstance().criouInstrucao();
+			Ator.getInstance().criouInstrucao(instrucaoWhile);
 		}
 	}
 	
@@ -43,7 +44,7 @@ public class WhileFerramenta extends Ferramenta {
 	 * @param y
 	 * @param point
 	 */
-	private void criarWhile(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
+	private InstrucaoWhile criarWhile(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
 		//Criar a intrucao if
 		InstrucaoWhile instrucaoWhile = new InstrucaoWhile();
 		instrucaoWhile.setX(x);//alinhar o x com o destino
@@ -86,6 +87,7 @@ public class WhileFerramenta extends Ferramenta {
 			instrucaoWhile.setLinhaFalsa(linhaFalsa);
 		}
 		
+		return instrucaoWhile;
 	}
 	private void implementacaoAntiga(MouseEvent e){
 		if (getInstrucaoEm(e.getX(), e.getY()) == null) {
