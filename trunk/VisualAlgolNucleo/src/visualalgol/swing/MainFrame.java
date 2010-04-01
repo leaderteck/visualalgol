@@ -21,7 +21,6 @@ import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.casosdeuso.CriarComando;
 import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.CriarWhile;
-import visualalgol.casosdeuso.FecharVisuAlgo;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
@@ -53,6 +52,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 	private EscreverFerramenta escreverFerramenta;
 	private Console console;
 	private JLabel saidaDialogo;
+	private VariaveisView variaveisView;
 	public MainFrame() {
 		// Instanciando...
 		menuPrincipal = new MenuPrincipal();
@@ -64,6 +64,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		escreverFerramenta = new EscreverFerramenta();
 		console = new Console();
 		saidaDialogo = new JLabel();
+		variaveisView = new VariaveisView();
 
 		// Configurando...
 		console.setPersistirEmArquivo(new File(CasoDeUso.getPastaDoPrograma(), "comandos.txt"));
@@ -131,6 +132,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		// Layout
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Console",console);
+		tabbedPane.addTab("Variaveis",variaveisView);
 		
 		JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,new JScrollPane(telaPseudoCodigo),tabbedPane);
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),splitPane2);
