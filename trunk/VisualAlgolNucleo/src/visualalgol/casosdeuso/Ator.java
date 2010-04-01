@@ -1,10 +1,14 @@
 package visualalgol.casosdeuso;
 
+import visualalgol.entidades.Comando;
+import visualalgol.entidades.InstrucaoGenerica;
+
 public class Ator {
 	private static Ator instance;
 	private boolean aguardandoCriarInstrucao = false;
 	private boolean aguardandoDigitarTexto = false;
 	private String textoDigitado;
+	private InstrucaoGenerica instrucao;
 
 	public static Ator getInstance() {
 		if (instance == null)
@@ -12,18 +16,20 @@ public class Ator {
 		return instance;
 	}
 
-	public void criarInstrucao() throws InterruptedException {
+	public InstrucaoGenerica criarInstrucao() throws InterruptedException {
 		aguardandoCriarInstrucao = true;
 		synchronized (this) {
 			this.wait();
 		}
+		return this.instrucao;
 	}
 
-	public void criouInstrucao() {
+	public void criouInstrucao(InstrucaoGenerica instrucao) {
 		synchronized (this) {
 			if (aguardandoCriarInstrucao)
 				this.notify();
 			aguardandoCriarInstrucao = false;
+			this.instrucao = instrucao;
 		}
 	}
 
