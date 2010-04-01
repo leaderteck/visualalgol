@@ -14,6 +14,7 @@ import java.util.List;
 
 import visualalgol.casosdeuso.Mover;
 import visualalgol.casosdeuso.MoverUsabilidade3;
+import visualalgol.casosdeuso.MoverUsabilidade5;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -70,17 +71,22 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 
 	}
 
+	private Mover moverDireita = new MoverUsabilidade5();
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		int difX = e.getX() - ultimoX;
 		int difY = e.getY() - ultimoY;
-		
-		mover.mover(arrastandoPonto, arrastando, difX, difY);
-		
+		if(mouseButtonPressed==MouseEvent.BUTTON3){//nao retorna direito o e.getButton(), por isso guardamos o mouseButtonPressed
+			moverDireita.mover(arrastandoPonto, arrastando, difX, difY);
+		}else{
+			mover.mover(arrastandoPonto, arrastando, difX, difY);
+		}
 		ultimoX = e.getX();
 		ultimoY = e.getY();
 	}
 
+	private int mouseButtonPressed=0;
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
@@ -111,7 +117,9 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 		ultimoY = e.getY();
 		// verificar se esta selecionando um dos comandos
 		arrastando = getInstrucaoEm(ultimoX, ultimoY);
+		mouseButtonPressed = e.getButton();
 		if(e.getButton()==MouseEvent.BUTTON3){
+			moverDireita = new MoverUsabilidade5(arrastando.getX());
 			//Botao direito
 			if(arrastando instanceof Comando){
 				// abrir editor de comando?

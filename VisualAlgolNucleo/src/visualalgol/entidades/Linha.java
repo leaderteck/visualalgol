@@ -15,6 +15,8 @@ public class Linha implements Serializable, Cloneable{
 	private InstrucaoGenerica destino;
 	private Point pontoTemporario;
 	private boolean executado;
+	private Long id;
+	
 	private List<Point> listPontos = new ArrayList<Point>();
 	
 	public Linha() {
@@ -78,23 +80,6 @@ public class Linha implements Serializable, Cloneable{
 		return executado;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((destino == null) ? 0 : destino.hashCode());
-		result = prime * result + (executado ? 1231 : 1237);
-		result = prime * result + ((listPontos == null) ? 0 : listPontos.hashCode());
-		result = prime * result + ((origem == null) ? 0 : origem.hashCode());
-		result = prime * result + ((pontoTemporario == null) ? 0 : pontoTemporario.hashCode());
-		return result;
-	}
-
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -107,32 +92,20 @@ public class Linha implements Serializable, Cloneable{
 		if (!(obj instanceof Linha))
 			return false;
 		Linha other = (Linha) obj;
-		if (destino == null) {
-			if (other.destino != null)
-				return false;
-		} else if (!destino.equals(other.destino))
-			return false;
-		if (executado != other.executado)
-			return false;
-		if (listPontos == null) {
-			if (other.listPontos != null)
-				return false;
-		} else if (!listPontos.equals(other.listPontos))
-			return false;
-		if (origem == null) {
-			if (other.origem != null)
-				return false;
-		} else if (!origem.equals(other.origem))
-			return false;
-		if (pontoTemporario == null) {
-			if (other.pontoTemporario != null)
-				return false;
-		} else if (!pontoTemporario.equals(other.pontoTemporario))
+		long myId = this.getId();
+		if(myId!=other.getId())
 			return false;
 		return true;
 	}
 
-
+	private static long unique = 0;
+	private synchronized long getId(){
+		if(id==null){
+			id = unique++;
+		}
+		return id;
+	}
+	
 	public Linha deepClone() {
 		try {
 			Linha linha = (Linha)this.clone();

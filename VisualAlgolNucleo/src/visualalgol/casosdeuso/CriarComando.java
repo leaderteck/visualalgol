@@ -1,8 +1,6 @@
 package visualalgol.casosdeuso;
 
 import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-import java.util.HashSet;
 
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.ferramenta.ComandoFerramenta;
@@ -14,7 +12,7 @@ public class CriarComando extends CasoDeUso{
 		sistema.informarNoRodape("Criando 'Comando': Clique em cima de uma linha...");
 		sistema.setFerramenta(new ComandoFerramenta());
 		InstrucaoGenerica instrucao = ator.criarInstrucao();
-		sistema.informarNoRodape("Clique duas vezes no retangulo para digitar a condi��o.");
+		sistema.informarNoRodape("Clique duas vezes no retangulo para digitar um comando.");
 		int x = instrucao.getX()-instrucao.getW()/2;
 		int y = instrucao.getY()-instrucao.getH()/2;
 		Rectangle rec = new Rectangle(x,y,instrucao.getW(),instrucao.getH());
@@ -34,19 +32,13 @@ public class CriarComando extends CasoDeUso{
 				}
 			}
 		}
+		
 		if(xCorte!=null){//bateu
-			HashSet<InstrucaoGenerica> visitados= new HashSet<InstrucaoGenerica>();
-			for(InstrucaoGenerica aux:sistema.getAlgoritmo().getListComando()){
-				if(aux.getX()<xCorte){
-					System.out.println("visitados.add " + aux.getPseudoCodigo());
-					visitados.add(aux);
-				}
+			MoverUsabilidade5 mover = new MoverUsabilidade5(xCorte);
+			for(int i=0;i<5;i++){
+				mover.mover(null, instrucao, 10, 0);
 			}
-			MoverUsabilidade4 mover = new MoverUsabilidade4();
-			mover.setVisitado(visitados);
-			mover.mover(null,instrucao, 50, 0);
 		}
 		//verificar se colidiu com alguem da direita
 	}
-
 }
