@@ -188,8 +188,12 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		ferramentaAtual = ferramenta;
 	}
 
+	@Override
 	public void setAlgoritmo(Algoritmo algoritmo) {
 		this.algoritmo = algoritmo;
+		getFerramentaAtual().setAlgoritmo(algoritmo);
+		getEscreverFerramenta().setAlgoritmo(algoritmo);
+		getVariaveisView().setAlgoritmo(algoritmo);
 	}
 
 	/**
@@ -295,5 +299,9 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 				flux.executar(MainFrame.this);
 			}
 		});
+	}
+	
+	public VariaveisView getVariaveisView() {
+		return variaveisView;
 	}
 }

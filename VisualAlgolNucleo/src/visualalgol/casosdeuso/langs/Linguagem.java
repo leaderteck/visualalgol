@@ -1,7 +1,11 @@
 package visualalgol.casosdeuso.langs;
 
+import visualalgol.entidades.Algoritmo;
+
 public interface Linguagem {
 
+	public abstract String getCabecalho(Algoritmo alg); 
+	
 	public abstract String getFim();
 	
 	public abstract String getInicio();

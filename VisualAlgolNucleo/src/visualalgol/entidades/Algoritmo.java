@@ -10,6 +10,13 @@ public class Algoritmo implements Serializable{
 	private InstrucaoGenerica comandoFinal;
 	private List<InstrucaoGenerica> listComando = new ArrayList<InstrucaoGenerica>();
 	private List<Linha> listLinha = new ArrayList<Linha>();
+	private List<Variavel> variaveis = new ArrayList<Variavel>();
+	public List<Variavel> getVariaveis() {
+		return variaveis;
+	}
+	public void setVariaveis(List<Variavel> variaveis) {
+		this.variaveis = variaveis;
+	}
 	/**
 	 * @return the comandoInicial
 	 */

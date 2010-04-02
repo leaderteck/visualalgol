@@ -72,6 +72,10 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 			aux.setVisitado(false);
 		}
 		if (printMode) {
+			String cab = linguagem.getCabecalho(mainFrame.getAlgoritmo());
+			if(cab!=null && !cab.equals("")){
+				print(cab);
+			}
 			print(linguagem.getInicio());
 			nTabs++;
 		}
