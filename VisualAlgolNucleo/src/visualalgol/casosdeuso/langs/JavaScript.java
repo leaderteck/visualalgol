@@ -1,8 +1,10 @@
 package visualalgol.casosdeuso.langs;
 
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.Variavel;
 
 public class JavaScript implements Linguagem {
+	private Algoritmo alg;
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
@@ -24,13 +26,31 @@ public class JavaScript implements Linguagem {
 		return "if(" + pseudoCodigo + "){";
 	}
 
+	private int getTipo(String nome){
+		for(Variavel var: alg.getVariaveis()){
+			if(var.getName().equals(nome)){
+				return var.getTipo();
+			}
+		}
+		return 0;
+	}
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComando(java.lang.String)
 	 */
 	public String escreverComando(String comando) {
 		if(comando.startsWith("leia ")){
 			String var = comando.substring(5);
-			return var + " = prompt(\"Informe um valor para "+var+"\", \"\");";
+			//achar o tipo da variavel
+			int tipo = getTipo(var);
+			if(tipo==2){//Real
+				return  var + " = prompt(\"Informe um valor para "+var+"\", \"\")*1;";
+			}else if(tipo==3){
+				return  var + " = parseInt(prompt(\"Informe um valor para "+var+"\", \"\"));";
+			}else if(tipo==4){
+				return  var + " = confirm(\"Informe um valor para "+var+":\\n ok = verdadeiro\\n cancel = falso\");";
+			}else{
+				return var + " = prompt(\"Informe um valor para "+var+"\", \"\");";
+			}
 		}else if(comando.startsWith("imprima ")){
 			String var = comando.substring(8);
 			return "alert("+var+");";
@@ -76,6 +96,7 @@ public class JavaScript implements Linguagem {
 
 	@Override
 	public String getCabecalho(Algoritmo alg) {
+		this.alg = alg;
 		return "";
 	}
 }
