@@ -93,8 +93,18 @@ public class Pascal implements Linguagem {
 	@Override
 	public String getCabecalho(Algoritmo alg) {
 		String retorno = "Program Pzim ;\nvar ";
-		for(Variavel var:alg.getVariaveis()){
-			retorno+= var.getName()+":"+getTipo(var.getTipo())+";";
+		//Organizar por tipo
+		for(int i=0;i<Variavel.getTipos().size();i++){
+			boolean tem=false;
+			for(Variavel var:alg.getVariaveis()){
+				if(var.getTipo()==i){
+					if(tem)retorno+=", ";
+					tem=true;
+					retorno += var.getName();
+					
+				}
+			}
+			if(tem)	retorno+=":"+getTipo(i)+";\n";
 		}
 		return retorno;
 	}
