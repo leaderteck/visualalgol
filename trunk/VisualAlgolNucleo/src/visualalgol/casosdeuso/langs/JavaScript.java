@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso.langs;
 
+import visualalgol.entidades.Algoritmo;
+
 public class JavaScript implements Linguagem {
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
@@ -70,5 +72,10 @@ public class JavaScript implements Linguagem {
 	@Override
 	public String getFim() {
 		return "//-->\n</script>";
+	}
+
+	@Override
+	public String getCabecalho(Algoritmo alg) {
+		return "";
 	}
 }

@@ -50,8 +50,6 @@ public class IniciarPrograma extends CasoDeUso {
 		Algoritmo algoritmo = new Algoritmo();
 		sistema.setAlgoritmo(algoritmo);
 		sistema.setTitle(null);
-		sistema.getFerramentaAtual().setAlgoritmo(algoritmo);
-		sistema.getEscreverFerramenta().setAlgoritmo(algoritmo);
 
 		AbrirAlgoritmo.setAlgoritmoAberto(null);
 

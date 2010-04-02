@@ -57,8 +57,7 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			}
 			
 			mainFrame.setTitle(file.getPath());
-			mainFrame.getFerramentaAtual().setAlgoritmo(algoritmo);
-			mainFrame.getEscreverFerramenta().setAlgoritmo(algoritmo);
+			
 			
 			// Colocar na lista de recentes
 			List<String> lista = mainFrame.getMenuPrincipal().getArquivoRecente().getPaths();

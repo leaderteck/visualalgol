@@ -1,5 +1,8 @@
 package visualalgol.casosdeuso.langs;
 
+import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.Variavel;
+
 public class Pascal implements Linguagem {
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
@@ -71,5 +74,28 @@ public class Pascal implements Linguagem {
 	@Override
 	public String getFim() {
 		return "end.";
+	}
+
+	private String getTipo(int x){
+		switch (x) {
+		case 1:
+			return "string[255]";
+		case 2:
+			return "real";
+		case 3:
+			return "integer";
+		case 4:
+			return "boolean";
+		default:
+			return "??";
+		}
+	}
+	@Override
+	public String getCabecalho(Algoritmo alg) {
+		String retorno = "Program Pzim ;\nvar ";
+		for(Variavel var:alg.getVariaveis()){
+			retorno+= var.getName()+":"+getTipo(var.getTipo())+";";
+		}
+		return retorno;
 	}
 }

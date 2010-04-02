@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso.langs;
 
+import visualalgol.entidades.Algoritmo;
+
 public class Portugol implements Linguagem {
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
@@ -63,5 +65,10 @@ public class Portugol implements Linguagem {
 	@Override
 	public String getFim() {
 		return "Fim";
+	}
+
+	@Override
+	public String getCabecalho(Algoritmo alg) {
+		return "";
 	}
 }
