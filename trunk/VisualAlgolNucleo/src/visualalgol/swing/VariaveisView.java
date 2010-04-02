@@ -109,9 +109,7 @@ class WrapperAux{
 		this.var = var;
 		combo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("selecionou " + combo.getSelectedItem());
 				int i = Variavel.getTipos().indexOf(combo.getSelectedItem());
-				System.out.println("tipo = " + i);
 				WrapperAux.this.var.setTipo(i);
 			}
 		});
