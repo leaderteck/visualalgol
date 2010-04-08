@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -332,5 +333,36 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 	public void setArquivoRecente(ArquivoRecente obj) {
 		menuPrincipal.setArquivoRecente(obj);
 		
+	}
+
+	/**
+	 * Delegate
+	 */
+	@Override
+	public void setCodigo(String string) {
+		telaPseudoCodigo.setText(string);
+	}
+	
+	/**
+	 * Delegate
+	 */
+	@Override
+	public void appendCodigo(String string) {
+		telaPseudoCodigo.append(string);
+	}
+
+	@Override
+	public int getTelaFluxogramaHeight() {
+		return telaDesenhoFluxograma.getHeight();
+	}
+
+	@Override
+	public int getTelaFluxogramaWidth() {
+		return telaDesenhoFluxograma.getWidth();
+	}
+
+	@Override
+	public void setFluxogramaImage(BufferedImage bi) {
+		telaDesenhoFluxograma.setImage(bi);
 	}
 }

@@ -1,6 +1,5 @@
 package visualalgol.casosdeuso;
 
-import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
 
 public class Ator {

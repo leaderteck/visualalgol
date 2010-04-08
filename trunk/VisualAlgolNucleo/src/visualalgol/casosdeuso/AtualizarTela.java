@@ -3,17 +3,12 @@ package visualalgol.casosdeuso;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
-
-import javax.swing.ImageIcon;
 
 import visualalgol.casosdeuso.desenhistas.Desenhista;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
-import visualalgol.swing.MainFrame;
 
 public class AtualizarTela extends CasoDeUso {
 
@@ -39,8 +34,8 @@ public class AtualizarTela extends CasoDeUso {
 
 	private void atualizar() {
 		Algoritmo algoritimo = sistema.getAlgoritmo();
-		int w = sistema.getTelaDesenhoFluxograma().getWidth();
-		int h = sistema.getTelaDesenhoFluxograma().getHeight();
+		int w = sistema.getTelaFluxogramaWidth();
+		int h = sistema.getTelaFluxogramaHeight();
 		//calcular o tamanho da imagem
 		int maxY=0,maxX=0,minY=0;
 		for (InstrucaoGenerica instrucao : algoritimo.getListComando()) {
@@ -106,6 +101,6 @@ public class AtualizarTela extends CasoDeUso {
 			}
 		}
 	
-		sistema.getTelaDesenhoFluxograma().setImage(bi);
+		sistema.setFluxogramaImage(bi);
 	}
 }

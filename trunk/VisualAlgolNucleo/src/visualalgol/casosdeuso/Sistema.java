@@ -1,13 +1,12 @@
 package visualalgol.casosdeuso;
 
 import java.awt.Component;
+import java.awt.image.BufferedImage;
 
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.ArquivoRecente;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.ferramenta.Ferramenta;
-import visualalgol.swing.TelaDesenhoFluxograma;
-import visualalgol.swing.TelaPseudoCodigo;
 
 public interface Sistema {
 	public void setAlgoritmo(Algoritmo algoritmo);
@@ -16,10 +15,13 @@ public interface Sistema {
 	public void apontarPara(InstrucaoGenerica instrucao);
 	public Component getComponent();
 	public Algoritmo getAlgoritmo();
-	public TelaDesenhoFluxograma getTelaDesenhoFluxograma();
 	public void setFerramenta(Ferramenta comandoFerramenta);
-	public TelaPseudoCodigo getTelaPseudoCodigo();
 	public void setTitle(String path);
 	public ArquivoRecente getArquivoRecente();
 	public void setArquivoRecente(ArquivoRecente obj);
+	public void setCodigo(String string);
+	public void appendCodigo(String string);
+	public int getTelaFluxogramaWidth();
+	public int getTelaFluxogramaHeight();
+	public void setFluxogramaImage(BufferedImage bi);
 }

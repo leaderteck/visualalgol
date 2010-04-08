@@ -2,8 +2,6 @@ package visualalgol.casosdeuso;
 
 import java.io.File;
 
-import visualalgol.swing.MainFrame;
-
 public abstract class CasoDeUso {
 	protected Sistema sistema;
 	private static File pastaDoPrograma;
