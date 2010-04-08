@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso.langs;
 
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+
 import visualalgol.entidades.Algoritmo;
 
 public class Portugol implements Linguagem {
@@ -70,5 +72,10 @@ public class Portugol implements Linguagem {
 	@Override
 	public String getCabecalho(Algoritmo alg) {
 		return "";
+	}
+
+	@Override
+	public String getLinguagemStyle() {
+		return SyntaxConstants.SYNTAX_STYLE_LUA;
 	}
 }

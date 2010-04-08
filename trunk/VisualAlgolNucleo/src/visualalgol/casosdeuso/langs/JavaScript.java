@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso.langs;
 
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
@@ -98,5 +100,10 @@ public class JavaScript implements Linguagem {
 	public String getCabecalho(Algoritmo alg) {
 		this.alg = alg;
 		return "";
+	}
+
+	@Override
+	public String getLinguagemStyle() {
+		return SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT;
 	}
 }

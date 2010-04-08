@@ -140,7 +140,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		tabbedPane.addTab("Console",console);
 		tabbedPane.addTab("Variaveis",variaveisView);
 		
-		JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,new JScrollPane(telaPseudoCodigo),tabbedPane);
+		JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT,telaPseudoCodigo.getScrollPane(),tabbedPane);
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,new JScrollPane(telaDesenhoFluxograma),splitPane2);
 		splitPane.setDividerLocation(.5);
 		splitPane.setDividerLocation(500);
@@ -305,6 +305,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 				flux.setLinguagem(linguagem);
 				flux.setSistema(MainFrame.this);
 				flux.executar();
+				telaPseudoCodigo.setLinguagemStyle(linguagem.getLinguagemStyle());
 			}
 		});
 	}
