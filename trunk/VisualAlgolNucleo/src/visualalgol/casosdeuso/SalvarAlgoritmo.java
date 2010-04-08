@@ -9,7 +9,6 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import visualalgol.entidades.Algoritmo;
-import visualalgol.swing.MainFrame;
 
 public class SalvarAlgoritmo extends CasoDeUso {
 	static final String EXTENSAO = "alg";
@@ -67,22 +66,22 @@ public class SalvarAlgoritmo extends CasoDeUso {
     }
     
 	@Override
-	public void executar(MainFrame mainFrame) {
+	public void executar() {
 		if(AbrirAlgoritmo.getAlgoritmoAberto()!=null){
-			salvar(mainFrame.getAlgoritmo(),AbrirAlgoritmo.getAlgoritmoAberto());
+			salvar(sistema.getAlgoritmo(),AbrirAlgoritmo.getAlgoritmoAberto());
 		}else{
-			int returnVal = fc.showSaveDialog(mainFrame);
+			int returnVal = fc.showSaveDialog(sistema.getComponent());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
 				if(getExtension(file)==null){
 					//colocar extensao automaticamente
 					file = new File(file.getAbsolutePath()+'.'+EXTENSAO);
 				}
-				salvar(mainFrame.getAlgoritmo(),file);
+				salvar(sistema.getAlgoritmo(),file);
 				AbrirAlgoritmo.setAlgoritmoAberto(file);
 			}
 		}
-		mainFrame.informarNoRodape("Salvo.");
+		sistema.informarNoRodape("Salvo.");
 	}
 
 }

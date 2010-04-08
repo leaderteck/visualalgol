@@ -53,7 +53,7 @@ public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
 				if(varName.equals(this.variavel) && value.toString().equals(valor)){
 					sistema.informar("Variable is the expected value.");
 					sistema.apontarPara(instrucao);
-					JOptionPane.showMessageDialog(sistema,"Found when "+this.variavel+" is "+valor+".");						
+					JOptionPane.showMessageDialog(sistema.getComponent(),"Found when "+this.variavel+" is "+valor+".");						
 				}
 			}
 		}

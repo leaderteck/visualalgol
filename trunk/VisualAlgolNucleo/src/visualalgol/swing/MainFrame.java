@@ -1,6 +1,7 @@
 package visualalgol.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -33,6 +34,7 @@ import visualalgol.casosdeuso.langs.Linguagem;
 import visualalgol.casosdeuso.langs.Pascal;
 import visualalgol.casosdeuso.langs.Portugol;
 import visualalgol.entidades.Algoritmo;
+import visualalgol.entidades.ArquivoRecente;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.ferramenta.CondicaoFimFerramenta;
 import visualalgol.ferramenta.EscreverFerramenta;
@@ -122,8 +124,9 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 			public void textoDigitado(String texto) {
 				InterpretadorMediador interpretador = InterpretadorMediador.getInstance();
 				interpretador.setTextoDigitado(texto);
+				interpretador.setSistema(MainFrame.this);
 				try {
-					interpretador.executar(MainFrame.this);
+					interpretador.executar();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -160,7 +163,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		IniciarPrograma iniciarPrograma = new IniciarPrograma();
-		iniciarPrograma.executar(this);
+		iniciarPrograma.setSistema(this);
+		iniciarPrograma.executar();
 		
 		escreverFerramenta.setAlgoritmo(algoritmo);
 		
@@ -298,12 +302,35 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 			public void actionPerformed(ActionEvent e) {
 				Fluxo2PseudoCodigo flux = new Fluxo2PseudoCodigo();
 				flux.setLinguagem(linguagem);
-				flux.executar(MainFrame.this);
+				flux.setSistema(MainFrame.this);
+				flux.executar();
 			}
 		});
 	}
 	
 	public VariaveisView getVariaveisView() {
 		return variaveisView;
+	}
+
+	@Override
+	public Component getComponent() {
+		return this;
+	}
+
+	/**
+	 * Delegate
+	 */
+	@Override
+	public ArquivoRecente getArquivoRecente() {
+		return menuPrincipal.getArquivoRecente();
+	}
+
+	/**
+	 * Delegate
+	 */
+	@Override
+	public void setArquivoRecente(ArquivoRecente obj) {
+		menuPrincipal.setArquivoRecente(obj);
+		
 	}
 }

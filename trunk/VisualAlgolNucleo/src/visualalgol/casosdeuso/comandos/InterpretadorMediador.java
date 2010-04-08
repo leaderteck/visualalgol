@@ -28,7 +28,7 @@ public class InterpretadorMediador extends CasoDeUso{
 	
 	
 	@Override
-	public void executar(MainFrame sistema){
+	public void executar(){
 		boolean interpretado = false;
 		// lembrar quem foi o ultimo e jogar para ele antes de jogar para os outros
 		if(interpretadorAtual!=null){
@@ -51,7 +51,7 @@ public class InterpretadorMediador extends CasoDeUso{
 				if(interpretador.podeTratar(textoDigitado)){
 					interpretador.setSistema(sistema);
 					interpretador.setTextoDigitado(textoDigitado);
-					interpretador.executar(sistema);//Abre outra thread
+					interpretador.executar();//Abre outra thread
 					interpretado = true;
 					interpretadorAtual = interpretador;
 				}

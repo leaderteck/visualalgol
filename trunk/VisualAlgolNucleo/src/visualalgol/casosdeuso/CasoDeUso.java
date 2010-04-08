@@ -5,7 +5,7 @@ import java.io.File;
 import visualalgol.swing.MainFrame;
 
 public abstract class CasoDeUso {
-	protected MainFrame sistema;
+	protected Sistema sistema;
 	private static File pastaDoPrograma;
 	protected Ator ator = Ator.getInstance();
 	private static Thread thread = null;
@@ -29,8 +29,7 @@ public abstract class CasoDeUso {
 		
 	}
 	
-	public void executar(MainFrame mainFrame){
-		sistema = mainFrame;
+	public void executar(){
 		if(thread!=null){
 			thread.interrupt();
 		}
@@ -45,5 +44,8 @@ public abstract class CasoDeUso {
 			}
 		};
 		thread.start();
+	}
+	public final void setSistema(Sistema sistema) {
+		this.sistema = sistema;
 	}
 }
