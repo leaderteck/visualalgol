@@ -94,7 +94,7 @@ public class InterpretarFluxograma extends CasoDeUso{
         					s = s.substring(5);
         					String input = JOptionPane.showInputDialog("Informe um valor para " + s);
         					if(input==null){
-        						JOptionPane.showMessageDialog(sistema,"Execução cancelada");
+        						JOptionPane.showMessageDialog(sistema.getComponent(),"Execução cancelada");
         						return;
         					}
         					// verificar o tipo

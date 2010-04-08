@@ -19,7 +19,6 @@ import visualalgol.swing.MainFrame;
  */
 public class Fluxo2PseudoCodigo extends CasoDeUso {
 
-	private MainFrame mainFrame;
 	
 	private Linguagem linguagem = new Portugol();
 
@@ -33,9 +32,8 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	 * linhas
 	 */
 	@Override
-	public void executar(MainFrame mainFrame) {
-		this.mainFrame = mainFrame;
-		mainFrame.getTelaPseudoCodigo().setText("");
+	public void executar() {
+		sistema.getTelaPseudoCodigo().setText("");
 		// detecta os loops
 		navegarPeloGrafo(false);
 		// imprime o codigo na tela
@@ -54,7 +52,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 			tabs.append('\t');
 		
 		string = string.replace("\n", "\n"+tabs.toString());
-		mainFrame.getTelaPseudoCodigo().append(tabs.toString() + string + "\n");
+		sistema.getTelaPseudoCodigo().append(tabs.toString() + string + "\n");
 	}
 
 	/**
@@ -66,14 +64,14 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	private void navegarPeloGrafo(boolean printMode) {
 		
 		List<CondicaoIf> pilhaCondicao = new ArrayList<CondicaoIf>();
-		Inicio inicio = mainFrame.getAlgoritmo().getComandoInicial();
+		Inicio inicio = sistema.getAlgoritmo().getComandoInicial();
 		InstrucaoGenerica instrucao, proximaInstrucao = inicio.getLinhaSaida().getDestino();
 		// Zerar
-		for (InstrucaoGenerica aux : mainFrame.getAlgoritmo().getListComando()) {
+		for (InstrucaoGenerica aux : sistema.getAlgoritmo().getListComando()) {
 			aux.setVisitado(false);
 		}
 		if (printMode) {
-			String cab = linguagem.getCabecalho(mainFrame.getAlgoritmo());
+			String cab = linguagem.getCabecalho(sistema.getAlgoritmo());
 			if(cab!=null && !cab.equals("")){
 				print(cab);
 			}

@@ -16,16 +16,13 @@ import visualalgol.entidades.Linha;
 import visualalgol.swing.MainFrame;
 
 public class AtualizarTela extends CasoDeUso {
-	private MainFrame mainFrame;
-	private boolean ligado = true;
 
 	@Override
-	public void executar(MainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public void executar() {
 		final Thread t = new Thread() {
 			@Override
 			public void run() {
-				while (ligado) {
+				while (true) {
 					try {
 						Thread.sleep(100);
 						atualizar();
@@ -38,50 +35,12 @@ public class AtualizarTela extends CasoDeUso {
 			}
 		};
 		t.start();
-		mainFrame.addWindowListener(new WindowListener() {
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-				ligado = false;
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowIconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowOpened(WindowEvent e) {
-
-			}
-
-		});
 	}
 
 	private void atualizar() {
-		Algoritmo algoritimo = mainFrame.getAlgoritmo();
-		int w = mainFrame.getTelaDesenhoFluxograma().getWidth();
-		int h = mainFrame.getTelaDesenhoFluxograma().getHeight();
+		Algoritmo algoritimo = sistema.getAlgoritmo();
+		int w = sistema.getTelaDesenhoFluxograma().getWidth();
+		int h = sistema.getTelaDesenhoFluxograma().getHeight();
 		//calcular o tamanho da imagem
 		int maxY=0,maxX=0,minY=0;
 		for (InstrucaoGenerica instrucao : algoritimo.getListComando()) {
@@ -147,6 +106,6 @@ public class AtualizarTela extends CasoDeUso {
 			}
 		}
 	
-		mainFrame.getTelaDesenhoFluxograma().setImage(bi);
+		sistema.getTelaDesenhoFluxograma().setImage(bi);
 	}
 }

@@ -21,27 +21,27 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 	private static File algoritmoAberto;
 
 	@Override
-	public void executar(MainFrame mainFrame) {
-		int returnVal = fc.showOpenDialog(mainFrame);
+	public void executar() {
+		int returnVal = fc.showOpenDialog(sistema.getComponent());
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			try {
-				abrirArquivo(file, mainFrame);
+				abrirArquivo(file, sistema);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(mainFrame, "Erro: Arquivo inexistente.");
+				JOptionPane.showMessageDialog(sistema.getComponent(), "Erro: Arquivo inexistente.");
 			}
 		}
 	}
 
-	private void abrirArquivo(File file, MainFrame mainFrame) throws FileNotFoundException{
+	private void abrirArquivo(File file, Sistema sistema) throws FileNotFoundException{
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
 			fis = new FileInputStream(file);
 			in = new ObjectInputStream(fis);
 			Algoritmo algoritmo = (Algoritmo) in.readObject();
-			mainFrame.setAlgoritmo(algoritmo);
+			sistema.setAlgoritmo(algoritmo);
 			in.close();
 			
 			//lembrar quem foi o ultimo aberto
@@ -56,11 +56,11 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 				}
 			}
 			
-			mainFrame.setTitle(file.getPath());
+			sistema.setTitle(file.getPath());
 			
 			
 			// Colocar na lista de recentes
-			List<String> lista = mainFrame.getMenuPrincipal().getArquivoRecente().getPaths();
+			List<String> lista = sistema.getArquivoRecente().getPaths();
 			//remove uma possivel entrada duplicada
 			lista.remove(file.getAbsolutePath());
 			//coloca em primeiro
@@ -69,7 +69,7 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			for (int i = 10; i < lista.size(); i++) {
 				lista.remove(i);
 			}
-			salvarRecentes(mainFrame);
+			salvarRecentes(sistema);
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		} catch(FileNotFoundException e){
@@ -79,22 +79,22 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 		}
 	}
 
-	private void salvarRecentes(MainFrame mainFrame) {
+	private void salvarRecentes(Sistema sistema) {
 		File file = new File(getPastaDoPrograma(), "recentes.txt");
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
 		try {
 			fos = new FileOutputStream(file);
 			out = new ObjectOutputStream(fos);
-			out.writeObject(mainFrame.getMenuPrincipal().getArquivoRecente());
+			out.writeObject(sistema.getArquivoRecente());
 			out.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public void abrirArquivo(String path, MainFrame mainFrame) throws FileNotFoundException {
-		abrirArquivo(new File(path), mainFrame);
+	public void abrirArquivo(String path, Sistema sistema) throws FileNotFoundException {
+		abrirArquivo(new File(path), sistema);
 	}
 
 	public static File getAlgoritmoAberto() {

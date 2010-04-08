@@ -18,35 +18,36 @@ import visualalgol.swing.MainFrame;
 public class IniciarPrograma extends CasoDeUso {
 
 	@Override
-	public void executar(MainFrame mainFrame) {
-		mainFrame.informarNoRodape("Iniciando...");
-		mainFrame.setFerramenta(new CondicaoIfFerramenta());
+	public void executar() {
+		sistema.informarNoRodape("Iniciando...");
+		sistema.setFerramenta(new CondicaoIfFerramenta());
 
 		// Iniciar a lista de recentes
-		ArquivoRecente arquivoRecente = iniciarListaDeRecentes(mainFrame);
+		ArquivoRecente arquivoRecente = iniciarListaDeRecentes(sistema);
 		boolean arquivoAberto = false;
 		try {
 			if (arquivoRecente.getPaths().size() > 0) {
 				AbrirAlgoritmo abrir = new AbrirAlgoritmo();
-				abrir.abrirArquivo(arquivoRecente.getPaths().get(0), mainFrame);
-				mainFrame.informarNoRodape("Aberto o último algoritmo.");
+				abrir.abrirArquivo(arquivoRecente.getPaths().get(0), sistema);
+				sistema.informarNoRodape("Aberto o último algoritmo.");
 				arquivoAberto = true;
 			}
 		} catch (FileNotFoundException e) {
-			mainFrame.informarNoRodape("Arquivo inexistente: " + arquivoRecente.getPaths().get(0));
+			sistema.informarNoRodape("Arquivo inexistente: " + arquivoRecente.getPaths().get(0));
 			e.printStackTrace();
 		}
 
 		if (!arquivoAberto) {
-			criarAlgoritmoVazio(mainFrame);
-			mainFrame.informarNoRodape("Iniciado um algoritmo vazio.");
+			criarAlgoritmoVazio(sistema);
+			sistema.informarNoRodape("Iniciado um algoritmo vazio.");
 		}
 
 		AtualizarTela atualizarTela = new AtualizarTela();
-		atualizarTela.executar(mainFrame);
+		atualizarTela.setSistema(sistema);
+		atualizarTela.executar();
 	}
 
-	public static void criarAlgoritmoVazio(MainFrame sistema) {
+	public static void criarAlgoritmoVazio(Sistema sistema) {
 		Algoritmo algoritmo = new Algoritmo();
 		sistema.setAlgoritmo(algoritmo);
 		sistema.setTitle(null);
@@ -80,7 +81,7 @@ public class IniciarPrograma extends CasoDeUso {
 		inicio.setLinhaSaida(linha);
 	}
 
-	private ArquivoRecente iniciarListaDeRecentes(MainFrame mainFrame) {
+	private ArquivoRecente iniciarListaDeRecentes(Sistema mainFrame) {
 		ArquivoRecente retorno = new ArquivoRecente();
 		File file = new File(getPastaDoPrograma(), "recentes.txt");
 		if (file.exists()) {
@@ -90,7 +91,7 @@ public class IniciarPrograma extends CasoDeUso {
 				fis = new FileInputStream(file);
 				in = new ObjectInputStream(fis);
 				retorno = (ArquivoRecente) in.readObject();
-				mainFrame.getMenuPrincipal().setArquivoRecente(retorno);
+				mainFrame.setArquivoRecente(retorno);
 				in.close();
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -98,7 +99,7 @@ public class IniciarPrograma extends CasoDeUso {
 				ex.printStackTrace();
 			}
 		} else {
-			mainFrame.getMenuPrincipal().setArquivoRecente(retorno);
+			mainFrame.setArquivoRecente(retorno);
 		}
 		return retorno;
 	}
