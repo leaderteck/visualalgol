@@ -9,8 +9,8 @@ public class CriarComando extends CasoDeUso{
 
 	@Override
 	public void executarComoThread() throws InterruptedException {
-		sistema.informarNoRodape("Criando 'Comando': Clique em cima de uma linha...");
 		sistema.setFerramenta(new ComandoFerramenta());
+		sistema.informarNoRodape("Criando 'Comando': Clique em cima de uma linha...");
 		InstrucaoGenerica instrucao = ator.criarInstrucao();
 		sistema.informarNoRodape("Clique duas vezes no retangulo para digitar um comando.");
 		int x = instrucao.getX()-instrucao.getW()/2;
