@@ -11,7 +11,6 @@ import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
 import visualalgol.entidades.InstrucaoGenerica;
-import visualalgol.swing.MainFrame;
 
 /**
  * Conversor de fluxo para pseudo codigo
@@ -33,7 +32,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	 */
 	@Override
 	public void executar() {
-		sistema.getTelaPseudoCodigo().setText("");
+		sistema.setCodigo("");
 		// detecta os loops
 		navegarPeloGrafo(false);
 		// imprime o codigo na tela
@@ -52,7 +51,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 			tabs.append('\t');
 		
 		string = string.replace("\n", "\n"+tabs.toString());
-		sistema.getTelaPseudoCodigo().append(tabs.toString() + string + "\n");
+		sistema.appendCodigo(tabs.toString() + string + "\n");
 	}
 
 	/**

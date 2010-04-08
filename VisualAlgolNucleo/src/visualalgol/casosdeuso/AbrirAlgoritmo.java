@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
-import visualalgol.swing.MainFrame;
 
 public class AbrirAlgoritmo extends SalvarAlgoritmo {
 	private static File algoritmoAberto;

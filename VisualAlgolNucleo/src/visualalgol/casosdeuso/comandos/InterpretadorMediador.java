@@ -8,7 +8,6 @@ import org.mozilla.javascript.Scriptable;
 import visualalgol.casosdeuso.Ator;
 import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.entidades.InstrucaoGenerica;
-import visualalgol.swing.MainFrame;
 
 /**
  * Mediador dos outros interpretadores

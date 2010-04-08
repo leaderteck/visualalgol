@@ -14,6 +14,7 @@ public class MoverUsabilidade5 implements Mover{
 		this.divisao = divisao;
 	}
 	HashSet<InstrucaoGenerica> visitados;
+	@SuppressWarnings("unchecked")
 	@Override
 	public void mover(Point arrastandoPonto, InstrucaoGenerica arrastando, int x, int y) {
 		if(visitados==null){
