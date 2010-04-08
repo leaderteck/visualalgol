@@ -49,11 +49,12 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 	 *            codigo para colocar na tela
 	 */
 	private void print(String string) {
-		String texto = mainFrame.getTelaPseudoCodigo().getText();
 		StringBuilder tabs = new StringBuilder();
 		for (int i = 0; i < nTabs; i++)
 			tabs.append('\t');
-		mainFrame.getTelaPseudoCodigo().setText(texto + "\n" + tabs.toString() + string);
+		
+		string = string.replace("\n", "\n"+tabs.toString());
+		mainFrame.getTelaPseudoCodigo().append(tabs.toString() + string + "\n");
 	}
 
 	/**
