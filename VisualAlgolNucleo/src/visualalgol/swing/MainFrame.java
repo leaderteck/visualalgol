@@ -27,6 +27,7 @@ import visualalgol.casosdeuso.InterpretarFluxograma;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.casosdeuso.Sistema;
 import visualalgol.casosdeuso.comandos.InterpretadorMediador;
+import visualalgol.casosdeuso.langs.C;
 import visualalgol.casosdeuso.langs.JavaScript;
 import visualalgol.casosdeuso.langs.Linguagem;
 import visualalgol.casosdeuso.langs.Pascal;
@@ -115,6 +116,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		adicionarMenuLinguagem(new Portugol());
 		adicionarMenuLinguagem(new JavaScript());
 		adicionarMenuLinguagem(new Pascal());
+		adicionarMenuLinguagem(new C());
 		
 		console.addOnEnterListener(new OnEnter() {
 			public void textoDigitado(String texto) {
