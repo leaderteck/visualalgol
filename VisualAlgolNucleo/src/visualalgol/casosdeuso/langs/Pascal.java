@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso.langs;
 
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
@@ -107,5 +109,10 @@ public class Pascal implements Linguagem {
 			if(tem)	retorno+=":"+getTipo(i)+";\n";
 		}
 		return retorno;
+	}
+
+	@Override
+	public String getLinguagemStyle() {
+		return SyntaxConstants.SYNTAX_STYLE_DELPHI;
 	}
 }

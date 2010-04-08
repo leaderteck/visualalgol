@@ -26,4 +26,6 @@ public interface Linguagem {
 
 	public abstract String escreverFimCondicao();
 
+	public abstract String getLinguagemStyle();
+
 }
