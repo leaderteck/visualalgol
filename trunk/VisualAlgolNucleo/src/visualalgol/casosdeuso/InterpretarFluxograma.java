@@ -93,6 +93,10 @@ public class InterpretarFluxograma extends CasoDeUso{
     					if(s.startsWith("leia ")){
         					s = s.substring(5);
         					String input = JOptionPane.showInputDialog("Informe um valor para " + s);
+        					if(input==null){
+        						JOptionPane.showMessageDialog(sistema,"Execução cancelada");
+        						return;
+        					}
         					// verificar o tipo
         					if(input.matches("^[0-9]*,[0-9]+$")){
         						input = input.replace(",",".");
