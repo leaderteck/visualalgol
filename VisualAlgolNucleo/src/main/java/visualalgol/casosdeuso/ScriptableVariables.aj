@@ -1,4 +1,4 @@
-package variaveis;
+package visualalgol.casosdeuso;
 
 import org.mozilla.javascript.Scriptable;
 
