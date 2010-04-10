@@ -2,6 +2,7 @@ package visualalgol.casosdeuso;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
@@ -15,41 +16,7 @@ import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
 public class InterpretarFluxograma extends CasoDeUso{
-	
-	public static void main(String[] args) {
-		InterpretarFluxograma interpretador = new InterpretarFluxograma();
-		Algoritmo alg = new Algoritmo();
-		Inicio ini = new Inicio();
-		Linha linha = new Linha();
-		ini.setLinhaSaida(linha);
-		Comando comando = new Comando();
-		comando.setPseudoCodigo("a = 1;");
-		linha.setOrigem(ini);
-		linha.setDestino(comando);
-		
-		comando = addComando(comando, "b = 2");
-		
-		CondicaoIf condicao = new CondicaoIf();
-		condicao.setPseudoCodigo("a == b");
-		linha = new Linha();
-		linha.setOrigem(comando);
-		linha.setDestino(condicao);
-		comando.setLinhaSaida(linha);
-		
-		alg.setComandoInicial(ini);
-		interpretador.interpretarAlgoritmo(alg);
-	}
-	
-	private static Comando addComando(Comando pai,String pseudoCodigo){
-		Comando comando = new Comando();
-		comando.setPseudoCodigo(pseudoCodigo);
-		Linha linha = new Linha();
-		linha.setOrigem(pai);
-		linha.setDestino(comando);
-		pai.setLinhaSaida(linha);
-		return comando;
-	}
-	
+	private static Logger logger = Logger.getLogger(InterpretarFluxograma.class);
 	@Override
 	public void executarComoThread() throws InterruptedException {
 		Algoritmo alg = sistema.getAlgoritmo();
@@ -117,9 +84,7 @@ public class InterpretarFluxograma extends CasoDeUso{
         				}
     					InterpretadorMediador.getInstance().informarComandoExecutado(comando, scope,s);
     				}catch(RuntimeException e){
-    					//TODO definir como tratar os erros
-    					System.out.println("Erro: " + e.getMessage());
-    					e.printStackTrace();
+    					logger.error("Erro ao interpretar comando s = '"+s+"'",e);
     					JOptionPane.showInputDialog(e.getMessage() + "?");
     					return;
     				}
@@ -139,24 +104,30 @@ public class InterpretarFluxograma extends CasoDeUso{
     			}else if(instrucao instanceof CondicaoIf){
     				CondicaoIf condicao = (CondicaoIf) instrucao;
     				String s = condicao.getPseudoCodigo();
-    				// Now evaluate the string we've colected.
-    	            Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
-    	            String resposta = Context.toString(result);
-    	            // Convert the result to a string and print it.
-    	            System.err.println(s +" -> "+ resposta);
-    	            condicao.setExecutado(true);
-    	            InterpretadorMediador.getInstance().informarComandoExecutado(condicao, scope, s);
-    	            if(resposta.equals("true")){
-    	            	condicao.setResultado(true);
-    	            	instrucao = condicao.getLinhaVerdadeira().getDestino();
-    	            	instrucao.setInstrucaoAnterior(condicao);
-    	            	condicao.getLinhaVerdadeira().setExecutado(true);
-    	            }else{
-    	            	condicao.setResultado(false);
-    	            	instrucao = condicao.getLinhaFalsa().getDestino();
-    	            	instrucao.setInstrucaoAnterior(condicao);
-    	            	condicao.getLinhaFalsa().setExecutado(true);
-    	            }
+    				try{
+	    				// Now evaluate the string we've colected.
+	    	            Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
+	    	            String resposta = Context.toString(result);
+	    	            // Convert the result to a string and print it.
+	    	            System.err.println(s +" -> "+ resposta);
+	    	            condicao.setExecutado(true);
+	    	            InterpretadorMediador.getInstance().informarComandoExecutado(condicao, scope, s);
+	    	            if(resposta.equals("true")){
+	    	            	condicao.setResultado(true);
+	    	            	instrucao = condicao.getLinhaVerdadeira().getDestino();
+	    	            	instrucao.setInstrucaoAnterior(condicao);
+	    	            	condicao.getLinhaVerdadeira().setExecutado(true);
+	    	            }else{
+	    	            	condicao.setResultado(false);
+	    	            	instrucao = condicao.getLinhaFalsa().getDestino();
+	    	            	instrucao.setInstrucaoAnterior(condicao);
+	    	            	condicao.getLinhaFalsa().setExecutado(true);
+	    	            }
+    				}catch(RuntimeException e){
+    					logger.error("Erro ao interpretar if s = '"+s+"'",e);
+    					JOptionPane.showMessageDialog(sistema.getComponent(),"Erro: " + e.getMessage());
+    					return;
+    				}
     			}else if(instrucao instanceof CondicaoFim){
     				CondicaoFim condicaoFim = (CondicaoFim) instrucao;
     				condicaoFim.setExecutado(true);

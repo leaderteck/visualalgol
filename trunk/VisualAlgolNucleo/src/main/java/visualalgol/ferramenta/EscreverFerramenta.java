@@ -2,8 +2,7 @@ package visualalgol.ferramenta;
 
 import java.awt.event.MouseEvent;
 
-import javax.swing.JOptionPane;
-
+import visualalgol.casosdeuso.EscreverPseudoCodigo;
 import visualalgol.entidades.InstrucaoGenerica;
 
 /**
@@ -17,9 +16,10 @@ public class EscreverFerramenta extends Ferramenta {
 		if (e.getClickCount() == 2) {
 			instrucao = getInstrucaoEm(e.getX(), e.getY());
 			if (instrucao != null) {
-				String pseudoCodigo = JOptionPane.showInputDialog("Digite o pseudo codigo",instrucao.getPseudoCodigo());
-				if (pseudoCodigo != null)
-					instrucao.setPseudoCodigo(pseudoCodigo);
+				EscreverPseudoCodigo escreverPseudoCodigo = new EscreverPseudoCodigo();
+				escreverPseudoCodigo.setSistema(sistema);
+				escreverPseudoCodigo.setInstrucao(instrucao);
+				escreverPseudoCodigo.executar();
 			}
 		}
 	}

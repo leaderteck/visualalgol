@@ -15,6 +15,7 @@ import java.util.List;
 import visualalgol.casosdeuso.Mover;
 import visualalgol.casosdeuso.MoverUsabilidade3;
 import visualalgol.casosdeuso.MoverUsabilidade5;
+import visualalgol.casosdeuso.Sistema;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -25,6 +26,7 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	private InstrucaoGenerica arrastando;
 	private Point arrastandoPonto;
 	protected Linha linha;
+	protected Sistema sistema;
 	
 	private Mover mover = new MoverUsabilidade3();
 	
@@ -214,5 +216,10 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 			}
 		}
 		return linhaSaida;
+	}
+
+	
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
 	}
 }

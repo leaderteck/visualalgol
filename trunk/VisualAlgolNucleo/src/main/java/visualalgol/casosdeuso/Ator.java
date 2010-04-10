@@ -1,5 +1,7 @@
 package visualalgol.casosdeuso;
 
+import javax.swing.JOptionPane;
+
 import visualalgol.entidades.InstrucaoGenerica;
 
 public class Ator {
@@ -50,5 +52,9 @@ public class Ator {
 			}
 			aguardandoDigitarTexto = false;
 		}
+	}
+
+	public String digitarPseudoCodigo() {
+		return JOptionPane.showInputDialog("Digite o pseudo codigo",instrucao.getPseudoCodigo());
 	}
 }

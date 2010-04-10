@@ -168,6 +168,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		iniciarPrograma.executar();
 		
 		escreverFerramenta.setAlgoritmo(algoritmo);
+		escreverFerramenta.setSistema(this);
 		
 		this.setVisible(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -192,6 +193,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		telaDesenhoFluxograma.addListener(ferramenta);
 		escreverFerramenta.setAlgoritmo(algoritmo);
 		ferramenta.setAlgoritmo(algoritmo);
+		ferramenta.setSistema(this);
 		ferramentaAtual = ferramenta;
 	}
 
