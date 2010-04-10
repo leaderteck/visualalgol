@@ -23,7 +23,7 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 				pseudoCodigo = "leia " + pseudoCodigo.substring(5);
 			}
 			if(instrucao instanceof Comando){
-				if(!pseudoCodigo.matches("^[a-zA-Z][\\w\\.]=")){
+				if(!pseudoCodigo.matches("^[a-zA-Z][a-zA-Z0-9\\.]*=.*")){
 					int res = JOptionPane.showConfirmDialog(sistema.getComponent(),"Deseja imprimir '"+pseudoCodigo+"'?","Confirmar",JOptionPane.OK_CANCEL_OPTION);
 					if(res==JOptionPane.OK_OPTION){
 						pseudoCodigo = "imprima \"" + pseudoCodigo + "\"";
