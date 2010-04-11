@@ -23,6 +23,8 @@ public class InterpretadorMediador extends CasoDeUso{
 	private InterpretadorMediador(){
 		listaDeInterpretadores.add(InterpretarWhy.getInstance());
 		listaDeInterpretadores.add(new InterpretarWhen());
+		listaDeInterpretadores.add(new InterpretadorWho());
+		listaDeInterpretadores.add(new InterpretadorWhat());
 	}
 	
 	

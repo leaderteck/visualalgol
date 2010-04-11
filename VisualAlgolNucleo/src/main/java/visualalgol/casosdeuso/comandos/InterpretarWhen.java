@@ -24,7 +24,8 @@ public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
 		}
 		variavel = args[1];
 		valor = args[3];
-		sistema.informar("Watching variable " + variavel +".");
+		sistema.informar("I will tell you when '" + variavel +"' is '"+valor+"'.");
+		sistema.informar("Please run the program, press F9.");
 	}
 	
 	@Override
