@@ -10,5 +10,6 @@ public class CriarWhile extends CasoDeUso{
 		sistema.setFerramenta(new WhileFerramenta());
 		InstrucaoGenerica instrucao = ator.criarInstrucao();
 		EscreverPseudoCodigo.utilizar(sistema, instrucao);
+		AutoArrumar.utilizar(sistema, instrucao);
 	}
 }
