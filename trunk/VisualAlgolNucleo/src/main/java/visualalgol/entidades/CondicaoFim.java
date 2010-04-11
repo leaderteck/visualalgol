@@ -1,15 +1,18 @@
 package visualalgol.entidades;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 /**
  * Serve para juntar os dois caminhos de um if 
  */
 public class CondicaoFim extends InstrucaoGenerica{
+	private static Logger logger = Logger.getLogger(CondicaoFim.class);
 	private static final long serialVersionUID = 1L;
 	private Linha linhaSaida;
-	private List<Linha> listLinhaEntrada = new ArrayList<Linha>();
+	private Set<Linha> listLinhaEntrada = new HashSet<Linha>();
 
 	/**
 	 * @return the linhaSaida
@@ -34,19 +37,28 @@ public class CondicaoFim extends InstrucaoGenerica{
 	/**
 	 * @return the listLinhaEntrada
 	 */
-	public List<Linha> getListLinhaEntrada() {
+	public Set<Linha> getListLinhaEntrada() {
 		return listLinhaEntrada;
 	}
 	/**
 	 * @param listLinhaEntrada the listLinhaEntrada to set
 	 */
-	public void setListLinhaEntrada(List<Linha> listLinhaEntrada) {
+	public void setListLinhaEntrada(Set<Linha> listLinhaEntrada) {
 		this.listLinhaEntrada = listLinhaEntrada;
 	}
 	@Override
 	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
-		if(!listLinhaEntrada.remove(procurarPor)) throw new RuntimeException("Not found");
+		logger.debug("procurarPor " + procurarPor.getId() + " " + substituirPor.getId());
+		//String ids = "";
+		//for(Linha linha:listLinhaEntrada){
+		//	ids+=linha.getId()+";";
+		//}
 		listLinhaEntrada.add(substituirPor);
+		listLinhaEntrada.remove(procurarPor);
+		//boolean removeu = 
+		//if(!removeu){
+		//	throw new RuntimeException("Not found " + procurarPor +" in ["+ids+"]");
+		//}
 	}
 	
 }

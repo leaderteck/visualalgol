@@ -97,6 +97,7 @@ public class CondicaoIfFerramenta extends Ferramenta {
 		condicaoFim.getListLinhaEntrada().add(linhaVerdadeira);
 		condicaoFim.getListLinhaEntrada().add(linhaFalsa);
 		
+		destino.substituirEntrada(linha, fimSeAoDestino);
 		return condicaoIf;
 	}
 	private void implementacaoAntiga(MouseEvent e){

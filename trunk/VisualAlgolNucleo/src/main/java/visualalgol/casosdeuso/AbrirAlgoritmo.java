@@ -52,6 +52,7 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 				}
 				for(Linha linha:algoritmo.getListLinha()){
 					linha.setExecutado(false);
+					linha.setId(null);
 				}
 			}
 			
@@ -74,6 +75,8 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 		} catch(FileNotFoundException e){
 			throw e;
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch(ClassCastException e){
 			e.printStackTrace();
 		}
 	}
