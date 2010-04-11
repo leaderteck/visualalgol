@@ -14,12 +14,12 @@ public class IconesFluxogramaToolBar extends JToolBar{
 	
 	public IconesFluxogramaToolBar() {
 		//instanciando...
-		btnCondicao = new JButton("Condição");
-		btnComando = new JButton("Comando");
-		btnFimDecisao = new JButton("Fim da Condição");
-		btnLigarBlocos = new JButton("Ligar blocos");
-		btnEscrever = new JButton("Escrever");
-		btnWhile = new JButton("While");
+		btnCondicao = new JButton(Messages.getString("toolbar.condicao")); //$NON-NLS-1$
+		btnComando = new JButton(Messages.getString("toolbar.comando")); //$NON-NLS-1$
+		btnFimDecisao = new JButton(Messages.getString("toolbar.fimDaCondicao")); //$NON-NLS-1$
+		btnLigarBlocos = new JButton(Messages.getString("toolbar.ligarBlocos")); //$NON-NLS-1$
+		btnEscrever = new JButton(Messages.getString("toolbar.escrever")); //$NON-NLS-1$
+		btnWhile = new JButton(Messages.getString("toolbar.while")); //$NON-NLS-1$
 		
 		//layout...
 		this.add(btnCondicao);
