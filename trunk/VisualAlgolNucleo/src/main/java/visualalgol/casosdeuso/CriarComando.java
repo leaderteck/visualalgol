@@ -13,7 +13,7 @@ public class CriarComando extends CasoDeUso{
 		while(true){
 			sistema.informarNoRodape("Criando 'Comando': Clique em cima de uma linha...");
 			InstrucaoGenerica instrucao = ator.criarInstrucao();
-			pedirParaEscreverPseudoCodigo(instrucao);
+			EscreverPseudoCodigo.utilizar(sistema, instrucao);
 			
 			int x = instrucao.getX()-instrucao.getW()/2;
 			int y = instrucao.getY()-instrucao.getH()/2;
@@ -45,10 +45,4 @@ public class CriarComando extends CasoDeUso{
 		}
 	}
 
-	private void pedirParaEscreverPseudoCodigo(InstrucaoGenerica instrucao) {
-		EscreverPseudoCodigo escrever = new EscreverPseudoCodigo();
-		escrever.setSistema(sistema);
-		escrever.setInstrucao(instrucao);
-		escrever.executar();
-	}
 }
