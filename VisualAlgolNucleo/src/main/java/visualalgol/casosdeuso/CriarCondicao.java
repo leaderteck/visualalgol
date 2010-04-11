@@ -10,5 +10,6 @@ public class CriarCondicao extends CasoDeUso{
 		sistema.informarNoRodape("Criando 'Se': Clique em cima de uma linha...");
 		InstrucaoGenerica instrucao = ator.criarInstrucao();
 		EscreverPseudoCodigo.utilizar(sistema, instrucao);
+		AutoArrumar.utilizar(sistema, instrucao);
 	}
 }
