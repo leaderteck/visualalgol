@@ -254,4 +254,8 @@ public abstract class InstrucaoGenerica implements Serializable {
 	public void setVariaveis(List<Variavel> variaveis) {
 		this.variaveis = variaveis;
 	}
+	@Override
+	public String toString() {
+		return pseudoCodigo;
+	}
 }

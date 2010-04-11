@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.mozilla.javascript.Scriptable;
 
 import visualalgol.casosdeuso.Ator;
@@ -15,6 +16,7 @@ import visualalgol.entidades.Variavel;
 import visualalgol.utils.LogSimples;
 
 public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
+	private static Logger logger = Logger.getLogger(InterpretarWhy.class);
 	private boolean encontrado = false;
 	private String nomeVariavel;
 	private String valor;
@@ -47,9 +49,10 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 				//procurar por alteracoes de variavel
 				int iIgual = s.indexOf("=");
 				if(iIgual!=-1){
-					String varName = s.substring(0,iIgual);
+					String varName = s.substring(0,iIgual).trim();
 					Object value = scope.get(varName, scope);
 					instrucao.put(varName, value.toString(), passo);
+					logger.info(varName + " = " + value.toString());
 				}
 			}else if(instrucao instanceof CondicaoIf){
 				//Por solicitacao do clemilson, guardar as variaveis da condicional
@@ -105,7 +108,8 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 		nomeVariavel =  args[1];
 		valor = args[3];
 		
-		sistema.informarNoRodape("Procurando o momento em que a variavel " + nomeVariavel + " fica com o valor " + valor);
+		sistema.informarNoRodape("Procurando o momento em que a variavel '" + nomeVariavel + "' fica com o valor '" + valor + "'");
+		//a primeira vez devemos achar um comando
 		int i = 0,direcao=1;
 		while (i < executados.size()) {
 			if(i<0 && direcao==-1){//se voltou ao inicio
@@ -115,7 +119,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 			}
 			InstrucaoGenerica instrucao = executados.get(i);
 			int pos = instrucao.contemVariavel(nomeVariavel,valor,i);
-			if(pos!=-1){// contem a variavel
+			if(pos!=-1 && instrucao instanceof Comando){// contem a variavel
 				sistema.apontarPara(instrucao);// coloca a criacao de michelangelo
 				sistema.informar("because of '"+instrucao.getPseudoCodigo()+"'");
 				String texto = ator.digitarTexto();// ver se o usuario quer continuar
