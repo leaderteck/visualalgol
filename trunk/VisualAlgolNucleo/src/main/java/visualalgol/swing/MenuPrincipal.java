@@ -32,16 +32,16 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenu codigo;
 	public MenuPrincipal() {
 		//instancia
-		salvarMenuItem = new JMenuItem("Salvar");
-		abrirMenuItem = new JMenuItem("Abrir");
-		sairMenuItem= new JMenuItem("Sair");
-		codigo = new JMenu("Codigo");
-		verPseudoCodigo = new JMenuItem("Ver Pseudo Codigo");
-		rodar = new JMenuItem("Executar");
-		arquivo = new JMenu("Arquivo");
-		recentes = new JMenu("Recentes");
-		compilar = new JMenu("Compilar");
-		novo = new JMenuItem("Novo");
+		salvarMenuItem = new JMenuItem(Messages.getString("label.salvar")); //$NON-NLS-1$
+		abrirMenuItem = new JMenuItem(Messages.getString("label.abrir")); //$NON-NLS-1$
+		sairMenuItem= new JMenuItem(Messages.getString("label.sair")); //$NON-NLS-1$
+		codigo = new JMenu(Messages.getString("label.codigo")); //$NON-NLS-1$
+		verPseudoCodigo = new JMenuItem(Messages.getString("label.verPseudoCodigo")); //$NON-NLS-1$
+		rodar = new JMenuItem(Messages.getString("label.executar")); //$NON-NLS-1$
+		arquivo = new JMenu(Messages.getString("label.arquivo")); //$NON-NLS-1$
+		recentes = new JMenu(Messages.getString("label.recentes")); //$NON-NLS-1$
+		compilar = new JMenu(Messages.getString("label.compilar")); //$NON-NLS-1$
+		novo = new JMenuItem(Messages.getString("label.novo")); //$NON-NLS-1$
 		
 		
 		
