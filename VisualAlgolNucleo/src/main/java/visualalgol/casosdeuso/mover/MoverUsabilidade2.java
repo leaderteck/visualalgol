@@ -1,4 +1,4 @@
-package visualalgol.casosdeuso;
+package visualalgol.casosdeuso.mover;
 
 import java.awt.Point;
 
