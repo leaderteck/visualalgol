@@ -99,7 +99,7 @@ public class Linha implements Serializable, Cloneable{
 	}
 
 	private static long unique = 0;
-	private synchronized long getId(){
+	public synchronized long getId(){
 		if(id==null){
 			id = unique++;
 		}
@@ -109,10 +109,20 @@ public class Linha implements Serializable, Cloneable{
 	public Linha deepClone() {
 		try {
 			Linha linha = (Linha)this.clone();
+			linha.id=null;
 			linha.setListPontos(this.listPontos);
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "Linha id " + getId() + "; origem = " + origem + "; destino = " + destino;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

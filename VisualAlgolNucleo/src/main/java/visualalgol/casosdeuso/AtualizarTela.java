@@ -78,9 +78,13 @@ public class AtualizarTela extends CasoDeUso {
 				lastPoint = point;
 			}
 			if(linha.getDestino()!=null){
+				//desenhar o id
+				gra.drawString(linha.getId()+"", lastPoint.x+(linha.getDestino().getX() - lastPoint.x)/2, 
+						lastPoint.y+(linha.getDestino().getY() - lastPoint.y)/2);
 				gra.drawLine(lastPoint.x, lastPoint.y, linha.getDestino().getX(), linha.getDestino().getY());
 			}else{
 				if (linha.getPontoTemporario() != null && lastPoint != null) {
+					//ponto que estamos arrastando
 					Point p = linha.getPontoTemporario();
 					gra.drawLine(lastPoint.x, lastPoint.y, p.x, p.y);
 				}
