@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
 import visualalgol.entidades.Comando;
+import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
 
 public class EscreverPseudoCodigo extends CasoDeUso{
@@ -29,8 +30,17 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 						pseudoCodigo = "imprima \"" + pseudoCodigo + "\"";
 					}
 				}
+			}else if(instrucao instanceof CondicaoIf){
+				//pascal way of life
+				pseudoCodigo = pseudoCodigo.replace("<>","!=");
 			}
 			instrucao.setPseudoCodigo(pseudoCodigo);
 		}
+	}
+	public static void utilizar(Sistema sistema, InstrucaoGenerica instrucao){
+		EscreverPseudoCodigo escrever = new EscreverPseudoCodigo();
+		escrever.setSistema(sistema);
+		escrever.setInstrucao(instrucao);
+		escrever.executar();
 	}
 }
