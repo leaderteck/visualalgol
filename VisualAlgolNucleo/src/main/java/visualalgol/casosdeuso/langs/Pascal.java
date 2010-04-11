@@ -36,12 +36,18 @@ public class Pascal implements Linguagem {
 			return "read(" + var + ");";
 		}else if(comando.startsWith("imprima ")){
 			String var = comando.substring(8);
-			return "writeln("+var+");";
+			return "writeln("+tratarWriteLn(var)+");";
 		}
 		comando = comando.replaceFirst("=", ":=");
 		return comando + ";";
 	}
 
+	private String tratarWriteLn(String var){
+		String retorno=var;
+		retorno=retorno.replace("\"", "'");
+		retorno=retorno.replaceAll("'([^']*)'\\s*\\+", "'$1',");
+		return retorno;
+	}
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
 	 */

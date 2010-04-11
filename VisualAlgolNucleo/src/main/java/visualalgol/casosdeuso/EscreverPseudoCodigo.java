@@ -27,7 +27,7 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 			if(instrucao instanceof Comando){
 				if(!pseudoCodigo.startsWith("leia ") && 
 					!pseudoCodigo.startsWith("imprima ")
-					&& !pseudoCodigo.matches("^[a-zA-Z][a-zA-Z0-9\\.]*=.*")){
+					&& !pseudoCodigo.matches("^[a-zA-Z][a-zA-Z0-9\\.]* *=.*")){
 					
 					int res = JOptionPane.showConfirmDialog(sistema.getComponent(),"Deseja imprimir '"+pseudoCodigo+"'?","Confirmar",JOptionPane.OK_CANCEL_OPTION);
 					if(res==JOptionPane.OK_OPTION){
