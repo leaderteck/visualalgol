@@ -12,10 +12,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.List;
 
-import visualalgol.casosdeuso.Mover;
-import visualalgol.casosdeuso.MoverUsabilidade3;
-import visualalgol.casosdeuso.MoverUsabilidade5;
 import visualalgol.casosdeuso.Sistema;
+import visualalgol.casosdeuso.mover.Mover;
+import visualalgol.casosdeuso.mover.MoverUsabilidade3;
+import visualalgol.casosdeuso.mover.MoverUsabilidade5;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;

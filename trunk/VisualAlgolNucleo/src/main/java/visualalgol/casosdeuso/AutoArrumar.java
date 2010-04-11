@@ -2,6 +2,7 @@ package visualalgol.casosdeuso;
 
 import java.awt.Rectangle;
 
+import visualalgol.casosdeuso.mover.MoverUsabilidade5;
 import visualalgol.entidades.InstrucaoGenerica;
 
 /**
