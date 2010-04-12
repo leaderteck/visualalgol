@@ -21,11 +21,12 @@ public class InterpretadorMediador extends CasoDeUso{
 	private List<InterpretadorDeComandoAbstrato> listaDeInterpretadores = new ArrayList<InterpretadorDeComandoAbstrato>();
 	
 	private InterpretadorMediador(){
-		listaDeInterpretadores.add(InterpretarWhy.getInstance());
+		listaDeInterpretadores.add(new InterpretarWhy());
 		listaDeInterpretadores.add(new InterpretarWhen());
 		listaDeInterpretadores.add(new InterpretadorWho());
 		listaDeInterpretadores.add(new InterpretadorWhat());
 		listaDeInterpretadores.add(new InterpretadorWhere());
+		listaDeInterpretadores.add(new InterpretadorHow());
 	}
 	
 	
@@ -99,5 +100,10 @@ public class InterpretadorMediador extends CasoDeUso{
 		for (InterpretadorDeComandoAbstrato interpretador : listaDeInterpretadores) {
 			interpretador.interpretadorFluxogramaIniciado();
 		}
+	}
+
+
+	public void informarVariavelAlterada(String name, Object object, Object value) {
+		
 	}
 }

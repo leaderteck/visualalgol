@@ -2,6 +2,7 @@ package visualalgol.casosdeuso;
 
 import org.mozilla.javascript.Scriptable;
 
+import visualalgol.casosdeuso.comandos.InterpretadorMediador;
 import visualalgol.casosdeuso.comandos.InterpretarWhy;
 
 public aspect ScriptableVariables {
@@ -16,7 +17,7 @@ public aspect ScriptableVariables {
     	//System.out.println("Aspect of " + thisJoinPoint.getThis().getClass().getSimpleName());
     	//System.out.println("--> old " + name + " = " + start.get(name, start));
     	//System.out.println("--> before puts " + name + " = " + value);
-    	InterpretarWhy.getInstance().informarVariavelAlterada(name,start.get(name, start),value);
+    	InterpretadorMediador.getInstance().informarVariavelAlterada(name,start.get(name, start),value);
     }
     after(String name, Scriptable start, Object value) returning:
     	setVariable(name, start, value) {
