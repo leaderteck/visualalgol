@@ -23,6 +23,8 @@ import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.casosdeuso.CriarComando;
 import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.CriarWhile;
+import visualalgol.casosdeuso.DesfazerAcao;
+import visualalgol.casosdeuso.FecharVisuAlgo;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
@@ -103,13 +105,12 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 			.addActionListener(new StrongAdapter(this,AbrirAlgoritmo.class));
 		menuPrincipal.getVerPseudoCodigo()
 			.addActionListener(new StrongAdapter(this,Fluxo2PseudoCodigo.class));
-		//menuPrincipal.getSairMenuItem().addActionListener(new ActionListener() {
-		//	public void actionPerformed(ActionEvent e) {
-		//		new FecharVisuAlgo().executar(MainFrame.this);
-		//	}
-		//});
+		menuPrincipal.getSairMenuItem()
+			.addActionListener(new StrongAdapter(this, FecharVisuAlgo.class));
 		menuPrincipal.getRodar()
 			.addActionListener(new StrongAdapter(this,InterpretarFluxograma.class));
+		menuPrincipal.getDesfazerMenuItem()
+			.addActionListener(new StrongAdapter(this, DesfazerAcao.class));
 		menuPrincipal.getNovo().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);

@@ -9,6 +9,7 @@ import visualalgol.casosdeuso.Ator;
 import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.entidades.InstrucaoGenerica;
 
+
 /**
  * Mediador dos outros interpretadores
  */
