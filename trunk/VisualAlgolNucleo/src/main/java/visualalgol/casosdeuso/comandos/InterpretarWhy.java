@@ -21,7 +21,6 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 	private String nomeVariavel;
 	private String valor;
 	private LogSimples logSimples;
-	private static InterpretarWhy instance = new InterpretarWhy();
 	private List<InstrucaoGenerica> executados = new ArrayList<InstrucaoGenerica>();
 	public InterpretarWhy(){
 		logSimples = new LogSimples();
