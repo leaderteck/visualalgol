@@ -2,6 +2,7 @@ package visualalgol.casosdeuso.comandos;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.mozilla.javascript.Scriptable;
 
 import visualalgol.casosdeuso.Ator;
@@ -10,7 +11,7 @@ import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
 
 public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
-
+	private final static Logger logger = Logger.getLogger(InterpretarWhen.class);
 	private String variavel;
 	private String valor;
 	
@@ -49,12 +50,24 @@ public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
 			//procurar por alteracoes de variavel
 			int iIgual = s.indexOf("=");
 			if(iIgual!=-1){
-				String varName = s.substring(0,iIgual);
+				String varName = s.substring(0,iIgual).trim();
 				Object value = scope.get(varName, scope);
-				if(varName.equals(this.variavel) && value.toString().equals(valor)){
-					sistema.informar("Variable is the expected value.");
-					sistema.apontarPara(instrucao);
-					JOptionPane.showMessageDialog(sistema.getComponent(),"Found when "+this.variavel+" is "+valor+".");						
+				logger.debug(s + " --> " + varName + " = " + value);
+				if(varName.equals(this.variavel)){
+					boolean avisar = false;
+					if(value.toString().equals(valor)){
+						avisar = true;
+					}else if(valor.matches("^[0-9][0-9]*$")){
+						//verificar se virou double
+						if((valor+".0").equals(value.toString())){
+							avisar = true;
+						}
+					}
+					if(avisar){
+						sistema.informar("Variable is the expected value.");
+						sistema.apontarPara(instrucao);
+						JOptionPane.showMessageDialog(sistema.getComponent(),"Found when "+this.variavel+" is "+valor+".");
+					}
 				}
 			}
 		}

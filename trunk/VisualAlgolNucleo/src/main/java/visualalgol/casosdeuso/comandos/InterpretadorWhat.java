@@ -29,7 +29,7 @@ public class InterpretadorWhat extends InterpretadorDeComandoAbstrato {
 	@Override
 	public void interpretar(Sistema sistema, Ator ator, String textoDigitado)
 			throws InterruptedException, EntradaInesperadaException {
-		if(textoDigitado.equals("what ")){
+		if(textoDigitado.startsWith("what ")){
 			sistema.informar("32 components and 1 framework. Wanna play ogg?");
 			textoDigitado = ator.digitarTexto();
 			sistema.informar("15 artifacts: wanna start audio in arbitrary position?");

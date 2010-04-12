@@ -30,6 +30,8 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenu compilar;
 	private JMenuItem novo;
 	private JMenu codigo;
+
+	private JMenuItem desfazerMenuItem;
 	public MenuPrincipal() {
 		//instancia
 		salvarMenuItem = new JMenuItem(Messages.getString("label.salvar")); //$NON-NLS-1$
@@ -42,7 +44,7 @@ public class MenuPrincipal extends JMenuBar{
 		recentes = new JMenu(Messages.getString("label.recentes")); //$NON-NLS-1$
 		compilar = new JMenu(Messages.getString("label.compilar")); //$NON-NLS-1$
 		novo = new JMenuItem(Messages.getString("label.novo")); //$NON-NLS-1$
-		
+		desfazerMenuItem = new JMenuItem("Desfazer");
 		
 		
 		novo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
@@ -58,6 +60,7 @@ public class MenuPrincipal extends JMenuBar{
 		arquivo.add(recentes);
 		arquivo.add(salvarMenuItem);
 		arquivo.add(sairMenuItem);
+		arquivo.add(desfazerMenuItem);
 		this.add(arquivo);
 		
 		//codigo.add(verPseudoCodigo);
@@ -152,5 +155,8 @@ public class MenuPrincipal extends JMenuBar{
 	}
 	public JMenu getCodigo() {
 		return codigo;
+	}
+	public JMenuItem getDesfazerMenuItem() {
+		return desfazerMenuItem;
 	}
 }
