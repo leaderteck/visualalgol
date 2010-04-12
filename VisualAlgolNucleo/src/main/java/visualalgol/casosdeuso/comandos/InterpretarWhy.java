@@ -23,14 +23,10 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 	private LogSimples logSimples;
 	private static InterpretarWhy instance = new InterpretarWhy();
 	private List<InstrucaoGenerica> executados = new ArrayList<InstrucaoGenerica>();
-	private InterpretarWhy(){
+	public InterpretarWhy(){
 		logSimples = new LogSimples();
 		File file = new File(getPastaDoPrograma(),"log-interpretacao.js");
 		logSimples.setPath(file);
-	}
-	
-	public static InterpretarWhy getInstance() {
-		return instance;
 	}
 	
 	private String toString(List<Variavel> variaveis) {
