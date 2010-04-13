@@ -22,6 +22,7 @@ import visualalgol.casosdeuso.AbrirAlgoritmo;
 import visualalgol.casosdeuso.CasoDeUso;
 import visualalgol.casosdeuso.CriarComando;
 import visualalgol.casosdeuso.CriarCondicao;
+import visualalgol.casosdeuso.CriarFacaEnquanto;
 import visualalgol.casosdeuso.CriarWhile;
 import visualalgol.casosdeuso.DesfazerAcao;
 import visualalgol.casosdeuso.FecharVisuAlgo;
@@ -78,6 +79,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		menuPrincipal.setAbrirRecenteListener(this);
 		iconesFluxogramaToolBar.getBtnCondicao()
 			.addActionListener(new StrongAdapter(this,CriarCondicao.class));
+		iconesFluxogramaToolBar.getBtnFacaEnquanto().addActionListener(new StrongAdapter(this,CriarFacaEnquanto.class));
 		iconesFluxogramaToolBar.getBtnWhile()
 			.addActionListener(new StrongAdapter(this,CriarWhile.class));
 		iconesFluxogramaToolBar.getBtnComando()

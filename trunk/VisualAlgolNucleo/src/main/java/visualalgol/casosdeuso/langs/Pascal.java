@@ -17,7 +17,7 @@ public class Pascal implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
 	 */
 	public String escreverEndWhile() {
-		return "fim enquanto ";
+		return "end; {fim enquanto} ";
 	}
 
 	/* (non-Javadoc)
