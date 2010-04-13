@@ -11,7 +11,20 @@ public class IconesFluxogramaToolBar extends JToolBar{
 	private JButton btnLigarBlocos;
 	private JButton btnEscrever;
 	private JButton btnWhile;
+	private JButton btnFacaEnquanto;
 	
+	public JButton getBtnFacaEnquanto() {
+		return btnFacaEnquanto;
+	}
+
+	public void setBtnFacaEnquanto(JButton btnFacaEnquanto) {
+		this.btnFacaEnquanto = btnFacaEnquanto;
+	}
+
+	public void setBtnWhile(JButton btnWhile) {
+		this.btnWhile = btnWhile;
+	}
+
 	public IconesFluxogramaToolBar() {
 		//instanciando...
 		btnCondicao = new JButton(Messages.getString("toolbar.condicao")); //$NON-NLS-1$
@@ -20,6 +33,7 @@ public class IconesFluxogramaToolBar extends JToolBar{
 		btnLigarBlocos = new JButton(Messages.getString("toolbar.ligarBlocos")); //$NON-NLS-1$
 		btnEscrever = new JButton(Messages.getString("toolbar.escrever")); //$NON-NLS-1$
 		btnWhile = new JButton(Messages.getString("toolbar.while")); //$NON-NLS-1$
+		btnFacaEnquanto = new JButton(Messages.getString("toolbar.facaEnquanto"));
 		
 		//layout...
 		this.add(btnCondicao);
@@ -27,6 +41,7 @@ public class IconesFluxogramaToolBar extends JToolBar{
 		this.add(btnComando);
 		this.add(btnFimDecisao);
 		this.add(btnLigarBlocos);
+		this.add(btnFacaEnquanto);
 		//this.add(btnEscrever);
 	}
 
