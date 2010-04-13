@@ -37,23 +37,35 @@ public class AtualizarTela extends CasoDeUso {
 		int w = sistema.getTelaFluxogramaWidth();
 		int h = sistema.getTelaFluxogramaHeight();
 		//calcular o tamanho da imagem
-		int maxY=0,maxX=0,minY=0;
+		int maxY=0,maxX=0,minY=0, minX=0;
 		for (InstrucaoGenerica instrucao : algoritimo.getListComando()) {
 			maxY = Math.max(maxY,instrucao.getY());
 			maxX = Math.max(maxX,instrucao.getX());
 			minY = Math.min(minY,instrucao.getY());
+			minX = Math.min(minX, instrucao.getX());
 		}
-		if(minY<0){
+		for(Linha linha : algoritimo.getListLinha()){
+			for(Point point : linha.getListPontos()){
+				minX = Math.min(minX, point.x);
+			}
+		}
+		if(minY<0 || minX<0){
 			minY*=-1;
+			minX*=-1;
 			maxY+=minY;
+			if(minX != 0){
+				minX+=10;
+			}
 			//jogar tudo pra baixo
 			for (Linha linha : algoritimo.getListLinha()) {
 				for (Point point : linha.getListPontos()) {
 					point.y+=minY;
+					point.x+=minX;
 				}
 			}
 			for (InstrucaoGenerica instrucao : algoritimo.getListComando()) {
 				instrucao.setY(instrucao.getY()+minY);
+				instrucao.setX(instrucao.getX()+minX);
 			}
 		}
 		h=Math.max(maxY+100,h);
