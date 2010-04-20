@@ -227,7 +227,7 @@ public abstract class InstrucaoGenerica implements Serializable {
 		for(int i=0;i<variaveis.size();i++){
 			Variavel var = variaveis.get(i);
 			if(var.getName().equals(nomeVariavel) && 
-					(var.getValue().equals(valor) || (var.getValue().matches("^[0-9][0-9]*$") && var.getValue().equals(valor+".0")))
+					(var.getValue().equals(valor) || (valor.matches("^[0-9][0-9]*$") && var.getValue().equals(valor+".0")))
 					&& var.getPasso()==passo){
 				return i;
 			}
