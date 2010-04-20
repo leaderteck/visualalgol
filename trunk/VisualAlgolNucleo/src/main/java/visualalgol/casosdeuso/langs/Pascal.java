@@ -121,4 +121,14 @@ public class Pascal implements Linguagem {
 	public String getLinguagemStyle() {
 		return SyntaxConstants.SYNTAX_STYLE_DELPHI;
 	}
+	
+	@Override
+	public String escreverDo() {
+		return "repeat";
+	}
+
+	@Override
+	public String escreverDoWhile(String condicao) {
+		return "until "+condicao+";";
+	}
 }

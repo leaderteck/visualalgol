@@ -4,7 +4,7 @@ import visualalgol.swing.MainFrame;
 
 /**
  * Classe para iniciar o sistema
- *
+ * TODO prefuse
  */
 public class VisuAlgol {
 

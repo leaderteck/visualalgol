@@ -148,4 +148,14 @@ public class C implements Linguagem {
 	public String getLinguagemStyle() {
 		return SyntaxConstants.SYNTAX_STYLE_C;
 	}
+
+	@Override
+	public String escreverDo() {
+		return "do {";
+	}
+
+	@Override
+	public String escreverDoWhile(String condicao) {
+		return "} while("+condicao+");";
+	}
 }

@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import visualalgol.casosdeuso.Ator;
 import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
-import visualalgol.entidades.InstrucaoWhile;
+import visualalgol.entidades.ComandoWhile;
 import visualalgol.entidades.Linha;
 
 public class WhileFerramenta extends Ferramenta {
@@ -19,20 +19,20 @@ public class WhileFerramenta extends Ferramenta {
 		// pegar a linha em x y do mouse
 		Linha linha = getLinhaEm(e.getX(), e.getY());
 		if(linha!=null){
-			InstrucaoWhile instrucaoWhile = null;
+			ComandoWhile comandoWhile = null;
 			if(linha.getPontoTemporario()!=null){//Criar antes deste ponto
 				InstrucaoGenerica destino = linha.getDestino(); 
 				linha.getListPontos().remove(linha.getPontoTemporario());
 				int x = linha.getPontoTemporario().x;//alinhar o x com o ponto inferior
 				int y = e.getY();
-				instrucaoWhile = criarWhile(linha, destino,x , y,linha.getPontoTemporario());
+				comandoWhile = criarWhile(linha, destino,x , y,linha.getPontoTemporario());
 			}else{//criar antes do destino
 				InstrucaoGenerica destino = linha.getDestino(); 
 				int x = destino.getX();//alinhar o x com o destino
 				int y = e.getY();
-				instrucaoWhile = criarWhile(linha, destino, x, y,null);
+				comandoWhile = criarWhile(linha, destino, x, y,null);
 			}
-			Ator.getInstance().criouInstrucao(instrucaoWhile);
+			Ator.getInstance().criouInstrucao(comandoWhile);
 		}
 	}
 	
@@ -44,37 +44,37 @@ public class WhileFerramenta extends Ferramenta {
 	 * @param y
 	 * @param point
 	 */
-	private InstrucaoWhile criarWhile(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
+	private ComandoWhile criarWhile(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
 		//Criar a intrucao if
-		InstrucaoWhile instrucaoWhile = new InstrucaoWhile();
-		instrucaoWhile.setX(x);//alinhar o x com o destino
-		instrucaoWhile.setY(y);
-		instrucaoWhile.setW(100);
-		instrucaoWhile.setH(60);
-		instrucaoWhile.setCor(new Color(0xff, 0xf0, 0xf0).getRGB());
-		getAlgoritmo().getListComando().add(instrucaoWhile);
-		instrucaoWhile.setAlgoritmo(getAlgoritmo());
-		setArrastando(instrucaoWhile);
+		ComandoWhile comandoWhile = new ComandoWhile();
+		comandoWhile.setX(x);//alinhar o x com o destino
+		comandoWhile.setY(y);
+		comandoWhile.setW(100);
+		comandoWhile.setH(60);
+		comandoWhile.setCor(new Color(0xff, 0xf0, 0xf0).getRGB());
+		getAlgoritmo().getListComando().add(comandoWhile);
+		comandoWhile.setAlgoritmo(getAlgoritmo());
+		setArrastando(comandoWhile);
 		//indicar a linha de entrada
-		instrucaoWhile.setLinhaEntrada(linha);
+		comandoWhile.setLinhaEntrada(linha);
 		
 		//alterar o destino da linha original
-		linha.setDestino(instrucaoWhile);
+		linha.setDestino(comandoWhile);
 			
 		Linha linhaVerdadeira = new Linha();
 		{//criar a linha para o true
-			linhaVerdadeira.setOrigem(instrucaoWhile);
+			linhaVerdadeira.setOrigem(comandoWhile);
 			//TODO criar a volta
 			linhaVerdadeira.getListPontos().add(new Point(x,destino.getY()-60));
 			linhaVerdadeira.getListPontos().add(new Point(x-80,destino.getY()-60));
 			linhaVerdadeira.getListPontos().add(new Point(x-80,y));
-			linhaVerdadeira.setDestino(instrucaoWhile);
+			linhaVerdadeira.setDestino(comandoWhile);
 			getAlgoritmo().getListLinha().add(linhaVerdadeira);
-			instrucaoWhile.setLinhaVerdadeira(linhaVerdadeira);
+			comandoWhile.setLinhaVerdadeira(linhaVerdadeira);
 		}
 		Linha linhaFalsa = new Linha();
 		{//criar a linha para o false
-			linhaFalsa.setOrigem(instrucaoWhile);
+			linhaFalsa.setOrigem(comandoWhile);
 			{//criar o desvio do false
 				//TODO verificar se colide com outra linha
 				//se colidir, colocar a linha para outro local
@@ -84,10 +84,10 @@ public class WhileFerramenta extends Ferramenta {
 			linhaFalsa.setDestino(destino);
 			getAlgoritmo().getListLinha().add(linhaFalsa);
 			
-			instrucaoWhile.setLinhaFalsa(linhaFalsa);
+			comandoWhile.setLinhaFalsa(linhaFalsa);
 		}
 		
-		return instrucaoWhile;
+		return comandoWhile;
 	}
 	private void implementacaoAntiga(MouseEvent e){
 		if (getInstrucaoEm(e.getX(), e.getY()) == null) {
