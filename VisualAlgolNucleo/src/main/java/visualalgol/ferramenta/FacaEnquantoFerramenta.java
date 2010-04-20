@@ -7,12 +7,11 @@ import java.awt.event.MouseEvent;
 import visualalgol.casosdeuso.Ator;
 import visualalgol.entidades.ComandoDo;
 import visualalgol.entidades.ComandoDoWhile;
-import visualalgol.entidades.CondicaoFim;
 import visualalgol.entidades.CondicaoIf;
-import visualalgol.entidades.FacaEnquanto;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
+//TODO colocar um modo para bloquear a criacao de comando na linha verdadeira
 public class FacaEnquantoFerramenta extends Ferramenta {
 
 	@Override
