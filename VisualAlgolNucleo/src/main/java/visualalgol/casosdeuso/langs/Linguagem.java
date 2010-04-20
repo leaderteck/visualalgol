@@ -27,5 +27,9 @@ public interface Linguagem {
 	public abstract String escreverFimCondicao();
 
 	public abstract String getLinguagemStyle();
+	
+	public abstract String escreverDo();
+	
+	public abstract String escreverDoWhile(String condicao);
 
 }

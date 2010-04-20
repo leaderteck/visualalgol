@@ -9,7 +9,7 @@ public class Portugol implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
 	public String escreverWhile(String condicao){
-		return "enquanto " + condicao + " faça";
+		return "enquanto " + condicao + " faï¿½a";
 	}
 
 	/* (non-Javadoc)
@@ -23,7 +23,7 @@ public class Portugol implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
 	public String escreverIf(String pseudoCodigo) {
-		return "se " + pseudoCodigo + " então ";
+		return "se " + pseudoCodigo + " entï¿½o ";
 	}
 
 	/* (non-Javadoc)
@@ -44,14 +44,14 @@ public class Portugol implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
 	 */
 	public String escreverElse() {
-		return "senão";
+		return "senï¿½o";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
 	 */
 	public String escreverFimCondicao() {
-		return "fim da condição";
+		return "fim da condiï¿½ï¿½o";
 	}
 
 	@Override
@@ -77,5 +77,14 @@ public class Portugol implements Linguagem {
 	@Override
 	public String getLinguagemStyle() {
 		return SyntaxConstants.SYNTAX_STYLE_LUA;
+	}
+	@Override
+	public String escreverDo() {
+		return "faÃ§a";
+	}
+
+	@Override
+	public String escreverDoWhile(String condicao) {
+		return "enquanto "+condicao;
 	}
 }

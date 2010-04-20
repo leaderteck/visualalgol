@@ -106,4 +106,14 @@ public class JavaScript implements Linguagem {
 	public String getLinguagemStyle() {
 		return SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT;
 	}
+	
+	@Override
+	public String escreverDo() {
+		return "do {";
+	}
+
+	@Override
+	public String escreverDoWhile(String condicao) {
+		return "} while("+condicao+");";
+	}
 }
