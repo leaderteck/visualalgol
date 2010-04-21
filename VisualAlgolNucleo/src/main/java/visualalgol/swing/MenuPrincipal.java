@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
 import visualalgol.entidades.ArquivoRecente;
@@ -30,6 +31,7 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenu compilar;
 	private JMenuItem novo;
 	private JMenu codigo;
+	private JMenuItem escrever;
 
 	private JMenuItem desfazerMenuItem;
 	public MenuPrincipal() {
@@ -45,12 +47,14 @@ public class MenuPrincipal extends JMenuBar{
 		compilar = new JMenu(Messages.getString("label.compilar")); //$NON-NLS-1$
 		novo = new JMenuItem(Messages.getString("label.novo")); //$NON-NLS-1$
 		desfazerMenuItem = new JMenuItem("Desfazer");
-		
+		escrever = new JMenuItem("Escrever");
+		//configuracao
+		escrever.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
+		escrever.setMnemonic('E');
 		
 		novo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		novo.setMnemonic('N');
 		
-		//configuracao
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		abrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		rodar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9,0));
@@ -62,9 +66,10 @@ public class MenuPrincipal extends JMenuBar{
 		arquivo.add(sairMenuItem);
 		arquivo.add(desfazerMenuItem);
 		this.add(arquivo);
-		
-		//codigo.add(verPseudoCodigo);
+		codigo.add(escrever);
+		codigo.add(new JSeparator());
 		this.add(codigo);
+		
 		compilar.add(rodar);
 		this.add(compilar);
 	}
@@ -143,6 +148,10 @@ public class MenuPrincipal extends JMenuBar{
 		this.abrirRecenteListener = abrirRecenteListener;
 	}
 
+	public JMenuItem getEscrever() {
+		return escrever;
+	}
+	
 	/**
 	 * Run F9
 	 * @return the rodar

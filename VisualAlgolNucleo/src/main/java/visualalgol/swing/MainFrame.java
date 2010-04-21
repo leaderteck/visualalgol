@@ -25,6 +25,7 @@ import visualalgol.casosdeuso.CriarCondicao;
 import visualalgol.casosdeuso.CriarFacaEnquanto;
 import visualalgol.casosdeuso.CriarWhile;
 import visualalgol.casosdeuso.DesfazerAcao;
+import visualalgol.casosdeuso.EscreverPseudoCodigo;
 import visualalgol.casosdeuso.FecharVisuAlgo;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
@@ -99,6 +100,11 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFerramenta(new EscreverFerramenta());
+			}
+		});
+		menuPrincipal.getEscrever().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EscreverPseudoCodigo.utilizar(MainFrame.this,escreverFerramenta.getArrastando());
 			}
 		});
 		menuPrincipal.getSalvarMenuItem()

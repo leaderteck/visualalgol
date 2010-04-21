@@ -34,7 +34,6 @@ public class IconesFluxogramaToolBar extends JToolBar{
 		btnEscrever = new JButton(Messages.getString("toolbar.escrever")); //$NON-NLS-1$
 		btnWhile = new JButton(Messages.getString("toolbar.while")); //$NON-NLS-1$
 		btnFacaEnquanto = new JButton(Messages.getString("toolbar.facaEnquanto"));
-		
 		//layout...
 		this.add(btnCondicao);
 		this.add(btnWhile);
