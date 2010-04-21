@@ -95,9 +95,11 @@ public class MoverUsabilidade3 implements Mover{
 								}
 							}
 						}
-						for(Point point:condicaoFim.getLinhaSaida().getListPontos()){
-							if(point.x==xLinhaDivisoria){
-								point.x += x;
+						if(condicaoFim.getLinhaSaida()!=null){
+							for(Point point:condicaoFim.getLinhaSaida().getListPontos()){
+								if(point.x==xLinhaDivisoria){
+									point.x += x;
+								}
 							}
 						}
 					}
