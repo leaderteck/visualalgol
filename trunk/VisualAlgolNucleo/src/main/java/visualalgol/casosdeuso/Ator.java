@@ -54,7 +54,7 @@ public class Ator {
 		}
 	}
 
-	public String digitarPseudoCodigo() {
+	public String digitarPseudoCodigo(InstrucaoGenerica instrucao) {
 		return JOptionPane.showInputDialog("Digite o pseudo codigo",instrucao.getPseudoCodigo());
 	}
 }

@@ -64,24 +64,12 @@ public class VariaveisView extends JPanel{
 				if(pseudo!=null){//existe um pseudo
 					int i = pseudo.indexOf("=");
 					if(i!=-1){//comando de atribuicao?
-						String temp = pseudo.substring(0,i).trim();
-						if(temp.matches("^[a-zA-Z]([a-zA-Z0-9]|\\.[a-zA-Z])*$")){
-							varName = temp;
-						}
+						addVar(pseudo.substring(0,i).trim());
 					}
 					if(varName==null && pseudo.startsWith("leia ")){//comando de leia?
-						String temp = pseudo.substring(5).trim();
-						if(temp.matches("^[a-zA-Z]([a-zA-Z0-9]|\\.[a-zA-Z])*$")){
-							varName = temp;
-						}
-					}
-					if(varName!=null){
-						Variavel var = localizarVariavel(algoritmo.getVariaveis(),varName);
-						if(var==null){//criar a variavel
-							var = new Variavel();
-							var.setName(varName);
-							System.out.println("varName = " + varName);
-							algoritmo.getVariaveis().add(var);
+						String temp[] = pseudo.substring(5).trim().split(",");
+						for(int j=0;j<temp.length;j++){
+							addVar(temp[j]);
 						}
 					}
 				}
@@ -89,6 +77,25 @@ public class VariaveisView extends JPanel{
 		}
 		atualizar();//atualizar
 	}
+	
+	/**
+	 * @param varName
+	 */
+	private void addVar(String varName) {
+		if(varName!=null){
+			varName = varName.trim();
+			if(varName.matches("^[a-zA-Z]([a-zA-Z0-9]|\\.[a-zA-Z])*$")){
+				Variavel var = localizarVariavel(algoritmo.getVariaveis(),varName);
+				if(var==null){//criar a variavel
+					var = new Variavel();
+					var.setName(varName);
+					System.out.println("varName = " + varName);
+					algoritmo.getVariaveis().add(var);
+				}
+			}
+		}
+	}
+	
 	private void atualizar(){
 		tabela.removeAll();
 		if(algoritmo.getVariaveis()==null){
