@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
+import visualalgol.entidades.CondicaoIf;
 import visualalgol.entidades.InstrucaoGenerica;
 
 /**
@@ -51,6 +52,9 @@ public class DesenharCondicaoIf implements Desenhista {
 				gra.fillRect(p.xpoints[i]-2, p.ypoints[i]-2, 5, 5);
 			}
 		}
+		CondicaoIf condicaoIf = (CondicaoIf)instrucao;
+		DesenharSeta.desenhar(condicaoIf.getPoligono(),condicaoIf.getLinhaEntrada(),gra);
+		DesenharSeta.desenhar(condicaoIf.getPoligono(),condicaoIf.getLinhaEntradaLoopBack(),gra);
 	}
 
 }

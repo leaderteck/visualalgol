@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
+import visualalgol.entidades.Comando;
 import visualalgol.entidades.InstrucaoGenerica;
 
 public class DesenharComando implements Desenhista {
@@ -16,7 +17,6 @@ public class DesenharComando implements Desenhista {
 		
 		int larg = 0;
 		int w = instrucao.getW();
-		
 		
 		if(instrucao.getPseudoCodigo()!=null){
 			larg = gra.getFontMetrics().stringWidth(instrucao.getPseudoCodigo());
@@ -56,6 +56,8 @@ public class DesenharComando implements Desenhista {
 				gra.fillRect(p.xpoints[i]-2, p.ypoints[i]-2, 5, 5);
 			}
 		}
+		Comando comando = (Comando)instrucao;
+		DesenharSeta.desenhar(comando.getPoligono(),comando.getLinhaEntrada(),gra);
 	}
 
 }

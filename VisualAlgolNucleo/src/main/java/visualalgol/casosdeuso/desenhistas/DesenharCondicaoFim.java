@@ -16,9 +16,14 @@ public class DesenharCondicaoFim extends DesenharInicio {
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
 		super.desenhar(instrucao, bi);
+		Graphics gra = bi.getGraphics();
+		CondicaoFim condicaoFim = (CondicaoFim) instrucao;
+		gra.setColor(Color.BLACK);
+		for(Linha linha:condicaoFim.getListLinhaEntrada()){
+			DesenharSeta.desenhar(condicaoFim.getPoligono(), linha, gra);
+		}
 		if(logger.getLevel()!=null && (logger.getLevel()+"").toString().equals("DEBUG")){
-			Graphics gra = bi.getGraphics();
-			CondicaoFim condicaoFim = (CondicaoFim) instrucao;
+			
 			int x = 10;
 			gra.setColor(Color.BLACK);
 			for (Linha linha : condicaoFim.getListLinhaEntrada()) {

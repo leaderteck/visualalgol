@@ -45,7 +45,7 @@ public class WhileFerramenta extends Ferramenta {
 	 * @param point
 	 */
 	private ComandoWhile criarWhile(Linha linha, InstrucaoGenerica destino, int x, int y, Point point) {
-		//Criar a intrucao if
+		//Criar a intrucao While
 		ComandoWhile comandoWhile = new ComandoWhile();
 		comandoWhile.setX(x);//alinhar o x com o destino
 		comandoWhile.setY(y);
@@ -71,6 +71,7 @@ public class WhileFerramenta extends Ferramenta {
 			linhaVerdadeira.setDestino(comandoWhile);
 			getAlgoritmo().getListLinha().add(linhaVerdadeira);
 			comandoWhile.setLinhaVerdadeira(linhaVerdadeira);
+			comandoWhile.setLinhaEntradaLoopBack(linhaVerdadeira);
 		}
 		Linha linhaFalsa = new Linha();
 		{//criar a linha para o false
