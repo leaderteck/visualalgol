@@ -42,9 +42,11 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 		}
 	}
 	public static void utilizar(Sistema sistema, InstrucaoGenerica instrucao){
-		EscreverPseudoCodigo escrever = new EscreverPseudoCodigo();
-		escrever.setSistema(sistema);
-		escrever.setInstrucao(instrucao);
-		escrever.executar();
+		if(instrucao!=null){
+			EscreverPseudoCodigo escrever = new EscreverPseudoCodigo();
+			escrever.setSistema(sistema);
+			escrever.setInstrucao(instrucao);
+			escrever.executar();
+		}
 	}
 }
