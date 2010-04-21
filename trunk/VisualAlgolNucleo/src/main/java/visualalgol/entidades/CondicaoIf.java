@@ -121,12 +121,17 @@ public class CondicaoIf extends InstrucaoGenerica {
 		getAlgoritmo().getListLinha().remove(linhaFalsa);
 		getAlgoritmo().getListLinha().remove(linhaVerdadeira);
 		getAlgoritmo().getListLinha().remove(linhaEntradaLoopBack);
+		if(linhaVerdadeira!=null && linhaVerdadeira.getDestino()!=null)
+			linhaVerdadeira.getDestino().substituirEntrada(linhaVerdadeira, null);
+		if(linhaFalsa!=null && linhaFalsa.getDestino()!=null)
+			linhaFalsa.getDestino().substituirEntrada(linhaFalsa, null);
 		super.delete();
 	}
 
 	@Override
 	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
-		linhaEntrada = substituirPor;
+		if(procurarPor.equals(linhaEntrada))linhaEntrada = substituirPor;
+		if(procurarPor.equals(linhaEntradaLoopBack))linhaEntradaLoopBack = substituirPor;
 	}
 
 

@@ -60,14 +60,18 @@ public class MoverUsabilidade3 implements Mover{
 					if(visitado!=null){
 						moverDelayLine(comando.getLinhaSaida(), x ,y , visitado);
 					}else{
-						for(Point point:comando.getLinhaSaida().getListPontos()){
-							if(point.x==xLinhaDivisoria){
-								point.x += x;
+						if(comando.getLinhaSaida()!=null){
+							for(Point point:comando.getLinhaSaida().getListPontos()){
+								if(point.x==xLinhaDivisoria){
+									point.x += x;
+								}
 							}
 						}
-						for(Point point:comando.getLinhaEntrada().getListPontos()){
-							if(point.x==xLinhaDivisoria){
-								point.x += x;
+						if(comando.getLinhaEntrada()!=null){
+							for(Point point:comando.getLinhaEntrada().getListPontos()){
+								if(point.x==xLinhaDivisoria){
+									point.x += x;
+								}
 							}
 						}
 					}
