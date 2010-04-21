@@ -17,7 +17,7 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 	
 	@Override
 	public void executar() {
-		String pseudoCodigo = ator.digitarPseudoCodigo();
+		String pseudoCodigo = ator.digitarPseudoCodigo(instrucao);
 		if (pseudoCodigo != null){
 			logger.info("escreveuPseudoCodigo " + pseudoCodigo);
 			//dar uma validada

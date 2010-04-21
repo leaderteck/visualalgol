@@ -59,23 +59,25 @@ public class InterpretarFluxograma extends CasoDeUso{
     				try{
     					if(s.startsWith("leia ")){
         					s = s.substring(5);
-        					String input = JOptionPane.showInputDialog("Informe um valor para " + s);
-        					if(input==null){
-        						JOptionPane.showMessageDialog(sistema.getComponent(),"Execução cancelada");
-        						return;
+        					String vars[] = s.split(",");
+        					for(int i=0;i<vars.length;i++){
+        						String input = JOptionPane.showInputDialog("Informe um valor para " + vars[i]);
+            					if(input==null){
+            						JOptionPane.showMessageDialog(sistema.getComponent(),"Execuï¿½ï¿½o cancelada");
+            						return;
+            					}
+            					// verificar o tipo
+            					if(input.matches("^[0-9]*,[0-9]+$")){
+            						input = input.replace(",",".");
+            					}else if(input.matches("^[0-9]*\\.[0-9]+$")){
+            						//do nothing
+            					}else if(input.matches("^[0-9]+$")){
+            						input = input.replace(",",".");
+            					}else{//tratar como string
+            						input = "\"" + input.replace("\"", "\\\"")+"\"";
+            					}
+            					cx.evaluateString(scope,vars[i] + "=" + input, "<cmd>", 1, null);
         					}
-        					// verificar o tipo
-        					if(input.matches("^[0-9]*,[0-9]+$")){
-        						input = input.replace(",",".");
-        					}else if(input.matches("^[0-9]*\\.[0-9]+$")){
-        						//do nothing
-        					}else if(input.matches("^[0-9]+$")){
-        						input = input.replace(",",".");
-        					}else{//tratar como string
-        						input = "\"" + input.replace("\"", "\\\"")+"\"";
-        					}
-        					s += " = " + input;
-        					cx.evaluateString(scope, s, "<cmd>", 1, null);
         				}else if(s.startsWith("imprima ")){
     						Object result = cx.evaluateString(scope, s.substring(8), "<cmd>", 1, null);
         					JOptionPane.showMessageDialog(null,result);
