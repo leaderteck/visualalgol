@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -81,7 +83,9 @@ public class SalvarAlgoritmo extends CasoDeUso {
 				AbrirAlgoritmo.setAlgoritmoAberto(file);
 			}
 		}
-		sistema.informarNoRodape("Salvo.");
+		Date agora = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		sistema.informarNoRodape("Salvo em "+sdf.format(agora)+".");
 	}
 
 }

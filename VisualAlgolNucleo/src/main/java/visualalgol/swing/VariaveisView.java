@@ -7,7 +7,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -57,6 +59,8 @@ public class VariaveisView extends JPanel{
 		if(algoritmo.getVariaveis()==null){
 			algoritmo.setVariaveis(new ArrayList<Variavel>());
 		}
+		//criar uma lista de variaveis que foram inseridas agora
+		Set<String> inseridasAgora = new HashSet<String>();
 		//percorrer todos os comandos
 		for(InstrucaoGenerica instrucao: algoritmo.getListComando()){
 			if(instrucao instanceof Comando){
@@ -64,24 +68,39 @@ public class VariaveisView extends JPanel{
 				if(pseudo!=null){//existe um pseudo
 					int i = pseudo.indexOf("=");
 					if(i!=-1){//comando de atribuicao?
-						addVar(pseudo.substring(0,i).trim());
+						String temp = pseudo.substring(0,i).trim();
+						boolean ok = addVar(temp);
+						if(ok)inseridasAgora.add(temp);
 					}
 					if(varName==null && pseudo.startsWith("leia ")){//comando de leia?
 						String temp[] = pseudo.substring(5).trim().split(",");
 						for(int j=0;j<temp.length;j++){
-							addVar(temp[j]);
+							boolean ok = addVar(temp[j]);
+							if(ok)inseridasAgora.add(temp[j]);
 						}
 					}
 				}
 			}
 		}
+		//todas que nao foram inseridas agora serao removidas
+		List<Variavel> remover = new ArrayList<Variavel>();
+		for(Variavel var:algoritmo.getVariaveis()){
+			if(!inseridasAgora.contains(var.getName())){
+				remover.add(var);
+			}
+		}
+		for(Variavel var:remover){
+			algoritmo.getVariaveis().remove(var);
+		}
 		atualizar();//atualizar
 	}
 	
 	/**
-	 * @param varName
+	 * Insere uma variavel no algoritmo caso ela nao exista
+	 * @param varName variavel para inserir
+	 * @return true caso seja um nome valido
 	 */
-	private void addVar(String varName) {
+	private boolean addVar(String varName) {
 		if(varName!=null){
 			varName = varName.trim();
 			if(varName.matches("^[a-zA-Z]([a-zA-Z0-9]|\\.[a-zA-Z])*$")){
@@ -92,8 +111,10 @@ public class VariaveisView extends JPanel{
 					System.out.println("varName = " + varName);
 					algoritmo.getVariaveis().add(var);
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	private void atualizar(){

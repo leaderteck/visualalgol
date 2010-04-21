@@ -118,7 +118,7 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 		ultimoX = e.getX();
 		ultimoY = e.getY();
 		// verificar se esta selecionando um dos comandos
-		arrastando = getInstrucaoEm(ultimoX, ultimoY);
+		setArrastando(getInstrucaoEm(ultimoX, ultimoY));
 		mouseButtonPressed = e.getButton();
 		if(e.getButton()==MouseEvent.BUTTON3){
 			moverDireita = new MoverUsabilidade5(arrastando.getX());
@@ -197,6 +197,8 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	 * @param arrastando the arrastando to set
 	 */
 	public void setArrastando(InstrucaoGenerica arrastando) {
+		if(this.arrastando!=null)this.arrastando.setFoco(false);
+		if(arrastando!=null) arrastando.setFoco(true);
 		this.arrastando = arrastando;
 	}
 	
