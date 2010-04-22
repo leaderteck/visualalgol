@@ -81,9 +81,18 @@ public class MoverUsabilidade3 implements Mover{
 						moverDelayLine(condicaoIf.getLinhaFalsa(), x, y, visitado);
 						moverDelayLine(condicaoIf.getLinhaVerdadeira(), x, y, visitado);
 					}else{
-						for(Point point:condicaoIf.getLinhaFalsa().getListPontos()){
-							if(point.y==yLinhaDivisoria){
-								point.y += y;
+						if(condicaoIf.getLinhaFalsa()!=null){
+							for(Point point:condicaoIf.getLinhaFalsa().getListPontos()){
+								if(point.y==yLinhaDivisoria){
+									point.y += y;
+								}
+							}
+						}
+						if(condicaoIf.getLinhaEntrada()!=null){
+							for(Point point:condicaoIf.getLinhaEntrada().getListPontos()){
+								if(point.x==xLinhaDivisoria){
+									point.x += x;
+								}
 							}
 						}
 					}
