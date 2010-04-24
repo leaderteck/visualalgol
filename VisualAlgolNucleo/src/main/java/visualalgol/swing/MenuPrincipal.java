@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
+import swingmenu.MenuEditar;
+ 
 import visualalgol.entidades.ArquivoRecente;
 
 public class MenuPrincipal extends JMenuBar{
@@ -32,8 +34,10 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenuItem novo;
 	private JMenu codigo;
 	private JMenuItem escrever;
-
-	private JMenuItem desfazerMenuItem;
+	/**
+	 * Do outro projeto
+	 */
+	private MenuEditar menuEditar;
 	public MenuPrincipal() {
 		//instancia
 		salvarMenuItem = new JMenuItem(Messages.getString("label.salvar")); //$NON-NLS-1$
@@ -46,8 +50,8 @@ public class MenuPrincipal extends JMenuBar{
 		recentes = new JMenu(Messages.getString("label.recentes")); //$NON-NLS-1$
 		compilar = new JMenu(Messages.getString("label.compilar")); //$NON-NLS-1$
 		novo = new JMenuItem(Messages.getString("label.novo")); //$NON-NLS-1$
-		desfazerMenuItem = new JMenuItem("Desfazer");
 		escrever = new JMenuItem("Escrever");
+		menuEditar = new MenuEditar();
 		//configuracao
 		escrever.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
 		escrever.setMnemonic('E');
@@ -64,8 +68,8 @@ public class MenuPrincipal extends JMenuBar{
 		arquivo.add(recentes);
 		arquivo.add(salvarMenuItem);
 		arquivo.add(sairMenuItem);
-		arquivo.add(desfazerMenuItem);
 		this.add(arquivo);
+		this.add(menuEditar);
 		codigo.add(escrever);
 		codigo.add(new JSeparator());
 		this.add(codigo);
@@ -165,7 +169,12 @@ public class MenuPrincipal extends JMenuBar{
 	public JMenu getCodigo() {
 		return codigo;
 	}
+	
+	/**
+	 * Delegate 2 menuEditar.getDesfazer()
+	 * @return menuEditar.getDesfazer()
+	 */
 	public JMenuItem getDesfazerMenuItem() {
-		return desfazerMenuItem;
+		return menuEditar.getDesfazer();
 	}
 }
