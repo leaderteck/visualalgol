@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
@@ -34,6 +35,9 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenuItem novo;
 	private JMenu codigo;
 	private JMenuItem escrever;
+	private JMenu ajuda;
+	private JMenuItem topicosDaAjuda;
+	private JMenuItem sobre;
 	/**
 	 * Do outro projeto
 	 */
@@ -52,6 +56,10 @@ public class MenuPrincipal extends JMenuBar{
 		novo = new JMenuItem(Messages.getString("label.novo")); //$NON-NLS-1$
 		escrever = new JMenuItem("Escrever");
 		menuEditar = new MenuEditar();
+		ajuda = new JMenu(Messages.getString("label.ajuda"));
+		ajuda.setMnemonic('u');
+		topicosDaAjuda = new JMenuItem(Messages.getString("label.topicosDaAjuda"));
+		sobre = new JMenuItem("Sobre o "+MainFrame.PROGNAME);
 		//configuracao
 		escrever.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
 		escrever.setMnemonic('E');
@@ -62,6 +70,13 @@ public class MenuPrincipal extends JMenuBar{
 		salvarMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		abrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		rodar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9,0));
+		
+		topicosDaAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirAjudaOnline();
+			}
+		});
+		
 		//layout
 		arquivo.add(abrirMenuItem);
 		arquivo.add(novo);
@@ -76,6 +91,10 @@ public class MenuPrincipal extends JMenuBar{
 		
 		compilar.add(rodar);
 		this.add(compilar);
+		ajuda.add(topicosDaAjuda);
+		ajuda.add(new JSeparator());
+		ajuda.add(sobre);
+		this.add(ajuda);
 	}
 	
 	private void criarRecentes(){
@@ -176,5 +195,22 @@ public class MenuPrincipal extends JMenuBar{
 	 */
 	public JMenuItem getDesfazerMenuItem() {
 		return menuEditar.getDesfazer();
+	}
+	
+	private void abrirAjudaOnline() {
+		String url = "http://code.google.com/p/visualalgol/wiki/AjudaGeral";
+		if (!java.awt.Desktop.isDesktopSupported()) {
+			JOptionPane.showInputDialog("Abra a url: (Erro ajuda 01)", url);
+		}
+		java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+		if (!desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+			JOptionPane.showInputDialog("Abra a url: (Erro ajuda 02)", url);
+		}
+		try {
+			java.net.URI uri = new java.net.URI(url);
+			desktop.browse(uri);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Erro ajuda 03:" + e.getMessage());
+		}
 	}
 }

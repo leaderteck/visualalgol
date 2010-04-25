@@ -51,7 +51,7 @@ import visualalgol.swing.console.OnEnter;
 
 public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 	private static final long serialVersionUID = 1L;
-	private static final String PROGNAME="VisuAlgo";
+	public static final String PROGNAME="VisuAlgo";
 	private IconesFluxogramaToolBar iconesFluxogramaToolBar;
 	private TelaDesenhoFluxograma telaDesenhoFluxograma;
 	private Ferramenta ferramentaAtual;
