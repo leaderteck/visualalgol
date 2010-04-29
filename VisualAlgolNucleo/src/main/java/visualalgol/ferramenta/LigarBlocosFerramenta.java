@@ -1,10 +1,7 @@
 package visualalgol.ferramenta;
 
-import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JMenuItem;
@@ -17,6 +14,7 @@ import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
+import visualalgol.swing.Messages;
 
 public class LigarBlocosFerramenta extends Ferramenta {
 	private JPopupMenu popupMenuVerdadeiroFalso;
@@ -25,13 +23,12 @@ public class LigarBlocosFerramenta extends Ferramenta {
 	private InstrucaoGenerica instrucaoDestino = null;
 	private boolean caminhoValor;
 	
-	
-	private int ultimoX, ultimoY;
+	//private int ultimoX, ultimoY;
 
 	public LigarBlocosFerramenta() {
 		popupMenuEntradaOuVoltaDeCondicao = new JPopupMenu();
-		JMenuItem menuItemVoltaDeCondicao = new JMenuItem("Isto é a volta ou fim da repetição");
-		JMenuItem menuItemEntradaDeCondicao = new JMenuItem("Isto é a entrada da condição");
+		JMenuItem menuItemVoltaDeCondicao = new JMenuItem(Messages.getString("label.voltaloop"));
+		JMenuItem menuItemEntradaDeCondicao = new JMenuItem(Messages.getString("label.entradacondicao"));
 
 		popupMenuVerdadeiroFalso = new JPopupMenu();
 		JMenuItem menuItemVerdadeiro = new JMenuItem("Verdadeiro");

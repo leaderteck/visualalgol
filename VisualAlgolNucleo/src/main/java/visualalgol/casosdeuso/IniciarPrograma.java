@@ -13,6 +13,7 @@ import visualalgol.entidades.Fim;
 import visualalgol.entidades.Inicio;
 import visualalgol.entidades.Linha;
 import visualalgol.ferramenta.CondicaoIfFerramenta;
+import visualalgol.swing.Messages;
 
 public class IniciarPrograma extends CasoDeUso {
 
@@ -28,7 +29,7 @@ public class IniciarPrograma extends CasoDeUso {
 			if (arquivoRecente.getPaths().size() > 0) {
 				AbrirAlgoritmo abrir = new AbrirAlgoritmo();
 				abrir.abrirArquivo(arquivoRecente.getPaths().get(0), sistema);
-				sistema.informarNoRodape("Aberto o último algoritmo.");
+				sistema.informarNoRodape(Messages.getString("aviso.abertoultimoalgoritmo"));
 				arquivoAberto = true;
 			}
 		} catch (FileNotFoundException e) {
@@ -38,7 +39,7 @@ public class IniciarPrograma extends CasoDeUso {
 
 		if (!arquivoAberto) {
 			criarAlgoritmoVazio(sistema);
-			sistema.informarNoRodape("Iniciado um algoritmo vazio.");
+			sistema.informarNoRodape(Messages.getString("aviso.algoritmovazio"));
 		}
 
 		AtualizarTela atualizarTela = new AtualizarTela();

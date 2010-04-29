@@ -48,17 +48,13 @@ public class CondicaoFim extends InstrucaoGenerica{
 	}
 	@Override
 	public void substituirEntrada(Linha procurarPor, Linha substituirPor) {
-		logger.debug("procurarPor " + procurarPor.getId() + " " + substituirPor.getId());
-		//String ids = "";
-		//for(Linha linha:listLinhaEntrada){
-		//	ids+=linha.getId()+";";
-		//}
-		listLinhaEntrada.add(substituirPor);
-		listLinhaEntrada.remove(procurarPor);
-		//boolean removeu = 
-		//if(!removeu){
-		//	throw new RuntimeException("Not found " + procurarPor +" in ["+ids+"]");
-		//}
+		if(substituirPor!=null){
+			//logger.debug("procurarPor " + procurarPor.getId() + " " + substituirPor.getId());
+			listLinhaEntrada.add(substituirPor);
+		}
+		if(procurarPor!=null){
+			listLinhaEntrada.remove(procurarPor);
+		}
 	}
 	
 }
