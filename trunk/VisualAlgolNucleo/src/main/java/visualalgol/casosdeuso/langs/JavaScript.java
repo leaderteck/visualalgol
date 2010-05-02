@@ -46,16 +46,20 @@ public class JavaScript implements Linguagem {
 	public void escreverComando(String comando) {
 		if(comando.startsWith("leia ")){
 			String var = comando.substring(5);
-			//achar o tipo da variavel
-			int tipo = getTipo(var);
-			if(tipo==2){//Real
-				outputLang.print(var + " = prompt(\"Informe um valor para "+var+"\", \"\")*1;");
-			}else if(tipo==3){
-				outputLang.print(var + " = parseInt(prompt(\"Informe um valor para "+var+"\", \"\"));");
-			}else if(tipo==4){
-				outputLang.print(var + " = confirm(\"Informe um valor para "+var+":\\n ok = verdadeiro\\n cancel = falso\");");
-			}else{
-				outputLang.print(var + " = prompt(\"Informe um valor para "+var+"\", \"\");");
+			String vars[] = var.split(",");
+			for(int i=0;i<vars.length;i++){
+				var = vars[i];
+				//achar o tipo da variavel
+				int tipo = getTipo(var);
+				if(tipo==2){//Real
+					outputLang.print(var + " = prompt(\"Informe um valor para "+var+"\", \"\")*1;");
+				}else if(tipo==3){
+					outputLang.print(var + " = parseInt(prompt(\"Informe um valor para "+var+"\", \"\"));");
+				}else if(tipo==4){
+					outputLang.print(var + " = confirm(\"Informe um valor para "+var+":\\n ok = verdadeiro\\n cancel = falso\");");
+				}else{
+					outputLang.print(var + " = prompt(\"Informe um valor para "+var+"\", \"\");");
+				}
 			}
 		}else if(comando.startsWith("imprima ")){
 			String var = comando.substring(8);

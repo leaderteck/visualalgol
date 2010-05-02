@@ -46,16 +46,20 @@ public class Java implements Linguagem {
 	public void escreverComando(String comando) {
 		if(comando.startsWith("leia ")){
 			String var = comando.substring(5);
-			//achar o tipo da variavel
-			int tipo = getTipo(var);
-			if(tipo==2){//Real
-				outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%f\", &"+var+");");
-			}else if(tipo==3){//inteiro
-				outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%d\", &"+var+");");
-			}else if(tipo==4){//boolean
-				outputLang.print("System.out.println(\"Informe um valor para "+var+" (1=true 0=false)\\n\");\nscanf(\"%d\", &"+var+");");
-			}else{//string?
-				outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%s\", "+var+");//note que nao existe &");
+			String vars[] = var.split(",");
+			for(int i=0;i<vars.length;i++){
+				var = vars[i];
+				//achar o tipo da variavel
+				int tipo = getTipo(var);
+				if(tipo==2){//Real
+					outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%f\", &"+var+");");
+				}else if(tipo==3){//inteiro
+					outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%d\", &"+var+");");
+				}else if(tipo==4){//boolean
+					outputLang.print("System.out.println(\"Informe um valor para "+var+" (1=true 0=false)\\n\");\nscanf(\"%d\", &"+var+");");
+				}else{//string?
+					outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%s\", "+var+");//note que nao existe &");
+				}
 			}
 		}else if(comando.startsWith("imprima ")){
 			String var = comando.substring(8);//complexo transformar em C
