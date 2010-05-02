@@ -63,7 +63,7 @@ public class InterpretarFluxograma extends CasoDeUso{
         					for(int i=0;i<vars.length;i++){
         						String input = JOptionPane.showInputDialog("Informe um valor para " + vars[i]);
             					if(input==null){
-            						JOptionPane.showMessageDialog(sistema.getComponent(),"Execu��o cancelada");
+            						JOptionPane.showMessageDialog(sistema.getComponent(),"Execucao cancelada");
             						return;
             					}
             					// verificar o tipo
