@@ -51,7 +51,8 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 				}
 			}else if(instrucao instanceof CondicaoIf){
 				//Por solicitacao do clemilson, guardar as variaveis da condicional
-				String tokens[] = s.split("(==|>=|<=)");
+				String sSimples = s.replace("==","=").replace(">=", ">").replace("<=","<");
+				String tokens[] = sSimples.split("(=|>|<)");
 				for(int i=0;i<tokens.length;i++){
 					Object value = scope.get(tokens[i].trim(),scope);
 					if(!Scriptable.NOT_FOUND.equals(value)){
