@@ -16,6 +16,7 @@ public class ComandoFerramenta extends Ferramenta {
 		// pegar a linha em x y do mouse
 		Linha linhaEntrada = getLinhaEm(e.getX(), e.getY());
 		if(linhaEntrada!=null){
+			
 			Comando comando = null;
 			if(linhaEntrada.getPontoTemporario()!=null){//Criar antes deste ponto
 				//separar a linha em duas, quebrando no ponto temporario

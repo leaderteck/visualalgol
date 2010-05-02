@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -189,11 +190,16 @@ public class MenuPrincipal extends JMenuBar{
 		return codigo;
 	}
 	
+	
+	public JMenuItem getRecortar(){
+		return menuEditar.getRecortar();
+	}
 	/**
 	 * Delegate 2 menuEditar.getDesfazer()
 	 * @return menuEditar.getDesfazer()
 	 */
 	public JMenuItem getDesfazerMenuItem() {
+		
 		return menuEditar.getDesfazer();
 	}
 	
@@ -212,5 +218,13 @@ public class MenuPrincipal extends JMenuBar{
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Erro ajuda 03:" + e.getMessage());
 		}
+	}
+
+	public AbstractButton getColar() {
+		return menuEditar.getColar();
+	}
+
+	public AbstractButton getCopiar() {
+		return menuEditar.getCopiar();
 	}
 }

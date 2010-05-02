@@ -40,6 +40,9 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			fis = new FileInputStream(file);
 			in = new ObjectInputStream(fis);
 			Algoritmo algoritmo = (Algoritmo) in.readObject();
+			for(InstrucaoGenerica instrucao:algoritmo.getListComando()){
+				instrucao.setFoco(false);//remover o foco, pois rola um problema quando recortamos
+			}
 			sistema.setAlgoritmo(algoritmo);
 			in.close();
 			

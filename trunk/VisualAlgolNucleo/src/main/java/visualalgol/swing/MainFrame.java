@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,6 +41,9 @@ import visualalgol.casosdeuso.langs.JavaScript;
 import visualalgol.casosdeuso.langs.Linguagem;
 import visualalgol.casosdeuso.langs.Pascal;
 import visualalgol.casosdeuso.langs.Portugol;
+import visualalgol.casosdeuso.menueditar.Colar;
+import visualalgol.casosdeuso.menueditar.Copiar;
+import visualalgol.casosdeuso.menueditar.Recortar;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.ArquivoRecente;
 import visualalgol.entidades.InstrucaoGenerica;
@@ -81,13 +85,10 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		telaDesenhoFluxograma.addListener(escreverFerramenta);
 		menuPrincipal.setAbrirRecenteListener(this);
 		
-		iconesFluxogramaToolBar.getBtnCondicao()
-			.addActionListener(new StrongAdapter(this,CriarCondicao.class));
-		iconesFluxogramaToolBar.getBtnFacaEnquanto().addActionListener(new StrongAdapter(this,CriarFacaEnquanto.class));
-		iconesFluxogramaToolBar.getBtnWhile()
-			.addActionListener(new StrongAdapter(this,CriarWhile.class));
-		iconesFluxogramaToolBar.getBtnComando()
-			.addActionListener(new StrongAdapter(this,CriarComando.class));
+		map2(iconesFluxogramaToolBar.getBtnCondicao(),CriarCondicao.class);
+		map2(iconesFluxogramaToolBar.getBtnFacaEnquanto(),CriarFacaEnquanto.class);
+		map2(iconesFluxogramaToolBar.getBtnWhile(),CriarWhile.class);
+		map2(iconesFluxogramaToolBar.getBtnComando(),CriarComando.class);
 		iconesFluxogramaToolBar.getBtnFimDecisao().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setFerramenta(new CondicaoFimFerramenta());
@@ -110,18 +111,15 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 				EscreverPseudoCodigo.utilizar(MainFrame.this,escreverFerramenta.getArrastando());
 			}
 		});
-		menuPrincipal.getSalvarMenuItem()
-			.addActionListener(new StrongAdapter(this,SalvarAlgoritmo.class));
-		menuPrincipal.getAbrirMenuItem()
-			.addActionListener(new StrongAdapter(this,AbrirAlgoritmo.class));
-		menuPrincipal.getVerPseudoCodigo()
-			.addActionListener(new StrongAdapter(this,Fluxo2PseudoCodigo.class));
-		menuPrincipal.getSairMenuItem()
-			.addActionListener(new StrongAdapter(this, FecharVisuAlgo.class));
-		menuPrincipal.getRodar()
-			.addActionListener(new StrongAdapter(this,InterpretarFluxograma.class));
-		menuPrincipal.getDesfazerMenuItem()
-			.addActionListener(new StrongAdapter(this, DesfazerAcao.class));
+		map2(menuPrincipal.getRecortar(),Recortar.class);
+		map2(menuPrincipal.getColar(),Colar.class);
+		map2(menuPrincipal.getCopiar(),Copiar.class);
+		map2(menuPrincipal.getSalvarMenuItem(),SalvarAlgoritmo.class);
+		map2(menuPrincipal.getAbrirMenuItem(),AbrirAlgoritmo.class);
+		map2(menuPrincipal.getVerPseudoCodigo(),Fluxo2PseudoCodigo.class);
+		map2(menuPrincipal.getSairMenuItem(),FecharVisuAlgo.class);
+		map2(menuPrincipal.getRodar(),InterpretarFluxograma.class);
+		map2(menuPrincipal.getDesfazerMenuItem(),DesfazerAcao.class);
 		menuPrincipal.getNovo().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);
@@ -187,6 +185,10 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		
 		this.setVisible(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+	}
+
+	private void map2(AbstractButton abstractButton,Class class1) {
+		abstractButton.addActionListener(new StrongAdapter(this,class1));		
 	}
 
 	@Override
