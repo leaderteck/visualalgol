@@ -1,5 +1,8 @@
 package visualalgol.swing;
 
+import java.io.File;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
@@ -27,20 +30,40 @@ public class IconesFluxogramaToolBar extends JToolBar{
 
 	public IconesFluxogramaToolBar() {
 		//instanciando...
-		btnCondicao = new JButton(Messages.getString("toolbar.condicao")); //$NON-NLS-1$
-		btnComando = new JButton(Messages.getString("toolbar.comando")); //$NON-NLS-1$
-		btnFimDecisao = new JButton(Messages.getString("toolbar.fimDaCondicao")); //$NON-NLS-1$
-		btnLigarBlocos = new JButton(Messages.getString("toolbar.ligarBlocos")); //$NON-NLS-1$
+		//btnComando = new JButton(Messages.getString("toolbar.comando")); //$NON-NLS-1$
+		btnComando = new JButton(new ImageIcon(ImageIO.read(new File("images/comando.gif"))));
+		btnComando.setToolTipText(Messages.getString("toolbar.comando"));
+		
+		//btnCondicao = new JButton(Messages.getString("toolbar.condicao")); //$NON-NLS-1$
+		btnCondicao = new JButton(new ImageIcon(ImageIO.read(new File("images/condicao.gif"))));
+		btnCondicao.setToolTipText(Messages.getString("toolbar.condicao"));
+		
+		//btnWhile = new JButton(Messages.getString("toolbar.while")); //$NON-NLS-1$
+		btnWhile = new JButton(new ImageIcon(ImageIO.read(new File("images/rep_enquanto.gif"))));
+		btnWhile.setToolTipText(Messages.getString("toolbar.while"));
+		
+		//btnFacaEnquanto = new JButton(Messages.getString("toolbar.facaEnquanto"));
+		btnFacaEnquanto = new JButton(new ImageIcon(ImageIO.read(new File("images/rep_faca_enquanto.gif"))));
+		btnFacaEnquanto.setToolTipText(Messages.getString("toolbar.facaEnquanto"));
+		
+		//btnFimDecisao = new JButton(Messages.getString("toolbar.fimDaCondicao")); //$NON-NLS-1$
+		btnFimDecisao = new JButton(new ImageIcon(ImageIO.read(new File("images/fim_condicao.gif"))));
+		btnFimDecisao.setToolTipText(Messages.getString("toolbar.fimDaCondicao"));
+		
+		//btnLigarBlocos = new JButton(Messages.getString("toolbar.ligarBlocos")); //$NON-NLS-1$
+		btnLigarBlocos = new JButton(new ImageIcon(ImageIO.read(new File("images/ligar_blocos.gif"))));
+		btnLigarBlocos.setToolTipText(Messages.getString("toolbar.ligarBlocos"));
+		
 		btnEscrever = new JButton(Messages.getString("toolbar.escrever")); //$NON-NLS-1$
-		btnWhile = new JButton(Messages.getString("toolbar.while")); //$NON-NLS-1$
-		btnFacaEnquanto = new JButton(Messages.getString("toolbar.facaEnquanto"));
+				
 		//layout...
+		this.add(btnComando);
 		this.add(btnCondicao);
 		this.add(btnWhile);
-		this.add(btnComando);
+		this.add(btnFacaEnquanto);
 		this.add(btnFimDecisao);
 		this.add(btnLigarBlocos);
-		this.add(btnFacaEnquanto);
+		
 		//this.add(btnEscrever);
 	}
 
