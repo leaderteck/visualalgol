@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import visualalgol.casosdeuso.AbrirAlgoritmo;
@@ -79,6 +80,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		console.setPersistirEmArquivo(new File(CasoDeUso.getPastaDoPrograma(), "comandos.txt"));
 		telaDesenhoFluxograma.addListener(escreverFerramenta);
 		menuPrincipal.setAbrirRecenteListener(this);
+		
 		iconesFluxogramaToolBar.getBtnCondicao()
 			.addActionListener(new StrongAdapter(this,CriarCondicao.class));
 		iconesFluxogramaToolBar.getBtnFacaEnquanto().addActionListener(new StrongAdapter(this,CriarFacaEnquanto.class));
@@ -164,7 +166,9 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		this.setSize(800, 600);
 		
 		this.setJMenuBar(menuPrincipal);
-		this.add(iconesFluxogramaToolBar, BorderLayout.NORTH);
+		
+		iconesFluxogramaToolBar.setOrientation(JToolBar.VERTICAL);
+		this.add(iconesFluxogramaToolBar, BorderLayout.WEST);
 		
 		this.add(splitPane, BorderLayout.CENTER);		
 		this.add(saidaDialogo,BorderLayout.SOUTH);
