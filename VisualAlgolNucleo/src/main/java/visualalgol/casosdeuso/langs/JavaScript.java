@@ -6,26 +6,30 @@ import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
 public class JavaScript implements Linguagem {
+	private OutputLang outputLang;
 	private Algoritmo alg;
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
-	public String escreverWhile(String condicao){
-		return "while(" + condicao + "){";
+	public void escreverWhile(String condicao){
+		outputLang.print("while (" + condicao + "){");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
 	 */
-	public String escreverEndWhile() {
-		return "}//fim do loop ";
+	public void escreverEndWhile() {
+		outputLang.subTab();
+		outputLang.print("}//fim while ");
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
-	public String escreverIf(String pseudoCodigo) {
-		return "if(" + pseudoCodigo + "){";
+	public void escreverIf(String pseudoCodigo) {
+		outputLang.print("if (" + pseudoCodigo + "){");
+		outputLang.addTab();
 	}
 
 	private int getTipo(String nome){
@@ -39,46 +43,50 @@ public class JavaScript implements Linguagem {
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComando(java.lang.String)
 	 */
-	public String escreverComando(String comando) {
+	public void escreverComando(String comando) {
 		if(comando.startsWith("leia ")){
 			String var = comando.substring(5);
 			//achar o tipo da variavel
 			int tipo = getTipo(var);
 			if(tipo==2){//Real
-				return  var + " = prompt(\"Informe um valor para "+var+"\", \"\")*1;";
+				outputLang.print(var + " = prompt(\"Informe um valor para "+var+"\", \"\")*1;");
 			}else if(tipo==3){
-				return  var + " = parseInt(prompt(\"Informe um valor para "+var+"\", \"\"));";
+				outputLang.print(var + " = parseInt(prompt(\"Informe um valor para "+var+"\", \"\"));");
 			}else if(tipo==4){
-				return  var + " = confirm(\"Informe um valor para "+var+":\\n ok = verdadeiro\\n cancel = falso\");";
+				outputLang.print(var + " = confirm(\"Informe um valor para "+var+":\\n ok = verdadeiro\\n cancel = falso\");");
 			}else{
-				return var + " = prompt(\"Informe um valor para "+var+"\", \"\");";
+				outputLang.print(var + " = prompt(\"Informe um valor para "+var+"\", \"\");");
 			}
 		}else if(comando.startsWith("imprima ")){
 			String var = comando.substring(8);
-			return "alert("+var+");";
+			outputLang.print("alert("+var+");");
+		}else{
+			outputLang.print(comando + ";");
 		}
-		return comando + ";";
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
 	 */
-	public String escreverComandoVazio() {
-		return "//comando qualquer";
+	public void escreverComandoVazio() {
+		outputLang.print("//comando qualquer");
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
 	 */
-	public String escreverElse() {
-		return "}else{";
+	public void escreverElse() {
+		outputLang.subTab();
+		outputLang.print("}else{");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
 	 */
-	public String escreverFimCondicao() {
-		return "}//fim de condicao";
+	public void escreverFimCondicao() {
+		outputLang.subTab();
+		outputLang.print("}//fim de condicao");
 	}
 
 	@Override
@@ -87,19 +95,20 @@ public class JavaScript implements Linguagem {
 	}
 
 	@Override
-	public String getInicio() {
-		return "<script type=\"text/javascript\"><!--";
+	public void getInicio() {
+		outputLang.print("<script type=\"text/javascript\"><!--");
+		outputLang.addTab();
 	}
 
 	@Override
-	public String getFim() {
-		return "//-->\n</script>";
+	public void getFim() {
+		outputLang.subTab();
+		outputLang.print("//-->\n</script>");
 	}
 
 	@Override
-	public String getCabecalho(Algoritmo alg) {
+	public void getCabecalho(Algoritmo alg) {
 		this.alg = alg;
-		return "";
 	}
 
 	@Override
@@ -108,12 +117,19 @@ public class JavaScript implements Linguagem {
 	}
 	
 	@Override
-	public String escreverDo() {
-		return "do {";
+	public void escreverDo() {
+		outputLang.print("do {");
+		outputLang.addTab();
 	}
 
 	@Override
-	public String escreverDoWhile(String condicao) {
-		return "} while("+condicao+");";
+	public void escreverDoWhile(String condicao) {
+		outputLang.subTab();
+		outputLang.print("} while("+condicao+");");
+	}
+	
+	@Override
+	public void setOutputLang(OutputLang outputLang) {
+		this.outputLang = outputLang;
 	}
 }

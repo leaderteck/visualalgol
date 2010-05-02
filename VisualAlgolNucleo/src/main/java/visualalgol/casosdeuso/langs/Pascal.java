@@ -6,40 +6,45 @@ import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
 public class Pascal implements Linguagem {
+	private OutputLang outputLang;
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
-	public String escreverWhile(String condicao){
-		return "while " + condicao + " do begin";
+	public void escreverWhile(String condicao){
+		outputLang.print("while " + condicao + " do begin");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
 	 */
-	public String escreverEndWhile() {
-		return "end; {fim enquanto} ";
+	public void escreverEndWhile() {
+		outputLang.subTab();
+		outputLang.print("end; {fim enquanto} ");
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
-	public String escreverIf(String pseudoCodigo) {
-		return "if " + pseudoCodigo + " then begin ";
+	public void escreverIf(String pseudoCodigo) {
+		outputLang.print("if " + pseudoCodigo + " then begin ");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComando(java.lang.String)
 	 */
-	public String escreverComando(String comando) {
+	public void escreverComando(String comando) {
 		if(comando.startsWith("leia ")){
 			String var = comando.substring(5);
-			return "read(" + var + ");";
+			outputLang.print("read(" + var + ");");
 		}else if(comando.startsWith("imprima ")){
 			String var = comando.substring(8);
-			return "writeln("+tratarWriteLn(var)+");";
+			outputLang.print("writeln("+tratarWriteLn(var)+");");
+		}else{
+			comando = comando.replaceFirst("=", ":=");
+			outputLang.print(comando + ";");
 		}
-		comando = comando.replaceFirst("=", ":=");
-		return comando + ";";
 	}
 
 	private String tratarWriteLn(String var){
@@ -48,25 +53,29 @@ public class Pascal implements Linguagem {
 		retorno=retorno.replaceAll("'([^']*)'\\s*\\+", "'$1',");
 		return retorno;
 	}
+	
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
 	 */
-	public String escreverComandoVazio() {
-		return "{comando qualquer}";
+	public void escreverComandoVazio() {
+		outputLang.print("{comando qualquer}");
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
 	 */
-	public String escreverElse() {
-		return "end else begin";
+	public void escreverElse() {
+		outputLang.subTab();
+		outputLang.print("end else begin");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
 	 */
-	public String escreverFimCondicao() {
-		return "end; { Fim condicao }";
+	public void escreverFimCondicao() {
+		outputLang.subTab();
+		outputLang.print("end; { Fim condicao }");
 	}
 
 	@Override
@@ -75,13 +84,15 @@ public class Pascal implements Linguagem {
 	}
 
 	@Override
-	public String getInicio() {
-		return "begin {Programa principal}";
+	public void getInicio() {
+		outputLang.print("begin {Programa principal}");
+		outputLang.addTab();
 	}
 
 	@Override
-	public String getFim() {
-		return "end.";
+	public void getFim() {
+		outputLang.subTab();
+		outputLang.print("end.");
 	}
 
 	private String getTipo(int x){
@@ -99,7 +110,7 @@ public class Pascal implements Linguagem {
 		}
 	}
 	@Override
-	public String getCabecalho(Algoritmo alg) {
+	public void getCabecalho(Algoritmo alg) {
 		String retorno = "Program Pzim ;\nvar ";
 		//Organizar por tipo
 		for(int i=0;i<Variavel.getTipos().size();i++){
@@ -109,12 +120,11 @@ public class Pascal implements Linguagem {
 					if(tem)retorno+=", ";
 					tem=true;
 					retorno += var.getName();
-					
 				}
 			}
 			if(tem)	retorno+=":"+getTipo(i)+";\n";
 		}
-		return retorno;
+		outputLang.print(retorno);
 	}
 
 	@Override
@@ -123,12 +133,18 @@ public class Pascal implements Linguagem {
 	}
 	
 	@Override
-	public String escreverDo() {
-		return "repeat";
+	public void escreverDo() {
+		outputLang.print("repeat");
+		outputLang.addTab();
 	}
 
 	@Override
-	public String escreverDoWhile(String condicao) {
-		return "until "+condicao+";";
+	public void escreverDoWhile(String condicao) {
+		outputLang.subTab();
+		outputLang.print("until "+condicao+";");
+	}
+	@Override
+	public void setOutputLang(OutputLang outputLang) {
+		this.outputLang = outputLang;
 	}
 }

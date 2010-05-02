@@ -4,32 +4,34 @@ import visualalgol.entidades.Algoritmo;
 
 public interface Linguagem {
 
-	public abstract String getCabecalho(Algoritmo alg); 
+	public abstract void getCabecalho(Algoritmo alg); 
 	
-	public abstract String getFim();
+	public abstract void getFim();
 	
-	public abstract String getInicio();
+	public abstract void getInicio();
 	
 	public abstract String getNome();
 	
-	public abstract String escreverWhile(String condicao);
+	public abstract void escreverWhile(String condicao);
 
-	public abstract String escreverEndWhile();
+	public abstract void escreverEndWhile();
 
-	public abstract String escreverIf(String condicao);
+	public abstract void escreverIf(String condicao);
 
-	public abstract String escreverComando(String comando);
+	public abstract void escreverComando(String comando);
 
-	public abstract String escreverComandoVazio();
+	public abstract void escreverComandoVazio();
 
-	public abstract String escreverElse();
+	public abstract void escreverElse();
 
-	public abstract String escreverFimCondicao();
+	public abstract void escreverFimCondicao();
 
 	public abstract String getLinguagemStyle();
 	
-	public abstract String escreverDo();
+	public abstract void escreverDo();
 	
-	public abstract String escreverDoWhile(String condicao);
+	public abstract void escreverDoWhile(String condicao);
+
+	public abstract void setOutputLang(OutputLang outputLang);
 
 }

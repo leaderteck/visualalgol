@@ -5,53 +5,60 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import visualalgol.entidades.Algoritmo;
 
 public class Portugol implements Linguagem {
+	private OutputLang outputLang;
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
-	public String escreverWhile(String condicao){
-		return "enquanto " + condicao + " fa�a";
+	public void escreverWhile(String condicao){
+		outputLang.print("enquanto " + condicao + " faca");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
 	 */
-	public String escreverEndWhile() {
-		return "fim enquanto ";
+	public void escreverEndWhile() {
+		outputLang.subTab();
+		outputLang.print("fim enquanto ");
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
-	public String escreverIf(String pseudoCodigo) {
-		return "se " + pseudoCodigo + " ent�o ";
+	public void escreverIf(String pseudoCodigo) {
+		outputLang.print("se " + pseudoCodigo + " entao ");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComando(java.lang.String)
 	 */
-	public String escreverComando(String comando) {
-		return comando;
+	public void escreverComando(String comando) {
+		outputLang.print(comando);
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
 	 */
-	public String escreverComandoVazio() {
-		return "//comando qualquer";
+	public void escreverComandoVazio() {
+		outputLang.print("\"Um comando qualquer\"");
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
 	 */
-	public String escreverElse() {
-		return "sen�o";
+	public void escreverElse() {
+		outputLang.subTab();
+		outputLang.print("senao");
+		outputLang.addTab();
 	}
 
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
 	 */
-	public String escreverFimCondicao() {
-		return "fim da condi��o";
+	public void escreverFimCondicao() {
+		outputLang.subTab();
+		outputLang.print("fim da condicao");
 	}
 
 	@Override
@@ -60,18 +67,20 @@ public class Portugol implements Linguagem {
 	}
 
 	@Override
-	public String getInicio() {
-		return "Inicio";
+	public void getInicio() {
+		outputLang.print("Inicio");
+		outputLang.addTab();
 	}
 
 	@Override
-	public String getFim() {
-		return "Fim";
+	public void getFim() {
+		outputLang.subTab();
+		outputLang.print("Fim");
 	}
 
 	@Override
-	public String getCabecalho(Algoritmo alg) {
-		return "";
+	public void getCabecalho(Algoritmo alg) {
+		
 	}
 
 	@Override
@@ -79,12 +88,18 @@ public class Portugol implements Linguagem {
 		return SyntaxConstants.SYNTAX_STYLE_LUA;
 	}
 	@Override
-	public String escreverDo() {
-		return "faça";
+	public void escreverDo() {
+		outputLang.print("faca");
+		outputLang.addTab();
 	}
 
 	@Override
-	public String escreverDoWhile(String condicao) {
-		return "enquanto "+condicao;
+	public void escreverDoWhile(String condicao) {
+		outputLang.subTab();
+		outputLang.print("enquanto "+condicao);
+	}
+	@Override
+	public void setOutputLang(OutputLang outputLang) {
+		this.outputLang = outputLang;
 	}
 }
