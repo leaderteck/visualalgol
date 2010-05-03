@@ -119,7 +119,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		map2(menuPrincipal.getVerPseudoCodigo(),Fluxo2PseudoCodigo.class);
 		map2(menuPrincipal.getSairMenuItem(),FecharVisuAlgo.class);
 		map2(menuPrincipal.getRodar(),InterpretarFluxograma.class);
-		map2(menuPrincipal.getDesfazerMenuItem(),DesfazerAcao.class);
+		map2SemHistorico(menuPrincipal.getDesfazerMenuItem(),DesfazerAcao.class);
 		menuPrincipal.getNovo().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);
@@ -187,7 +187,12 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}
 
-	private void map2(AbstractButton abstractButton,Class class1) {
+	private void map2SemHistorico(AbstractButton abstractButton,
+			Class<?> class1) {
+		abstractButton.addActionListener(new StrongAdapter(this,class1,false));
+	}
+
+	private void map2(AbstractButton abstractButton,Class<?> class1) {
 		abstractButton.addActionListener(new StrongAdapter(this,class1));		
 	}
 

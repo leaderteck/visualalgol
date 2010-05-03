@@ -13,6 +13,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.List;
 
 import visualalgol.casosdeuso.Sistema;
+import visualalgol.casosdeuso.historico.Historico;
 import visualalgol.casosdeuso.mover.Mover;
 import visualalgol.casosdeuso.mover.MoverUsabilidade3;
 import visualalgol.casosdeuso.mover.MoverUsabilidade5;
@@ -176,6 +177,7 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 				linha.getListPontos().remove(arrastandoPonto);
 			}
 			if (arrastando != null) {
+				Historico.getInstance().gravarEstado();
 				arrastando.delete();
 			}
 		}

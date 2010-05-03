@@ -1,5 +1,10 @@
 package visualalgol.casosdeuso;
 
-public class DesfazerAcao extends CasoDeUso{
+import visualalgol.casosdeuso.historico.Historico;
 
+public class DesfazerAcao extends CasoDeUso{
+	@Override
+	public void executar() {
+		Historico.getInstance().voltarEstado();
+	}
 }
