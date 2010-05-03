@@ -2,12 +2,10 @@
 
 = Ajuda Geral =
 
-Add your content here.
+O Pseudo código está baseado em comandos em JavaScript
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Para atribuição basta um único sinal de igual.
+Ex.:
+{{{
+a = 33
+}}}
