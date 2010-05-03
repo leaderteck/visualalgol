@@ -54,7 +54,13 @@ public class SalvarAlgoritmo extends CasoDeUso {
         return ext;
     }
 
-    private void salvar(Algoritmo alg, File file){
+    /**
+     * Grava o algoritmo no arquivo,
+     * nao verifica extensao nem nada
+     * @param alg Algoritmo verificar antes
+     * @param file arquivo verificar antes
+     */
+    public static void salvar(Algoritmo alg, File file){
     	FileOutputStream fos = null;
 		ObjectOutputStream out = null;
 		try {

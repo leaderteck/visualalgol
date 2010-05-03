@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import visualalgol.casosdeuso.historico.Historico;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.ArquivoRecente;
 import visualalgol.entidades.Fim;
@@ -48,6 +49,8 @@ public class IniciarPrograma extends CasoDeUso {
 	}
 
 	public static void criarAlgoritmoVazio(Sistema sistema) {
+		Historico.getInstance().setSistema(sistema);
+		Historico.getInstance().limparHistorico();
 		Algoritmo algoritmo = new Algoritmo();
 		sistema.setAlgoritmo(algoritmo);
 		sistema.setTitle(null);

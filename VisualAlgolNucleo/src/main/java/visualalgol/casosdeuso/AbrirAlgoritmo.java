@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import visualalgol.casosdeuso.historico.Historico;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
@@ -40,10 +41,7 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			fis = new FileInputStream(file);
 			in = new ObjectInputStream(fis);
 			Algoritmo algoritmo = (Algoritmo) in.readObject();
-			for(InstrucaoGenerica instrucao:algoritmo.getListComando()){
-				instrucao.setFoco(false);//remover o foco, pois rola um problema quando recortamos
-			}
-			sistema.setAlgoritmo(algoritmo);
+			
 			in.close();
 			
 			//lembrar quem foi o ultimo aberto
@@ -52,13 +50,16 @@ public class AbrirAlgoritmo extends SalvarAlgoritmo {
 			{//limpar execucao
 				for(InstrucaoGenerica instrucao:algoritmo.getListComando()){
 					instrucao.setExecutado(false);
+					instrucao.setFoco(false);//remover o foco, pois rola um problema quando recortamos
 				}
 				for(Linha linha:algoritmo.getListLinha()){
 					linha.setExecutado(false);
 					linha.setId(null);
 				}
+				Historico.getInstance().setSistema(sistema);
+				Historico.getInstance().limparHistorico();
 			}
-			
+			sistema.setAlgoritmo(algoritmo);
 			sistema.setTitle(file.getPath());
 			
 			
