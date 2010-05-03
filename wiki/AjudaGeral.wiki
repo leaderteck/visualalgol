@@ -9,3 +9,30 @@ Ex.:
 {{{
 a = 33
 }}}
+
+== Comandos de Entrada e Saída ==
+
+=== Entrada ===
+A entrada é feita seguindo a seguinte sintaxe:
+{{{
+leia p1
+}}}
+No exemplo consideramos que p1 seja uma variável.
+
+É possível ler mais de uma variável ao mesmo tempo:
+{{{
+leia p1, p2
+}}}
+
+=== Saída ===
+Para gerar uma saída no programa deve se seguir o exemplo abaixo:
+{{{
+imprima p1
+}}}
+No exemplo consideramos que p1 seja uma variável.
+
+É possível concatenar com uma seqüência de caracteres.
+{{{
+imprima "sua média foi " + media
+}}}
+No exemplo acima _media_ é uma variável
