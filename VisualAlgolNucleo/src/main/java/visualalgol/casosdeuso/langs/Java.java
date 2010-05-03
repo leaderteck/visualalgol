@@ -50,15 +50,16 @@ public class Java implements Linguagem {
 			for(int i=0;i<vars.length;i++){
 				var = vars[i];
 				//achar o tipo da variavel
+							
 				int tipo = getTipo(var);
 				if(tipo==2){//Real
-					outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%f\", &"+var+");");
+					outputLang.print("System.out.println(\"Informe um valor para "+var+"\");\n"+var+" = sc.nextFloat();");
 				}else if(tipo==3){//inteiro
-					outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%d\", &"+var+");");
+					outputLang.print("System.out.println(\"Informe um valor para "+var+"\");\n"+var+" = sc.nextInt();");
 				}else if(tipo==4){//boolean
-					outputLang.print("System.out.println(\"Informe um valor para "+var+" (1=true 0=false)\\n\");\nscanf(\"%d\", &"+var+");");
+					outputLang.print("System.out.println(\"Informe um valor para "+var+" (1=true 0=false)\");\n"+var+" = (sc.nextInt() == 1);");
 				}else{//string?
-					outputLang.print("System.out.println(\"Informe um valor para "+var+"\\n\");\nscanf(\"%s\", "+var+");//note que nao existe &");
+					outputLang.print("System.out.println(\"Informe um valor para "+var+"\");\n"+var+" = sc.next();");
 				}
 			}
 		}else if(comando.startsWith("imprima ")){
@@ -66,11 +67,13 @@ public class Java implements Linguagem {
 			//achar o tipo da variavel
 			int tipo = getTipo(var);
 			if(tipo==2){//Real
-				outputLang.print("System.out.println(\"%4.2f \\n\"," + var + ");");
+				outputLang.print("System.out.println("+ var + ");");
 			}else if(tipo==3){//inteiro
-				outputLang.print("System.out.println(\"%d \\n\"," + var + ");");
+				outputLang.print("System.out.println("+ var + ");");
+			}else{
+				outputLang.print("System.out.println("+ var + ");");
 			}
-			outputLang.print("System.out.println(\"%s \\n\",("+var+"));");
+			
 		}else{
 			/*
 			 * se houver uma atribuicao e o ultimo comando
@@ -118,6 +121,7 @@ public class Java implements Linguagem {
 	public void getInicio() {
 		outputLang.print("public static void main(String[] args) {//Programa principal");
 		outputLang.addTab();
+		outputLang.print("Scanner sc = new Scanner(System.in);");
 	}
 
 	@Override
@@ -131,13 +135,13 @@ public class Java implements Linguagem {
 	private String getTipo(int x){
 		switch (x) {
 		case 1:
-			return "char ";
+			return "private static char ";
 		case 2:
-			return "float ";
+			return "private static float ";
 		case 3:
-			return "int ";
+			return "private static int ";
 		case 4:
-			return "unsigned char ";
+			return "private static String ";
 		default:
 			return "??";
 		}
@@ -158,9 +162,10 @@ public class Java implements Linguagem {
 				}
 			}
 		}
-		outputLang.print("import java.lang.*;\npublic class MinhaClasse{\n");
+		outputLang.print("import java.util.Scanner;\npublic class PseudoJava{\n");
 		outputLang.addTab();
 		outputLang.print(retorno);
+		
 	}
 
 	public String getLinguagemStyle() {
