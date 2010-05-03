@@ -226,4 +226,10 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
 	}
+	
+	protected void removerTodosOsFocos() {
+		for(InstrucaoGenerica instrucao:sistema.getAlgoritmo().getListComando()){
+			instrucao.setFoco(false);
+		}
+	}
 }

@@ -12,7 +12,10 @@ public class ComandoFerramenta extends Ferramenta {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		InstrucaoGenerica instrucao = getInstrucaoEm(e.getX(), e.getY());
-		if(instrucao!=null) return;
+		if(instrucao!=null){
+			removerTodosOsFocos();
+			return;
+		}
 		// pegar a linha em x y do mouse
 		Linha linhaEntrada = getLinhaEm(e.getX(), e.getY());
 		if(linhaEntrada!=null){
