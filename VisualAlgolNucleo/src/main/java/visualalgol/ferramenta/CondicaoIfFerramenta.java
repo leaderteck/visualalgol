@@ -14,7 +14,10 @@ public class CondicaoIfFerramenta extends Ferramenta {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (getInstrucaoEm(e.getX(), e.getY()) != null) return;
+		if (getInstrucaoEm(e.getX(), e.getY()) != null){
+			removerTodosOsFocos();
+			return;
+		}
 		
 		// pegar a linha em x y do mouse
 		Linha linha = getLinhaEm(e.getX(), e.getY());

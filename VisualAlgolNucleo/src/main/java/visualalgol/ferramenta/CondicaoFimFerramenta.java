@@ -18,6 +18,8 @@ public class CondicaoFimFerramenta extends Ferramenta{
 			getAlgoritmo().getListComando().add(condicaoFim);
 			condicaoFim.setAlgoritmo(getAlgoritmo());
 			setArrastando(condicaoFim);
+		}else{
+			removerTodosOsFocos();
 		}
 	}
 }
