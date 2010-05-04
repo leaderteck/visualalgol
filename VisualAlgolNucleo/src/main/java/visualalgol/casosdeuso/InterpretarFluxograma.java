@@ -17,6 +17,41 @@ import visualalgol.entidades.Linha;
 
 public class InterpretarFluxograma extends CasoDeUso{
 	private static Logger logger = Logger.getLogger(InterpretarFluxograma.class);
+	
+	public static String tratarStringDeCondicao(String pseudoCodigo){
+		if(pseudoCodigo==null) return "";
+		String retorno="";
+		int nAspa=0;
+		boolean ultimaBarra=false;
+		for(int i=0;i<pseudoCodigo.length();i++){
+			char c = pseudoCodigo.charAt(i);
+			retorno+=c;
+			boolean par = nAspa%2==0;
+			if(c=='"' && par){
+				nAspa++;
+			}else{
+				if(par){
+					if(c=='='){
+						//se o proximo nao for igual, colocamos o proximo como igual
+						if((i+1)<pseudoCodigo.length()){
+							if(pseudoCodigo.charAt(i+1)!='='){
+								retorno+='=';
+							}
+						}
+					}
+				}else{//impar
+					if(!ultimaBarra && c=='"'){
+						nAspa++;
+					}
+				}
+				
+				//no final ver se eh barra
+				ultimaBarra = c=='\\';
+			}
+		}
+		return retorno;
+	}
+	
 	@Override
 	public void executarComoThread() throws InterruptedException {
 		Algoritmo alg = sistema.getAlgoritmo();
@@ -107,6 +142,8 @@ public class InterpretarFluxograma extends CasoDeUso{
     				CondicaoIf condicao = (CondicaoIf) instrucao;
     				String s = condicao.getPseudoCodigo();
     				try{
+    					//tratar se escrever if(a=" ze = peekdk")
+    					s = tratarStringDeCondicao(s);
 	    				// Now evaluate the string we've colected.
 	    	            Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
 	    	            String resposta = Context.toString(result);

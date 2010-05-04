@@ -32,6 +32,7 @@ import visualalgol.casosdeuso.FecharVisuAlgo;
 import visualalgol.casosdeuso.Fluxo2PseudoCodigo;
 import visualalgol.casosdeuso.IniciarPrograma;
 import visualalgol.casosdeuso.InterpretarFluxograma;
+import visualalgol.casosdeuso.RefazerAcao;
 import visualalgol.casosdeuso.SalvarAlgoritmo;
 import visualalgol.casosdeuso.Sistema;
 import visualalgol.casosdeuso.comandos.InterpretadorMediador;
@@ -120,6 +121,7 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		map2(menuPrincipal.getSairMenuItem(),FecharVisuAlgo.class);
 		map2(menuPrincipal.getRodar(),InterpretarFluxograma.class);
 		map2SemHistorico(menuPrincipal.getDesfazerMenuItem(),DesfazerAcao.class);
+		map2SemHistorico(menuPrincipal.getRefazerMenuItem(),RefazerAcao.class);
 		menuPrincipal.getNovo().addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				IniciarPrograma.criarAlgoritmoVazio(MainFrame.this);
