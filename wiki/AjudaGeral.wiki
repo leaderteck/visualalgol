@@ -36,3 +36,8 @@ No exemplo consideramos que p1 seja uma variável.
 imprima "sua média foi " + media
 }}}
 No exemplo acima _media_ é uma variável
+
+== Condições ==
+
+Os operadores lógicos são: *e*, *ou*, *=*, *>*, *<*, *>=* e *<=*.
+Também funcionam os *&&* e *||* que são *e* e *ou* respectivamente.
