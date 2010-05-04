@@ -5,32 +5,8 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
-public class Java implements Linguagem {
+public class Java extends C {
 	private Algoritmo alg;
-	private OutputLang outputLang;
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
-	 */
-	public void escreverWhile(String condicao){
-		outputLang.print("while (" + condicao + "){");
-		outputLang.addTab();
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
-	 */
-	public void escreverEndWhile() {
-		outputLang.subTab();
-		outputLang.print("}//fim while ");
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
-	 */
-	public void escreverIf(String pseudoCodigo) {
-		outputLang.print("if (" + pseudoCodigo + "){");
-		outputLang.addTab();
-	}
 	
 	private int getTipo(String nome){
 		for(Variavel var: alg.getVariaveis()){
@@ -88,30 +64,6 @@ public class Java implements Linguagem {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
-	 */
-	public void escreverComandoVazio() {
-		outputLang.print("//comando qualquer");
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
-	 */
-	public void escreverElse() {
-		outputLang.subTab();
-		outputLang.print("}else{");
-		outputLang.addTab();
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
-	 */
-	public void escreverFimCondicao() {
-		outputLang.subTab();
-		outputLang.print("}//fim de condicao");
-	}
-
 	@Override
 	public String getNome() {
 		return "Java";
@@ -135,7 +87,7 @@ public class Java implements Linguagem {
 	private String getTipo(int x){
 		switch (x) {
 		case 1:
-			return "private static char ";
+			return "private static String ";
 		case 2:
 			return "private static float ";
 		case 3:
@@ -155,9 +107,6 @@ public class Java implements Linguagem {
 			for(Variavel var:alg.getVariaveis()){
 				if(var.getTipo()==i){
 					retorno +=getTipo(i) + var.getName();
-					if(i==1){
-						retorno+="[255];";
-					}
 					retorno+=";\n";
 				}
 			}
@@ -169,23 +118,6 @@ public class Java implements Linguagem {
 	}
 
 	public String getLinguagemStyle() {
-		return SyntaxConstants.SYNTAX_STYLE_C;
-	}
-
-	@Override
-	public void escreverDo() {
-		outputLang.print("do {");
-		outputLang.addTab();
-	}
-
-	@Override
-	public void escreverDoWhile(String condicao) {
-		outputLang.subTab();
-		outputLang.print("} while("+condicao+");");
-	}
-	
-	@Override
-	public void setOutputLang(OutputLang outputLang) {
-		this.outputLang = outputLang;
+		return SyntaxConstants.SYNTAX_STYLE_JAVA;
 	}
 }

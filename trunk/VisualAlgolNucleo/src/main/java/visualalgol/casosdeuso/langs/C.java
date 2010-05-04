@@ -2,17 +2,27 @@ package visualalgol.casosdeuso.langs;
 
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
+import visualalgol.casosdeuso.InterpretarFluxograma;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
 public class C implements Linguagem {
 	private Algoritmo alg;
-	private OutputLang outputLang;
+	protected OutputLang outputLang;
+	
+	/**
+	 * Somente para encapsular a chamada ao metodo
+	 * @param condicao string em portugol
+	 * @return condicao tratada para funcionar em C like
+	 */
+	protected String tratarCondicao(String condicao){
+		return InterpretarFluxograma.tratarStringDeCondicao(condicao);
+	}
 	/* (non-Javadoc)
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
 	 */
 	public void escreverWhile(String condicao){
-		outputLang.print("while (" + condicao + "){");
+		outputLang.print("while (" + tratarCondicao(condicao) + "){");
 		outputLang.addTab();
 	}
 
@@ -28,7 +38,7 @@ public class C implements Linguagem {
 	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
 	 */
 	public void escreverIf(String pseudoCodigo) {
-		outputLang.print("if (" + pseudoCodigo + "){");
+		outputLang.print("if (" + tratarCondicao(pseudoCodigo) + "){");
 		outputLang.addTab();
 	}
 	
@@ -172,7 +182,7 @@ public class C implements Linguagem {
 	@Override
 	public void escreverDoWhile(String condicao) {
 		outputLang.subTab();
-		outputLang.print("} while("+condicao+");");
+		outputLang.print("} while("+tratarCondicao(condicao)+");");
 	}
 
 	@Override
