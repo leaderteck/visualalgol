@@ -22,8 +22,6 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 
 	private Linguagem linguagem = new Portugol();
 
-	
-
 	/**
 	 * Navegar pelos nodes iniciando do Inicio, vamos navegar sempre pelas
 	 * linhas
@@ -104,8 +102,7 @@ public class Fluxo2PseudoCodigo extends CasoDeUso {
 					// empilha
 					pilhaCondicao.add(condicao);
 					// andar pelo true
-					proximaInstrucao = condicao.getLinhaVerdadeira()
-							.getDestino();
+					proximaInstrucao = condicao.getLinhaVerdadeira().getDestino();
 				}
 			} else if (instrucao instanceof Comando) {
 				// Comando

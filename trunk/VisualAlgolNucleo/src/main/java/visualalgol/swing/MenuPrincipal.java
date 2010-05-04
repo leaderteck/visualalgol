@@ -227,4 +227,8 @@ public class MenuPrincipal extends JMenuBar{
 	public AbstractButton getCopiar() {
 		return menuEditar.getCopiar();
 	}
+
+	public AbstractButton getRefazerMenuItem() {
+		return menuEditar.getRefazer();
+	}
 }

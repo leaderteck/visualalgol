@@ -36,8 +36,38 @@ public class Historico extends CasoDeUso{
 		passo++;
 		SalvarAlgoritmo.salvar(sistema.getAlgoritmo(), file);
 	}
+
+	/**
+	 * Refazer
+	 */
+	public synchronized void refazer(){
+		FileInputStream fis = null;
+		ObjectInputStream in = null;
+		try {
+			passo++;
+			File file = new File(CasoDeUso.getPastaDoPrograma(),"historico-"+passo);
+			if(file.exists()){
+				fis = new FileInputStream(file);
+				in = new ObjectInputStream(fis);
+				Algoritmo algoritmo = (Algoritmo) in.readObject();
+				for(InstrucaoGenerica instrucao:algoritmo.getListComando()){
+					instrucao.setFoco(false);//remover o foco, pois rola um problema quando recortamos
+				}
+				sistema.setAlgoritmo(algoritmo);
+				in.close();
+			}else{
+				passo--;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
-	public synchronized void voltarEstado(){
+	/**
+	 * Desfazer
+	 */
+	public synchronized void desfazer(){
+		if(passo<=0) return;
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
