@@ -15,7 +15,7 @@ public class InterpretadorWhat extends InterpretadorDeComandoAbstrato {
 
 	@Override
 	public String exemplo() {
-		return "what play mp3?";
+		return "what plays mp3?";
 	}
 
 	@Override

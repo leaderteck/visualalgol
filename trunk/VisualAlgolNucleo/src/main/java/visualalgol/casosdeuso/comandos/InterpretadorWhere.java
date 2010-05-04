@@ -32,7 +32,7 @@ public class InterpretadorWhere extends InterpretadorDeComandoAbstrato{
 	@Override
 	public void interpretar(Sistema sistema, Ator ator, String textoDigitado)
 			throws InterruptedException, EntradaInesperadaException {
-		sistema.informar("the last change is on file media.alg; lines 23, 33 and 42.");
+		sistema.informar("the last change was in the file media.alg; lines 23, 33 and 42.");
 	}
 
 	@Override
