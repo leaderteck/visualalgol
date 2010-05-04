@@ -26,5 +26,9 @@ public class InterpretarFluxogramaTest extends TestCase{
 		assertEquals("1 <= 2", res);
 		res = InterpretarFluxograma.tratarStringDeCondicao("1 >= 2");
 		assertEquals("1 >= 2", res);
+		res = InterpretarFluxograma.tratarStringDeCondicao("1 >= 2 e 1<3");
+		assertEquals("1 >= 2 && 1<3", res);
+		res = InterpretarFluxograma.tratarStringDeCondicao("1 >= 2 ou 1<3");
+		assertEquals("1 >= 2 || 1<3", res);
 	}
 }
