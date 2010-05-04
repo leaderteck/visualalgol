@@ -17,9 +17,19 @@ public class Variavel implements Serializable{
 		tipos.add("Inteiro (Ex.: 42)");
 		tipos.add("Booleano (Ex.: true ou false)");
 	}
+	
+	/**
+	 * 0 = Selecione ou Indefinido<br>
+	 * 1 = Texto ou String<br>
+	 * 2 = Real ou Float<br>
+	 * 3 = Inteiro<br>
+	 * 4 = Booleano<br>
+	 * @return um dos valores acima
+	 */
 	public static List<String> getTipos() {
 		return tipos;
 	}
+	
 	private int passo=-1;
 	
 	public Variavel(){
