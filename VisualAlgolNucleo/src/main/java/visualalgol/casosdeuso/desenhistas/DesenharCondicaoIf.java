@@ -18,7 +18,17 @@ public class DesenharCondicaoIf implements Desenhista {
 	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
 		Graphics gra = bi.getGraphics();
-		int wPor2 = instrucao.getW() / 2;
+		int larg = 0;
+		int w = instrucao.getW();
+		
+		if(instrucao.getPseudoCodigo()!=null){
+			larg = gra.getFontMetrics().stringWidth(instrucao.getPseudoCodigo());
+			if(larg>w){
+				w=larg+20;
+			}
+		}
+		
+		int wPor2 = w / 2;
 		int h = instrucao.getH();
 		int hPor2 = h / 2;
 		
@@ -39,8 +49,7 @@ public class DesenharCondicaoIf implements Desenhista {
 		gra.fillPolygon(p);
 		gra.setColor(Color.BLACK);
 		if(instrucao.getPseudoCodigo()!=null){
-			int larg = gra.getFontMetrics().stringWidth(instrucao.getPseudoCodigo());
-			gra.drawString(instrucao.getPseudoCodigo(), d.x+((instrucao.getW()-larg)/2),d.y+5);
+			gra.drawString(instrucao.getPseudoCodigo(), d.x+((w-larg)/2),d.y+5);
 		}
 		if(instrucao.isExecutado()){
 			gra.setColor(Color.GREEN);
