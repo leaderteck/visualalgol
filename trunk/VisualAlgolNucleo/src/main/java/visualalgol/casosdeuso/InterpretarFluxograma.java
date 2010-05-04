@@ -23,6 +23,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 		String retorno="";
 		int nAspa=0;
 		boolean ultimaBarra=false;
+		boolean ultimoCharMaiorMenorQue=false;
 		for(int i=0;i<pseudoCodigo.length();i++){
 			char c = pseudoCodigo.charAt(i);
 			retorno+=c;
@@ -31,12 +32,13 @@ public class InterpretarFluxograma extends CasoDeUso{
 				nAspa++;
 			}else{
 				if(par){
-					if(c=='='){
+					if(c=='=' && !ultimoCharMaiorMenorQue){
 						//se o proximo nao for igual, colocamos o proximo como igual
 						if((i+1)<pseudoCodigo.length()){
-							if(pseudoCodigo.charAt(i+1)!='='){
-								retorno+='=';
+							if(pseudoCodigo.charAt(i+1)=='='){
+								i++;
 							}
+							retorno+='=';
 						}
 					}
 				}else{//impar
@@ -47,6 +49,7 @@ public class InterpretarFluxograma extends CasoDeUso{
 				
 				//no final ver se eh barra
 				ultimaBarra = c=='\\';
+				ultimoCharMaiorMenorQue=(c=='>' || c=='<');
 			}
 		}
 		return retorno;
