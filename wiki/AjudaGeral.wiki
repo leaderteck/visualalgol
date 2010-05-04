@@ -39,5 +39,11 @@ No exemplo acima _media_ é uma variável
 
 == Condições ==
 
-Os operadores lógicos são: *e*, *ou*, *=*, *>*, *<*, *>=* e *<=*.
+Os operadores lógicos são: *e* e *ou*.
 Também funcionam os *&&* e *||* que são *e* e *ou* respectivamente.
+
+Os operadores de relação são: *=*, *>*, *<*, *>=* e *<=*.
+
+Se você é um programador que sabe C ou Java ou JavaScript,
+saiba que não é possível fazer atribuições dentro de uma condição.
+Ex.: while(a=leitor.read())
