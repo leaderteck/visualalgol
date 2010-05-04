@@ -17,10 +17,9 @@ public class FacaEnquantoFerramenta extends Ferramenta {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (getInstrucaoEm(e.getX(), e.getY()) != null){
-			removerTodosOsFocos();
 			return;
 		}
-		
+		removerTodosOsFocos();
 		// pegar a linha em x y do mouse
 		Linha linha = getLinhaEm(e.getX(), e.getY());
 		if(linha!=null){
