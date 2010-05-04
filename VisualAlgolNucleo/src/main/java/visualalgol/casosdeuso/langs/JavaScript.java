@@ -5,33 +5,10 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
-public class JavaScript implements Linguagem {
+public class JavaScript extends Java {
 	private OutputLang outputLang;
 	private Algoritmo alg;
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverWhile(java.lang.String)
-	 */
-	public void escreverWhile(String condicao){
-		outputLang.print("while (" + condicao + "){");
-		outputLang.addTab();
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverEndWhile()
-	 */
-	public void escreverEndWhile() {
-		outputLang.subTab();
-		outputLang.print("}//fim while ");
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverIf(java.lang.String)
-	 */
-	public void escreverIf(String pseudoCodigo) {
-		outputLang.print("if (" + pseudoCodigo + "){");
-		outputLang.addTab();
-	}
-
+	
 	private int getTipo(String nome){
 		for(Variavel var: alg.getVariaveis()){
 			if(var.getName().equals(nome)){
@@ -69,30 +46,7 @@ public class JavaScript implements Linguagem {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverComandoVazio()
-	 */
-	public void escreverComandoVazio() {
-		outputLang.print("//comando qualquer");
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverElse()
-	 */
-	public void escreverElse() {
-		outputLang.subTab();
-		outputLang.print("}else{");
-		outputLang.addTab();
-	}
-
-	/* (non-Javadoc)
-	 * @see visualalgol.casosdeuso.langs.Linguagem#escreverFimCondicao()
-	 */
-	public void escreverFimCondicao() {
-		outputLang.subTab();
-		outputLang.print("}//fim de condicao");
-	}
-
+	
 	@Override
 	public String getNome() {
 		return "JavaScript";
@@ -120,20 +74,4 @@ public class JavaScript implements Linguagem {
 		return SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT;
 	}
 	
-	@Override
-	public void escreverDo() {
-		outputLang.print("do {");
-		outputLang.addTab();
-	}
-
-	@Override
-	public void escreverDoWhile(String condicao) {
-		outputLang.subTab();
-		outputLang.print("} while("+condicao+");");
-	}
-	
-	@Override
-	public void setOutputLang(OutputLang outputLang) {
-		this.outputLang = outputLang;
-	}
 }
