@@ -64,9 +64,10 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 
 	}
 
+	private boolean salvarHistoricoMovimento=true;
 	@Override
-	public void mouseReleased(MouseEvent e) {
-
+	public final void mouseReleased(MouseEvent e) {
+		salvarHistoricoMovimento=true;
 	}
 
 	@Override
@@ -77,6 +78,10 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 	private Mover moverDireita = new MoverUsabilidade5();
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		if(salvarHistoricoMovimento){
+			Historico.getInstance().gravarEstado();
+			salvarHistoricoMovimento=false;
+		}
 		int difX = e.getX() - ultimoX;
 		int difY = e.getY() - ultimoY;
 		if(mouseButtonPressed==MouseEvent.BUTTON3){//nao retorna direito o e.getButton(), por isso guardamos o mouseButtonPressed
