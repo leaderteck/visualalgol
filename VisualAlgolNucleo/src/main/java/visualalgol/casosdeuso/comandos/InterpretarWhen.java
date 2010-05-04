@@ -19,14 +19,14 @@ public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
 	public void interpretar(Sistema sistema, Ator ator, String textoDigitado) throws InterruptedException, EntradaInesperadaException {
 		String args[] = tratarEntrada(textoDigitado);
 		while(args.length<3){
-			sistema.informar("Please type something like \"when variable=value tell me\".");
+			sistema.informar("Please, type something like \"when variable=value?\".");
 			textoDigitado = ator.digitarTexto();
 			args = tratarEntrada(textoDigitado);
 		}
 		variavel = args[1];
 		valor = args[3];
-		sistema.informar("I will tell you when '" + variavel +"' is '"+valor+"'.");
-		sistema.informar("Please run the program, press F9.");
+		sistema.informar("I will tell you when '" + variavel +"' changed it's value to '"+valor+"'.");
+		sistema.informar("Please, run the program again. Press F9.");
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
 
 	@Override
 	public String exemplo() {
-		return "when someVariavel=value tell me.";
+		return "when someVariable=value?";
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class InterpretarWhen extends InterpretadorDeComandoAbstrato{
 						}
 					}
 					if(avisar){
-						sistema.informar("Variable is the expected value.");
+						sistema.informar("The variable is equals to the expected value.");
 						sistema.apontarPara(instrucao);
 						JOptionPane.showMessageDialog(sistema.getComponent(),"Found when "+this.variavel+" is "+valor+".");
 					}

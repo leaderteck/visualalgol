@@ -117,7 +117,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 			int pos = instrucao.contemVariavel(nomeVariavel,valor,i);
 			if(pos!=-1 && instrucao instanceof Comando){// contem a variavel
 				sistema.apontarPara(instrucao);// coloca a criacao de michelangelo
-				sistema.informar("because of '"+instrucao.getPseudoCodigo()+"'");
+				sistema.informar("because '"+instrucao.getPseudoCodigo()+"'");
 				String texto = ator.digitarTexto();// ver se o usuario quer continuar
 				if(!texto.equals("why?")) throw new EntradaInesperadaException();
 				for(i=i-1;i>=0;){// procurar o proximo if
@@ -153,7 +153,7 @@ public class InterpretarWhy extends InterpretadorDeComandoAbstrato{
 			i+=direcao;
 		}
 		if(!encontrado){
-			sistema.informar("I don't know. Sorry...");
+			sistema.informar("I don't know, sorry...");
 		}
 	}
 

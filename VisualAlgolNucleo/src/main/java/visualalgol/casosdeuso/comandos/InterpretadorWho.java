@@ -33,7 +33,7 @@ public class InterpretadorWho extends InterpretadorDeComandoAbstrato{
 	public void interpretar(Sistema sistema, Ator ator, String textoDigitado)
 			throws InterruptedException, EntradaInesperadaException {
 		
-		if(textoDigitado.startsWith("who change")){
+		if(textoDigitado.startsWith("who changed")){
 			sistema.informar("Clemilson on 2010-03-10 23:55:21.");
 		}else{
 			sistema.informar("I don't know, sorry.");
