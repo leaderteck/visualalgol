@@ -20,19 +20,26 @@ public class Historico extends CasoDeUso{
 		static Historico instance = new Historico();
 	}
 	
+	private static File getFile(int passo){
+		return new File(CasoDeUso.getPastaDoPrograma(),"historico-"+passo);
+	}
+	
 	public static Historico getInstance(){
 		return Holder.instance;
 	}
 	
 	public synchronized void limparHistorico(){
-		for(int i=0;i<passo;i++){
-			File file = new File(CasoDeUso.getPastaDoPrograma(),"historico-"+passo);
-			file.delete();
+		File files[] = getPastaDoPrograma().listFiles();
+		for(File f:files){
+			if(f.getName().matches("^historico-[0-9]*$")){
+				f.delete();
+			}
 		}
 		passo=0;
 	}
+	
 	public synchronized void gravarEstado(){
-		File file = new File(CasoDeUso.getPastaDoPrograma(),"historico-"+passo);
+		File file = getFile(passo);
 		passo++;
 		SalvarAlgoritmo.salvar(sistema.getAlgoritmo(), file);
 	}
@@ -45,7 +52,7 @@ public class Historico extends CasoDeUso{
 		ObjectInputStream in = null;
 		try {
 			passo++;
-			File file = new File(CasoDeUso.getPastaDoPrograma(),"historico-"+passo);
+			File file = getFile(passo);
 			if(file.exists()){
 				fis = new FileInputStream(file);
 				in = new ObjectInputStream(fis);
@@ -72,7 +79,7 @@ public class Historico extends CasoDeUso{
 		ObjectInputStream in = null;
 		try {
 			passo--;
-			File file = new File(CasoDeUso.getPastaDoPrograma(),"historico-"+passo);
+			File file = getFile(passo);
 			if(file.exists()){
 				fis = new FileInputStream(file);
 				in = new ObjectInputStream(fis);
