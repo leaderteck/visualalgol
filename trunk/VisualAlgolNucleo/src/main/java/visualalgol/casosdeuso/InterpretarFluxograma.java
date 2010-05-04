@@ -18,8 +18,17 @@ import visualalgol.entidades.Linha;
 public class InterpretarFluxograma extends CasoDeUso{
 	private static Logger logger = Logger.getLogger(InterpretarFluxograma.class);
 	
+	/**
+	 * Somente para encapsular a chamada ao metodo
+	 * @param pseudoCodigo string em portugol
+	 * @return condicao tratada para funcionar em C like
+	 */
 	public static String tratarStringDeCondicao(String pseudoCodigo){
 		if(pseudoCodigo==null) return "";
+		//tratamento basico de "e" e "ou"
+		pseudoCodigo = pseudoCodigo
+			.replace(" e ", " && ")
+			.replace(" ou ", " || ");
 		String retorno="";
 		int nAspa=0;
 		boolean ultimaBarra=false;
@@ -61,6 +70,10 @@ public class InterpretarFluxograma extends CasoDeUso{
 		interpretarAlgoritmo(alg);
 	}
 	
+	/**
+	 * Importante notar que nao existe instanceof While
+	 * @param alg
+	 */
 	public synchronized void interpretarAlgoritmo(Algoritmo alg){
 		//zerar os executados
 		for(InstrucaoGenerica instrucao: alg.getListComando()){
