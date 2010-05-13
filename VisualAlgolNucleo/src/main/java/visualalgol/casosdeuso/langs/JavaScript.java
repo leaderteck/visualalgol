@@ -6,7 +6,6 @@ import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.Variavel;
 
 public class JavaScript extends Java {
-	private OutputLang outputLang;
 	private Algoritmo alg;
 	
 	private int getTipo(String nome){

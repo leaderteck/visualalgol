@@ -79,8 +79,9 @@ public class C implements Linguagem {
 				outputLang.print("printf(\"%4.2f \\n\"," + var + ");");
 			}else if(tipo==3){//inteiro
 				outputLang.print("printf(\"%d \\n\"," + var + ");");
+			}else{
+				outputLang.print("printf(\"%s \\n\",("+var+"));");
 			}
-			outputLang.print("printf(\"%s \\n\",("+var+"));");
 		}else{
 			/*
 			 * se houver uma atribuicao e o ultimo comando
