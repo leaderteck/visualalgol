@@ -157,15 +157,21 @@ public class C implements Linguagem {
 		String retorno = "#include <stdio.h>\n";
 		//Organizar por tipo
 		for(int i=0;i<Variavel.getTipos().size();i++){
+			boolean tem=false;
 			for(Variavel var:alg.getVariaveis()){
 				if(var.getTipo()==i){
-					retorno +=getTipo(i) + var.getName();
-					if(i==1){
-						retorno+="[255];";
+					if(tem){
+						retorno+=", " + var.getName();
+					}else{
+						tem=true;
+						retorno +=getTipo(i) + var.getName();
 					}
-					retorno+=";\n";
+					if(i==1){
+						retorno+="[255]";
+					}
 				}
 			}
+			if(tem) retorno+=";\n";
 		}
 		outputLang.print(retorno);
 	}
