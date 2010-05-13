@@ -25,10 +25,10 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 				pseudoCodigo = "leia " + pseudoCodigo.substring(5);
 			}
 			if(instrucao instanceof Comando){
+				pseudoCodigo=pseudoCodigo.replace(":=", "=");//utilizar um igual simples
 				if(!pseudoCodigo.startsWith("leia ") && 
 					!pseudoCodigo.startsWith("imprima ")
 					&& !pseudoCodigo.matches("^[a-zA-Z][a-zA-Z0-9\\.]* *=.*")){
-					
 					int res = JOptionPane.showConfirmDialog(sistema.getComponent(),"Deseja imprimir '"+pseudoCodigo+"'?","Confirmar",JOptionPane.OK_CANCEL_OPTION);
 					if(res==JOptionPane.OK_OPTION){
 						pseudoCodigo = "imprima \"" + pseudoCodigo + "\"";
@@ -37,10 +37,14 @@ public class EscreverPseudoCodigo extends CasoDeUso{
 			}else if(instrucao instanceof CondicaoIf){
 				//pascal way of life
 				pseudoCodigo = pseudoCodigo.replace("<>","!=");
+				if(pseudoCodigo.trim().startsWith("se ")){
+					pseudoCodigo = pseudoCodigo.trim().substring(3);
+				}
 			}
 			instrucao.setPseudoCodigo(pseudoCodigo);
 		}
 	}
+	
 	public static void utilizar(Sistema sistema, InstrucaoGenerica instrucao){
 		if(instrucao!=null){
 			EscreverPseudoCodigo escrever = new EscreverPseudoCodigo();
