@@ -118,11 +118,11 @@ public class InterpretarFluxograma extends CasoDeUso{
             						return;
             					}
             					// verificar o tipo
-            					if(input.matches("^[0-9]*,[0-9]+$")){
+            					if(input.matches("^-?[0-9]*,[0-9]+$")){
             						input = input.replace(",",".");
-            					}else if(input.matches("^[0-9]*\\.[0-9]+$")){
+            					}else if(input.matches("^-?[0-9]*\\.[0-9]+$")){
             						//do nothing
-            					}else if(input.matches("^[0-9]+$")){
+            					}else if(input.matches("^-?[0-9]+$")){
             						input = input.replace(",",".");
             					}else{//tratar como string
             						input = "\"" + input.replace("\"", "\\\"")+"\"";
