@@ -14,7 +14,7 @@ public class InterpretadorHow extends InterpretadorDeComandoAbstrato{
 
 	@Override
 	public String exemplo() {
-		return "how reuse commons-io?";
+		return "How to reuse commons-io?";
 	}
 
 	@Override

@@ -12,7 +12,7 @@ import visualalgol.swing.MainFrame;
 public class VisuAlgol {
 	
 	public static void main(String[] args) {
-		
+		/*
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -28,7 +28,7 @@ public class VisuAlgol {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 		new MainFrame();
 	}
 
