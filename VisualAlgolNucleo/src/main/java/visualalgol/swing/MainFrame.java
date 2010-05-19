@@ -131,8 +131,8 @@ public class MainFrame extends JFrame implements AbrirRecenteListener, Sistema{
 		adicionarMenuLinguagem(new Portugol());
 		adicionarMenuLinguagem(new JavaScript());
 		adicionarMenuLinguagem(new Pascal());
-		adicionarMenuLinguagem(new C());
 		adicionarMenuLinguagem(new Java());
+		adicionarMenuLinguagem(new C());
 		
 		console.addOnEnterListener(new OnEnter() {
 			public void textoDigitado(String texto) {
