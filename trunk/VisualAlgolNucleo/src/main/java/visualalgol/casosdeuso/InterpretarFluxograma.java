@@ -102,6 +102,7 @@ public class InterpretarFluxograma extends CasoDeUso{
     		InstrucaoGenerica instrucao = inicio.getLinhaSaida().getDestino();
     		instrucao.setInstrucaoAnterior(inicio);
     		while(instrucao!=null){
+    			sistema.apontarPara(instrucao);
     			if(instrucao instanceof Comando){
     				Comando comando = (Comando) instrucao;
     				String s = comando.getPseudoCodigo();
@@ -198,5 +199,6 @@ public class InterpretarFluxograma extends CasoDeUso{
             // Exit from the context.
             Context.exit();
         }
+        sistema.apontarPara(null);
 	}
 }
