@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
+import visualalgol.entidades.Fim;
 import visualalgol.entidades.InstrucaoGenerica;
 
 public class DesenharFim implements Desenhista{
@@ -32,6 +33,11 @@ public class DesenharFim implements Desenhista{
 		p.addPoint(d.x,d.y);
 		p.addPoint(a.x,a.y);
 		instrucao.setPoligono(p);
+	}
+
+	@Override
+	public boolean podeDesenhar(InstrucaoGenerica instrucao) {
+		return instrucao instanceof Fim;
 	}
 
 }
