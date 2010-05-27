@@ -10,4 +10,5 @@ import visualalgol.entidades.InstrucaoGenerica;
  */
 public interface Desenhista {
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi);
+	public boolean podeDesenhar(InstrucaoGenerica instrucao);
 }

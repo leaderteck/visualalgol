@@ -60,4 +60,9 @@ public class DesenharComando implements Desenhista {
 		DesenharSeta.desenhar(comando.getPoligono(),comando.getLinhaEntrada(),gra);
 	}
 
+	@Override
+	public boolean podeDesenhar(InstrucaoGenerica instrucao) {
+		return instrucao instanceof Comando;
+	}
+
 }

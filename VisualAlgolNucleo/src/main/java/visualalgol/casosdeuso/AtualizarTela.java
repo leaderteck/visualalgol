@@ -6,12 +6,14 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import visualalgol.casosdeuso.desenhistas.Desenhista;
+import visualalgol.casosdeuso.desenhistas.Marchand;
 import visualalgol.entidades.Algoritmo;
 import visualalgol.entidades.InstrucaoGenerica;
 import visualalgol.entidades.Linha;
 
 public class AtualizarTela extends CasoDeUso {
 
+	private static Marchand mediador = new Marchand();
 	@Override
 	public void executar() {
 		final Thread t = new Thread() {
@@ -104,17 +106,7 @@ public class AtualizarTela extends CasoDeUso {
 		}
 		// desenhar as instrucoes em cima das linhas
 		for (InstrucaoGenerica instrucao : algoritimo.getListComando()) {
-			try {
-				Desenhista desenhista = (Desenhista) Class.forName("visualalgol.casosdeuso.desenhistas.Desenhar" + instrucao.getClass().getSimpleName()).newInstance();
-				desenhista.desenhar(instrucao, bi);
-			} catch (ClassNotFoundException e) {
-				System.err.println("Crie uma classe chamada: visualalgol.casosdeuso.desenhistas.Desenhar" + instrucao.getClass().getSimpleName());
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
+			mediador.mandarPintar(instrucao, bi);
 		}
 	
 		sistema.setFluxogramaImage(bi);

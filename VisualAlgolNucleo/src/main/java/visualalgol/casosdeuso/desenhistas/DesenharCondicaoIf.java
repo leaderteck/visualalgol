@@ -66,4 +66,9 @@ public class DesenharCondicaoIf implements Desenhista {
 		DesenharSeta.desenhar(condicaoIf.getPoligono(),condicaoIf.getLinhaEntradaLoopBack(),gra);
 	}
 
+	@Override
+	public boolean podeDesenhar(InstrucaoGenerica instrucao) {
+		return instrucao instanceof CondicaoIf;
+	}
+
 }

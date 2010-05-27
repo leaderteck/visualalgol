@@ -14,6 +14,11 @@ public class DesenharCondicaoFim extends DesenharInicio {
 	private static Logger logger = Logger.getLogger(DesenharCondicaoFim.class);
 
 	@Override
+	public boolean podeDesenhar(InstrucaoGenerica instrucao) {
+		return instrucao instanceof CondicaoFim;
+	}
+	
+	@Override
 	public void desenhar(InstrucaoGenerica instrucao, BufferedImage bi) {
 		super.desenhar(instrucao, bi);
 		Graphics gra = bi.getGraphics();
