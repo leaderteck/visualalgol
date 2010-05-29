@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
@@ -39,7 +40,7 @@ public class TelaDesenhoFluxograma extends JButton{
 		this.addKeyListener(ferramenta);
 	}
 	
-	int x=-1,y=-1;
+	private int x=-1,y=-1;
 	public void apontarPara(int x, int y) {
 		this.x=x;this.y=y;
 	}
@@ -55,7 +56,6 @@ public class TelaDesenhoFluxograma extends JButton{
 	
 	@Override
 	public void paint(Graphics g) {
-		
 		//super.paint(g);
 		g.drawImage(bi, 0,0, null);
 	}
