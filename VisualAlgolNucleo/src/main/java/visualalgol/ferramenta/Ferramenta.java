@@ -172,20 +172,20 @@ public abstract class Ferramenta implements MouseListener, MouseMotionListener, 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 			if (linha != null && arrastandoPonto != null) {
+				Historico.getInstance().gravarEstado();
 				linha.getListPontos().remove(arrastandoPonto);
-			}
-			if (arrastando != null) {
+			}else if (arrastando != null) {
 				Historico.getInstance().gravarEstado();
 				arrastando.delete();
 			}
 		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 
 	@Override
