@@ -7,12 +7,9 @@ import visualalgol.swing.MainFrame;
 
 /**
  * Classe para iniciar o sistema
- * TODO prefuse
  */
 public class VisuAlgol {
-	
-	public static void main(String[] args) {
-		/*
+	private static void setLayoutPadraoDoSistema(){
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -28,7 +25,10 @@ public class VisuAlgol {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+	}
+	public static void main(String[] args) {
+		//no XP fica feiao
+		//setLayoutPadraoDoSistema();
 		new MainFrame();
 	}
 

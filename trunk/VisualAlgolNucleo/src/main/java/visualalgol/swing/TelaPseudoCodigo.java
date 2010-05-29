@@ -19,9 +19,9 @@ public class TelaPseudoCodigo extends RSyntaxTextArea implements HyperlinkListen
 		//this.setFont(new Font(Font.MONOSPACED,Font.PLAIN, 12));
 		//this.setTabSize(4);
 		//super(25, 70);
-		this.setCaretPosition(0);
+		setCaretPosition(0);
 		this.addHyperlinkListener(this);
-		this.requestFocusInWindow();
+		requestFocusInWindow();
 		this.setMarkOccurrences(true);
 		this.setTextAntiAliasHint("VALUE_TEXT_ANTIALIAS_ON");
 		this.setSyntaxEditingStyle(SYNTAX_STYLE_JAVA);
@@ -31,6 +31,26 @@ public class TelaPseudoCodigo extends RSyntaxTextArea implements HyperlinkListen
 		gutter.setBookmarkingEnabled(true);
 		URL url = getClass().getClassLoader().getResource("bookmark.png");
 		gutter.setBookmarkIcon(new ImageIcon(url));
+	}
+	
+	public void setText(String t) {
+		super.setText(t);
+	}
+	
+	public void setTabSize(int size) {
+		super.setTabSize(size);
+	}
+	
+	public void setCaretPosition(int position) {
+		super.setCaretPosition(position);
+	}
+	
+	public boolean requestFocusInWindow() {
+		return super.requestFocusInWindow();
+	}
+	
+	public void append(String str) {
+		super.append(str);
 	}
 	
 	/**
