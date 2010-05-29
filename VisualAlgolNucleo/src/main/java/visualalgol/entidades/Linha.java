@@ -82,6 +82,7 @@ public class Linha implements Serializable, Cloneable{
 
 	@Override
 	public int hashCode() {
+		getId();
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -91,6 +92,7 @@ public class Linha implements Serializable, Cloneable{
 
 	@Override
 	public boolean equals(Object obj) {
+		getId();
 		if (this == obj)
 			return true;
 		if (obj == null)
