@@ -40,7 +40,7 @@ public class MenuPrincipal extends JMenuBar{
 	private JMenuItem topicosDaAjuda;
 	private JMenuItem sobre;
 	/**
-	 * Do outro projeto
+	 * Do outro projeto, meio buggado ainda
 	 */
 	private MenuEditar menuEditar;
 	public MenuPrincipal() {
